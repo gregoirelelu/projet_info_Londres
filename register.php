@@ -29,21 +29,39 @@ if(isset($_POST['submit-form'])){
                     if ($confirm_emaillenght <= 255){
 
                         if (filter_var($email, FILTER_VALIDATE_EMAIL)){
+                            $existing_username = $database->prepare("SELECT * FROM users WHERE username = ?");
+                            $existing_username->execute(array($username));
+                            $username_rowCount = $existing_username->rowCount();
 
-                            if ($email == $confirm_email){
+                            if ($username_rowCount == 0){
+                                $existing_mail = $database->prepare("SELECT * FROM users WHERE email = ?");
+                                $existing_mail->execute(array($email));
+                                $mail_rowCount = $existing_mail->rowCount();
 
-                                if ($password == $confirm_password){
-                                    $add_user = $database->prepare("INSERT INTO users(username, email, password) VALUES('$username', '$email', '$hashedpassword')");
-                                    $add_user->execute(array($username, $email, $hashedpassword));
+                                if ($mail_rowCount == 0){
 
-                                    $error ="Registration successfully completed ! <a href= \"Connexion.php\">Login</a>";
+                                    if ($email == $confirm_email){
+
+                                        if ($password == $confirm_password){
+                                            $add_user = $database->prepare("INSERT INTO users(username, email, password) VALUES('$username', '$email', '$hashedpassword')");
+                                            $add_user->execute(array($username, $email, $hashedpassword));
+
+                                            $error = "Registration successfully completed ! <a href= \"Connexion.php\">Login</a>";
+                                        }
+                                        else{
+                                            $error = "Passwords do not match !";
+                                        }
+                                    }
+                                    else{
+                                        $error ="E-mails do not match !";
+                                    }
                                 }
                                 else{
-                                    $error = "Passwords do not match !";
+                                    $error = "Already existing e-mail !";
                                 }
                             }
                             else{
-                                $error ="E-mails do not match !";
+                                $error = "Already existing username !";
                             }
                         }
                         else{
