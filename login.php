@@ -7,6 +7,8 @@ $server_password = 'root';
 
 $database = new PDO("mysql:host=$servername; dbname=london_ebay", $username_database, $server_password);
 
+$_SESSION['loggedin'] = false;
+
 if (isset($_POST['submit-form-login'])){
     $email_login = htmlspecialchars($_POST['email-login']);
     $password_login = ($_POST['password-login']);
