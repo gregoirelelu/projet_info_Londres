@@ -98,7 +98,7 @@
                 <input type="search" placeholder="Search">
             </form>
             <p><a href="#"><i class="fas fa-shopping-bag"></i></a></p>
-            <p><a href="#"><i class="fas fa-user"></i></a></p>
+            <p><a href="accountOrLogin.php"><i class="fas fa-user"></i></a></p>
         </div>
     </div>
 </nav>
