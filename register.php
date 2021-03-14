@@ -46,7 +46,7 @@ if(isset($_POST['submit-form'])){
                                             $add_user = $database->prepare("INSERT INTO users(username, email, password) VALUES('$username', '$email', '$hashedpassword')");
                                             $add_user->execute(array($username, $email, $hashedpassword));
 
-                                            $error = "Registration successfully completed ! <a href= \"Connexion.php\">Login</a>";
+                                            $error = "Registration successfully completed ! <a href= \"login.php\">Login</a>";
                                         }
                                         else{
                                             $error = "Passwords do not match !";
