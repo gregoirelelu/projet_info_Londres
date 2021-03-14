@@ -71,7 +71,7 @@
 <body>
 <nav class="header">
     <div class="float-left">
-        <h3><a href="#">eBay</a></h3>
+        <h3><a href="home.php">eBay</a></h3>
     </div>
     <div class="float-right">
         <div class="h-right">

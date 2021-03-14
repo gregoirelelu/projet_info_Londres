@@ -37,12 +37,15 @@ if (isset($_GET['id']) and $_GET['id'] > 0){
 
 <main>
     <div align="center">
-        <h2><?php echo $result['username'] ?>'s account</h2>
+        <h2>Welcome back <?php echo $result['username'] ?></h2>
         <p>E-mail: <?php echo $result['email'] ?></p>
         <?php
-        if (isset($error)){
-            echo '<font color="red">'.$error. "</font>";
-        }
+            if(isset($_SESSION['id']) and $result['id'] == $_SESSION['id']){
+                // mettre des infos propres au compte utilisateur (édition de profil)
+        ?>
+        <a href="logout.php">Log out</a>
+        <?php
+            }
         ?>
     </div>
 </main>
