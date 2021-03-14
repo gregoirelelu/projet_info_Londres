@@ -18,6 +18,7 @@ if (isset($_POST['submit-form-login'])){
         $result = $existing_userOrPassword->fetch();
 
         if ($result or password_verify($password_login, $result['password'])){
+            $_SESSION['loggedin'] = true;
             $_SESSION['id'] = $result['id'];
             $_SESSION['username'] = $result['username'];
             $_SESSION['email'] = $result['email'];
