@@ -4,6 +4,50 @@
 #layout2 {
 
 }
+#search{
+    background-color: #3c3c3c;
+    display: grid;
+    padding: 5px;
+    grid-template-columns: 25% 25% 47% 25%;
+}
+#search-hightech{
+    background-color: #3c3c3c;
+    display: grid;
+    padding: 5px;
+    grid-template-columns: 25% 25% 25% 25%;
+}
+#log{
+    color: white;
+
+}
+#motcle {
+    color: blueviolet;
+}
+#btfind {
+    background-color: blueviolet;
+    color: white;
+}
+#motcle2 {
+    color: blueviolet;
+}
+#btfind2 {
+    background-color: blueviolet;
+    color: white;
+}
+#motcle3 {
+    color: blueviolet;
+}
+#btfind3 {
+    background-color: blueviolet;
+    color: white;
+}
+#motcle4 {
+    color: blueviolet;
+}
+#btfind4 {
+    background-color: blueviolet;
+    color: white;
+}
 #cars{
     border-style: solid;
     margin: 5px;

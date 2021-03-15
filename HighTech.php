@@ -17,21 +17,45 @@
 <body>
 <?php include("header.php") ?>
 
-<br><br><br><br><br>
-<div id="formauto">
-    <form name="formauto" method="post" action="">
-        <input id="motcle" type="text" name="motcle">
-        <input class="btfind" type="submit" name="btsubmit" value="Recherche" />
+<br><br><br>
+<div id="search-hightech">
+    <form name="form" method="post" action="">
+        <input id="motcle" type="text" name="motcle" placeholder="Category">
+        <input id="btfind" class="btfind" type="submit" name="btsubmit" value="Recherche" />
     </form>
-</div>
+    <form name="form2" method="post" action="">
+        <input id="motcle2" type="text" name="motcle2" placeholder="brand">
+        <input id="btfind2" class="btfind2" type="submit" name="btsubmit2" value="Recherche" />
+    </form>
+    <form name="form3" method="post" action="">
+        <input id="motcle3" type="text" name="motcle3" placeholder="model">
+        <input id="btfind3" class="btfind3" type="submit" name="btsubmit3" value="Recherche" />
+    </form>
+    <form name="form4" method="post" action="">
+        <input id="motcle4" type="number" name="motcle4" placeholder="price max">
+        <input id="btfind4" class="btfind4" type="submit" name="btsubmit4" value="Recherche" />
+    </form>
 
-<div id="articles">
+</div>
+<br><br>
 
     <?php
 
     if(isset($_POST['btsubmit'])){
-        $mc=$_POST['motcle'];
+        $rc=$_POST['motcle'];
+        $reqSelect="select * from hightech where CATEGORY like '%$rc%'";
+    }
+    else if(isset($_POST['btsubmit2'])){
+        $mc=$_POST['motcle2'];
         $reqSelect="select * from hightech where BRAND like '%$mc%'";
+    }
+    else if(isset($_POST['btsubmit3'])){
+        $lc=$_POST['motcle3'];
+        $reqSelect="select * from hightech where MODEL like '%$lc%'";
+    }
+    else if(isset($_POST['btsubmit4'])){
+        $nc=$_POST['motcle4'];
+        $reqSelect="select * from hightech where PRICE < '$nc'";
     }
     else{
         $reqSelect="select * from hightech";
@@ -48,13 +72,13 @@
         <div id="hightech">
             <img src="<?php echo $ligne ['PICTURE'] ?>" /><br/>
             <?php echo $ligne ['REF']; ?> <br/>
+            <?php echo $ligne ['CATEGORY']; ?> <br/>
             <?php echo $ligne ['BRAND']; ?> <br/>
             <?php echo $ligne ['MODEL']; ?> <br/>
             <?php echo $ligne ['PRICE'] ." $"; ?>
         </div>
     <?php } ?>
     </div>
-</div>
 
 <br><br><br><br><br>
 <?php include("footer.php") ?>

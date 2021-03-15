@@ -17,21 +17,38 @@
 <body>
 <?php include("header.php") ?>
 
-<br><br><br><br><br>
-<div id="formauto">
-    <form name="formauto" method="post" action="">
-        <input id="motcle" type="text" name="motcle">
-        <input class="btfind" type="submit" name="btsubmit" value="Recherche" />
+<br><br><br>
+<div id="search">
+    <form name="form" method="post" action="">
+        <input id="motcle" type="text" name="motcle" placeholder="brand">
+        <input id="btfind" class="btfind" type="submit" name="btsubmit" value="Recherche" />
     </form>
-</div>
+    <form name="form2" method="post" action="">
+        <input id="motcle2" type="text" name="motcle2" placeholder="category">
+        <input id="btfind2" class="btfind2" type="submit" name="btsubmit2" value="Recherche" />
+    </form>
+    <form name="form3" method="post" action="">
+        <input id="motcle3" type="number" name="motcle3" placeholder="price max">
+        <input id="btfind3" class="btfind3" type="submit" name="btsubmit3" value="Recherche" />
+    </form>
+    <p id="log"><b>eBay</b></p>
 
-<div id="articles">
+</div>
+<br><br>
 
     <?php
 
     if(isset($_POST['btsubmit'])){
         $mc=$_POST['motcle'];
         $reqSelect="select * from clothes where BRAND like '%$mc%'";
+    }
+    else if(isset($_POST['btsubmit2'])){
+        $lc=$_POST['motcle2'];
+        $reqSelect="select * from clothes where CATEGORY like '%$lc%'";
+    }
+    else if(isset($_POST['btsubmit3'])){
+        $nc=$_POST['motcle3'];
+        $reqSelect="select * from clothes where PRICE < '$nc'";
     }
     else{
         $reqSelect="select * from clothes";
@@ -53,7 +70,7 @@
         </div>
     <?php } ?>
     </div>
-</div>
+
 
 <br><br><br><br><br>
 
