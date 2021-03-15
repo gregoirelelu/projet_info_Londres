@@ -12,6 +12,19 @@ if (isset($_GET['id']) and $_GET['id'] > 0){
     $select_id = $database->prepare('SELECT * FROM users WHERE id = ?');
     $select_id->execute(array($id_getter));
     $result = $select_id->fetch();
+
+
+    if (isset($_POST['username-edit']) and $_POST['username-edit'] != $result['username'] and !empty($_POST['username-edit'])){
+        $newUser = htmlspecialchars($_POST['username-edit']);
+        $newEmail = htmlspecialchars($_POST['email-edit']);
+        $newEmailConfirm = htmlspecialchars($_POST['email-confirm-edit']);
+
+        $newUsername = $database->prepare("UPDATE users SET username = ? WHERE id = ?");
+        $newUsername->execute(array($newUser, $_SESSION['id']));
+        header('Location: userAccount.php?id='.$_SESSION['id']);
+    }
+
+
 ?>
 
 <html>
@@ -29,6 +42,13 @@ if (isset($_GET['id']) and $_GET['id'] > 0){
     main{
         height: 77.5vh;
     }
+    .title_Welcome{
+        margin-top: 25px;
+        margin-bottom: 25px;
+    }
+    .edit-title{
+        margin-top: 45px;
+    }
 </style>
 </head>
 <body>
@@ -37,16 +57,71 @@ if (isset($_GET['id']) and $_GET['id'] > 0){
 
 <main>
     <div align="center">
-        <h2>Welcome back <?php echo $result['username'] ?></h2>
-        <p>E-mail: <?php echo $result['email'] ?></p>
+        <h2 class="title_Welcome">Welcome back <?php echo $result['username'] ?></h2>
+        <div class="info_profil">
+            <h5>Your informations:</h5>
+            <p>Username: <?php echo $result['username'] ?></p>
+            <p>E-mail: <?php echo $result['email'] ?></p>
+        </div>
         <?php
-            if(isset($_SESSION['id']) and $result['id'] == $_SESSION['id']){
-                // mettre des infos propres au compte utilisateur (édition de profil)
+        if(isset($_SESSION['id']) and $result['id'] == $_SESSION['id']){
+            // mettre des infos propres au compte utilisateur (édition de profil)
+            ?>
+            <a href="logout.php">Log out</a>
+            <?php
+        }
         ?>
-        <a href="logout.php">Log out</a>
-        <?php
-            }
-        ?>
+        <h5 class="edit-title">Edit profile</h5>
+        <form class="edit-profil" method="POST" action="">
+            <table>
+                <tr>
+                    <td align="right">
+                        <label for="username-edit">Username:</label>
+                    </td>
+                    <td>
+                        <input type="text" name="username-edit" value="<?php echo $result['username'] ?>">
+                    </td>
+                </tr>
+                <tr>
+                    <td align="right">
+                        <label for="username-edit">E-mail:</label>
+                    </td>
+                    <td>
+                        <input type="email" name="email-edit" value="<?php echo $result['email'] ?>">
+                    </td>
+                </tr>
+                <tr>
+                    <td align="right">
+                        <label for="username-edit">E-mail:</label>
+                    </td>
+                    <td>
+                        <input type="email" name="email-confirm-edit" value="<?php echo $result['email'] ?>">
+                    </td>
+                </tr>
+                <tr>
+                    <td align="right">
+                        <label for="username-edit">Password:</label>
+                    </td>
+                    <td>
+                        <input type="text" name="password-edit" placeholder="Password"><br>
+                    </td>
+                </tr>
+                <tr>
+                    <td align="right">
+                        <label for="username-edit">Password:</label>
+                    </td>
+                    <td>
+                        <input type="text" name="password-confirm-edit" placeholder="Confirm password"><br>
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        <input type="submit" value="Update">
+                    </td>
+                </tr>
+            </table>
+        </form>
     </div>
 </main>
 

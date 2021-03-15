@@ -45,7 +45,7 @@ if(isset($_POST['submit-form'])){
                                         if ($password == $confirm_password){
                                             $add_user = $database->prepare("INSERT INTO users(username, email, password) VALUES('$username', '$email', '$hashedpassword')");
                                             $add_user->execute(array($username, $email, $hashedpassword));
-                                            header("Location: login.php");
+                                            $success = "Account created successfully ! <a href= \"login.php\" style='color: #155724'>Login</a>";
                                         }
                                         else{
                                             $error = "Passwords do not match !";
@@ -163,12 +163,16 @@ if(isset($_POST['submit-form'])){
         </form>
         <?php
             if (isset($error)){
-                echo '<font color="red">'.$error. "</font>";
+                echo '<div class="alert alert-danger" role="alert" style="width: 45%">'.$error. "</div>";
             }
+        ?>
+        <?php
+        if (isset($success)){
+            echo '<div class="alert alert-success" role="alert" style="width: 45%">'.$success. "</div>";
+        }
         ?>
     </div>
 </main>
-
 
 
 <?php include("footer.php") ?>

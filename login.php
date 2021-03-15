@@ -19,7 +19,7 @@ if (isset($_POST['submit-form-login'])){
         $existing_userOrPassword->execute(array('email' => $email_login));
         $result = $existing_userOrPassword->fetch();
 
-        if ($result or password_verify($password_login, $result['password'])){
+        if ($result and password_verify($password_login, $result['password'])){
             $_SESSION['loggedin'] = true;
             $_SESSION['id'] = $result['id'];
             $_SESSION['username'] = $result['username'];
@@ -53,6 +53,12 @@ if (isset($_POST['submit-form-login'])){
     main{
         height: 77.5vh;
     }
+    .register a{
+        color: black;
+    }
+    .haveAccount{
+        font-size: 12px;
+    }
 </style>
 </head>
 <body>
@@ -84,11 +90,15 @@ if (isset($_POST['submit-form-login'])){
                     <td></td>
                     <td><input type="submit" name="submit-form-login" value="Login"></td>
                 </tr>
+                <tr>
+                    <td class="haveAccount">You don't have an account ?</td>
+                    <td><a href="register.php" class="haveAccount">Register now !</a></td>
+                </tr>
             </table>
         </form>
         <?php
         if (isset($error)){
-            echo '<font color="red">'.$error. "</font>";
+            echo '<div class="alert alert-danger" role="alert" style="width: 45%">'.$error. "</div>";
         }
         ?>
     </div>
