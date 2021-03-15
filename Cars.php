@@ -1,9 +1,11 @@
 <?php require_once('connexion_bdd.php'); ?>
+
 <!doctype html>
 <html lang="en">
 <head>
     <meta charset="utf-8">
     <title>Cars</title>
+    <link rel="stylesheet" href="css/category.css" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="css/normalize.css">
     <link rel="stylesheet" href="css/footer.css">
@@ -15,6 +17,7 @@
 <body>
 <?php include("header.php") ?>
 
+<br><br><br><br><br>
 <div id="formauto">
     <form name="formauto" method="post" action="">
         <input id="motcle" type="text" name="motcle">
@@ -39,8 +42,8 @@
     while ($ligne=mysqli_fetch_assoc($resultat))
     {
 
-        ?>
-
+    ?>
+    <div id="layout">
         <div id="cars">
             <img src="<?php echo $ligne ['PICTURE'] ?>" /><br/>
             <?php echo $ligne ['PLATE']; ?> <br/>
@@ -48,9 +51,11 @@
             <?php echo $ligne ['MODEL']; ?> <br/>
             <?php echo $ligne ['PRICE'] ." $"; ?>
         </div>
-    <?php } ?>
+        <?php } ?>
+    </div>
 </div>
 
+<br><br><br><br><br>
 <?php include("footer.php") ?>
 
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
