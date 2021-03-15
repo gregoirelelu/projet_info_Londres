@@ -13,15 +13,42 @@ if (isset($_GET['id']) and $_GET['id'] > 0){
     $select_id->execute(array($id_getter));
     $result = $select_id->fetch();
 
-
     if (isset($_POST['username-edit']) and $_POST['username-edit'] != $result['username'] and !empty($_POST['username-edit'])){
         $newUser = htmlspecialchars($_POST['username-edit']);
-        $newEmail = htmlspecialchars($_POST['email-edit']);
-        $newEmailConfirm = htmlspecialchars($_POST['email-confirm-edit']);
 
         $newUsername = $database->prepare("UPDATE users SET username = ? WHERE id = ?");
         $newUsername->execute(array($newUser, $_SESSION['id']));
         header('Location: userAccount.php?id='.$_SESSION['id']);
+    }
+    if (isset($_POST['email-edit']) and $_POST['username-confirm-edit'] != $result['email'] and !empty($_POST['email-confirm-edit'])){
+        $newEmail = htmlspecialchars($_POST['email-edit']);
+        $newEmailConfirm = htmlspecialchars($_POST['email-confirm-edit']);
+
+        if($newEmail == $newEmailConfirm){
+            $newEmail1 = $database->prepare("UPDATE users SET email = ? WHERE id = ?");
+            $newEmail1->execute(array($newEmail, $_SESSION['id']));
+            header('Location: userAccount.php?id='.$_SESSION['id']);
+        }
+        else{
+            $error = "E-mails do not match !";
+        }
+    }
+    if (isset($_POST['password-edit']) and !empty($_POST['password-edit'])){
+        $passwordChange = ($_POST['password-edit']);
+        $passwordChangeConfirm = ($_POST['password-confirm-edit']);
+
+        if (isset($passwordChangeConfirm) and !empty($passwordChangeConfirm)){
+            $newpassword = password_hash($_POST['password-edit'], PASSWORD_DEFAULT);
+
+            if ($passwordChange == $passwordChangeConfirm){
+                $newpassword1 = $database->prepare("UPDATE users SET password = ? WHERE id = ?");
+                $newpassword1->execute(array($newpassword, $_SESSION['id']));
+                header('Loaction: userAccount.php?id='.$_SESSION['id']);
+            }
+            else{
+                $error = "Passwords do not match !";
+            }
+        }
     }
 
 
@@ -122,6 +149,11 @@ if (isset($_GET['id']) and $_GET['id'] > 0){
                 </tr>
             </table>
         </form>
+        <?php
+        if (isset($error)){
+            echo '<div class="alert alert-danger" role="alert" style="width: 45%">'.$error. "</div>";
+        }
+        ?>
     </div>
 </main>
 
