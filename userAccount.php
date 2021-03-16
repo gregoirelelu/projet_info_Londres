@@ -71,10 +71,37 @@ if (isset($_GET['id']) and $_GET['id'] > 0){
     }
     .title_Welcome{
         margin-top: 25px;
-        margin-bottom: 25px;
+        margin-bottom: 0px;
+        background-color: #f5f5f5;
     }
     .edit-title{
         margin-top: 45px;
+    }
+    .navbar{
+        background-color: #f5f5f5;
+        width: 100%;
+    }
+    .nav a{
+        text-decoration: none;
+        color: black;
+        transition: all 0.3s ease-in-out;
+        border-bottom: 2px solid transparent;
+    }
+    .nav a:hover{
+        text-decoration: none;
+        padding-top: 3px;
+        border-bottom: 2px solid black;
+        color: black;
+        cursor: pointer;
+    }
+    .profileWithPhoto{
+        display: flex;
+        justify-content: center;
+        position: sticky;
+        align-items: center;
+    }
+    .profile_hidden{
+        margin-top: 15px;
     }
 </style>
 </head>
@@ -84,71 +111,86 @@ if (isset($_GET['id']) and $_GET['id'] > 0){
 
 <main>
     <div align="center">
-        <h2 class="title_Welcome">Welcome back <?php echo $result['username'] ?></h2>
-        <div class="info_profil">
-            <h5>Your informations:</h5>
-            <p>Username: <?php echo $result['username'] ?></p>
-            <p>E-mail: <?php echo $result['email'] ?></p>
+        <h2 class="title_Welcome">Welcome back <?php echo $result['username'] ?> !</h2>
+        <div class="navbar">
+            <ul class="nav justify-content-center">
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" id="yourProfile">Your profile</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="YourAnnounces">Your announces</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="logout.php">Log out</a>
+                </li>
+            </ul>
         </div>
-        <?php
-        if(isset($_SESSION['id']) and $result['id'] == $_SESSION['id']){
-            // mettre des infos propres au compte utilisateur (édition de profil)
-            ?>
-            <a href="logout.php">Log out</a>
-            <?php
-        }
-        ?>
-        <h5 class="edit-title">Edit profile</h5>
-        <form class="edit-profil" method="POST" action="">
-            <table>
-                <tr>
-                    <td align="right">
-                        <label for="username-edit">Username:</label>
-                    </td>
-                    <td>
-                        <input type="text" name="username-edit" value="<?php echo $result['username'] ?>">
-                    </td>
-                </tr>
-                <tr>
-                    <td align="right">
-                        <label for="username-edit">E-mail:</label>
-                    </td>
-                    <td>
-                        <input type="email" name="email-edit" value="<?php echo $result['email'] ?>">
-                    </td>
-                </tr>
-                <tr>
-                    <td align="right">
-                        <label for="username-edit">E-mail:</label>
-                    </td>
-                    <td>
-                        <input type="email" name="email-confirm-edit" value="<?php echo $result['email'] ?>">
-                    </td>
-                </tr>
-                <tr>
-                    <td align="right">
-                        <label for="username-edit">Password:</label>
-                    </td>
-                    <td>
-                        <input type="text" name="password-edit" placeholder="Password"><br>
-                    </td>
-                </tr>
-                <tr>
-                    <td align="right">
-                        <label for="username-edit">Password:</label>
-                    </td>
-                    <td>
-                        <input type="text" name="password-confirm-edit" placeholder="Confirm password"><br>
-                    </td>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td>
-                        <input type="submit" value="Update">
-                    </td>
-                </tr>
-            </table>
-        </form>
+
+        <div id="profile_hidden" class="profile_hidden">
+            <div class="profileWithPhoto">
+                <div class="info_profil">
+                    <h5>Your informations:</h5>
+                    <p>Username: <?php echo $result['username'] ?></p>
+                    <p>E-mail: <?php echo $result['email'] ?></p>
+                </div>
+                <div class="profilePhoto">
+                    <p>photo</p>
+                </div>
+            </div>
+
+            <h5 class="edit-title">Edit profile</h5>
+            <form class="edit-profil" method="POST" action="">
+                <table>
+                    <tr>
+                        <td align="right">
+                            <label for="username-edit">Username:</label>
+                        </td>
+                        <td>
+                            <input type="text" name="username-edit" value="<?php echo $result['username'] ?>">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="right">
+                            <label for="username-edit">E-mail:</label>
+                        </td>
+                        <td>
+                            <input type="email" name="email-edit" value="<?php echo $result['email'] ?>">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="right">
+                            <label for="username-edit">E-mail:</label>
+                        </td>
+                        <td>
+                            <input type="email" name="email-confirm-edit" value="<?php echo $result['email'] ?>">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="right">
+                            <label for="username-edit">Password:</label>
+                        </td>
+                        <td>
+                            <input type="text" name="password-edit" placeholder="Password"><br>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="right">
+                            <label for="username-edit">Password:</label>
+                        </td>
+                        <td>
+                            <input type="text" name="password-confirm-edit" placeholder="Confirm password"><br>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>
+                            <input type="submit" value="Update">
+                        </td>
+                    </tr>
+                </table>
+            </form>
+        </div>
+
         <?php
         if (isset($error)){
             echo '<div class="alert alert-danger" role="alert" style="width: 45%">'.$error. "</div>";
