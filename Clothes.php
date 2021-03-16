@@ -18,6 +18,8 @@
 <?php include("header.php") ?>
 
 <br><br><br>
+<p style=" text-align:center ;  margin-left: 30%; margin-right: 30%; color: #3c3c3c; font-size: 40px; border-style: solid; border-color: #3c3c3c; border-radius: 50px">Clothes</p>
+<br><br>
 <div id="search">
     <form name="form" method="post" action="">
         <input id="motcle" type="text" name="motcle" placeholder="brand">
@@ -28,7 +30,7 @@
         <input id="btfind2" class="btfind2" type="submit" name="btsubmit2" value="Recherche" />
     </form>
     <form name="form3" method="post" action="">
-        <input id="motcle3" type="number" name="motcle3" placeholder="price max">
+        <input id="motcle3" type="number" name="motcle3" placeholder="max price">
         <input id="btfind3" class="btfind3" type="submit" name="btsubmit3" value="Recherche" />
     </form>
     <p id="log"><b>eBay</b></p>
