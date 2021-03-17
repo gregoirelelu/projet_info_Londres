@@ -13,6 +13,14 @@
     <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
+    <style type="text/css">
+        .addBag{
+            float: right;
+            color: #ffffff;
+            background-color: blueviolet;
+            border-radius: 25px;
+        }
+    </style>
 </head>
 <body>
 <?php include("header.php") ?>
@@ -67,6 +75,7 @@
             <img src="<?php echo $ligne ['PICTURE'] ?>" /><br/>
             <?php echo $ligne ['REF']; ?> <br/>
             <?php echo $ligne ['CATEGORY']; ?> <br/>
+            <input type="button" value="Add" class="addBag">
             <?php echo $ligne ['BRAND']; ?> <br/>
             <?php echo $ligne ['PRICE'] ." $"; ?>
         </div>
