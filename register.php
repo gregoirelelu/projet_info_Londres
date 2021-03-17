@@ -4,7 +4,7 @@ $servername = 'localhost';
 $username_database = 'root';
 $server_password = 'root';
 
-$database = new PDO("mysql:host=$servername; dbname=london_ebay", $username_database, $server_password);
+$database = new PDO("mysql:host=$servername; dbname=londonproject_bdd", $username_database, $server_password);
 
 if(isset($_POST['submit-form'])){
     $username = htmlspecialchars($_POST['username']);
@@ -45,6 +45,7 @@ if(isset($_POST['submit-form'])){
                                         if ($password == $confirm_password){
                                             $add_user = $database->prepare("INSERT INTO users(username, email, password) VALUES('$username', '$email', '$hashedpassword')");
                                             $add_user->execute(array($username, $email, $hashedpassword));
+                                            header('Refresh:4; login.php');
                                             $success = "Account created successfully ! <a href= \"login.php\" style='color: #155724'>Login</a>";
                                         }
                                         else{

@@ -7,7 +7,7 @@ $servername = 'localhost';
 $username_database = 'root';
 $server_password = 'root';
 
-$database = new PDO("mysql:host=$servername; dbname=london_ebay", $username_database, $server_password);
+$database = new PDO("mysql:host=$servername; dbname=londonproject_bdd", $username_database, $server_password);
 
 if (isset($_GET['id']) and $_GET['id'] > 0){
     $id_getter = intval($_GET['id']);
