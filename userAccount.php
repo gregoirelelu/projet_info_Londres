@@ -18,16 +18,18 @@ if (isset($_GET['id']) and $_GET['id'] > 0){
 
         $newUsername = $database->prepare("UPDATE users SET username = ? WHERE id = ?");
         $newUsername->execute(array($newUser, $_SESSION['id']));
-        header('Location: userAccount.php?id='.$_SESSION['id']);
+        header('Refresh:4; userAccount.php?id='.$_SESSION['id']);
+        $success = "Username modified successfully !";
     }
-    if (isset($_POST['email-edit']) and $_POST['username-confirm-edit'] != $result['email'] and !empty($_POST['email-confirm-edit'])){
+    if (isset($_POST['email-edit']) and $_POST['email-edit'] != $result['email'] and !empty($_POST['email-confirm-edit'])){
         $newEmail = htmlspecialchars($_POST['email-edit']);
         $newEmailConfirm = htmlspecialchars($_POST['email-confirm-edit']);
 
         if($newEmail == $newEmailConfirm){
             $newEmail1 = $database->prepare("UPDATE users SET email = ? WHERE id = ?");
             $newEmail1->execute(array($newEmail, $_SESSION['id']));
-            header('Location: userAccount.php?id='.$_SESSION['id']);
+            header('Refresh:4; userAccount.php?id='.$_SESSION['id']);
+            $success1 = "E-mail modified successfully !";
         }
         else{
             $error = "E-mails do not match !";
@@ -43,7 +45,8 @@ if (isset($_GET['id']) and $_GET['id'] > 0){
             if ($passwordChange == $passwordChangeConfirm){
                 $newpassword1 = $database->prepare("UPDATE users SET password = ? WHERE id = ?");
                 $newpassword1->execute(array($newpassword, $_SESSION['id']));
-                header('Loaction: userAccount.php?id='.$_SESSION['id']);
+                header('Refresh:4; userAccount.php?id='.$_SESSION['id']);
+                $success2 = "Password modified successfully !";
             }
             else{
                 $error = "Passwords do not match !";
@@ -103,6 +106,9 @@ if (isset($_GET['id']) and $_GET['id'] > 0){
     .profile_hidden{
         margin-top: 15px;
     }
+    .profilePhoto{
+        margin-left: 40px;
+    }
 </style>
 </head>
 <body>
@@ -116,9 +122,6 @@ if (isset($_GET['id']) and $_GET['id'] > 0){
             <ul class="nav justify-content-center">
                 <li class="nav-item">
                     <a class="nav-link active" aria-current="page" id="yourProfile">Your profile</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" id="YourAnnounces">Your announces</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="logout.php">Log out</a>
@@ -194,6 +197,21 @@ if (isset($_GET['id']) and $_GET['id'] > 0){
         <?php
         if (isset($error)){
             echo '<div class="alert alert-danger" role="alert" style="width: 45%">'.$error. "</div>";
+        }
+        ?>
+        <?php
+        if (isset($success)){
+            echo '<div class="alert alert-success" role="alert" style="width: 45%">'.$success. "</div>";
+        }
+        ?>
+        <?php
+        if (isset($success1)){
+            echo '<div class="alert alert-success" role="alert" style="width: 45%">'.$success1. "</div>";
+        }
+        ?>
+        <?php
+        if (isset($success2)){
+            echo '<div class="alert alert-success" role="alert" style="width: 45%">'.$success2. "</div>";
         }
         ?>
     </div>
