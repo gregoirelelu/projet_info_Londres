@@ -92,7 +92,20 @@
             </div>
             </p>
             <p><a href="#">Buying</a></p>
-            <p><a href="#">Sell</a></p>
+
+            <?php
+            if (!isset($_SESSION)){
+                session_start();
+            }
+
+            if ($_SESSION['loggedin'] == true) {
+                echo '<p><a href="connected-to-sell.php">Sell</a></p>';
+            }
+            else{
+                echo '<p><a href="#" aria-disabled="true">Sell</a></p>';
+            }
+            ?>
+
             <p><a href="#">Admin</a></p>
             <form>
                 <input type="search" placeholder="Search">
