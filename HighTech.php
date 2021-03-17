@@ -1,5 +1,21 @@
 <?php require_once('connexion_bdd.php'); ?>
 
+<?php
+if (!isset($_SESSION)){
+    session_start();
+}
+
+$servername = 'localhost';
+$username_database = 'root';
+$server_password = 'root';
+
+$database = new PDO("mysql:host=$servername; dbname=londonproject_bdd", $username_database, $server_password);
+
+$productHightech = $database->prepare("SELECT * FROM hightech");
+$productHightech->execute();
+$product = $productHightech->fetchAll(PDO::FETCH_OBJ);
+?>
+
 <!doctype html>
 <html lang="en">
 <head>
@@ -19,6 +35,19 @@
             color: #ffffff;
             background-color: blueviolet;
             border-radius: 25px;
+            width: 30%;
+            height: 100%;
+            text-align: center;
+        }
+        .addBag:hover{
+            float: right;
+            color: #ffffff;
+            background-color: blueviolet;
+            border-radius: 25px;
+            width: 30%;
+            height: 120%;
+            text-align: center;
+            text-decoration: none;
         }
     </style>
 </head>
@@ -84,7 +113,7 @@
             <?php echo $ligne ['REF']; ?> <br/>
             <?php echo $ligne ['CATEGORY']; ?> <br/>
             <?php echo $ligne ['BRAND']; ?> <br/>
-            <input type="button" value="Add" class="addBag">
+            <a class="addBag" href="#">Add</a>
             <?php echo $ligne ['MODEL']; ?> <br/>
             <?php echo $ligne ['PRICE'] ." $"; ?>
 

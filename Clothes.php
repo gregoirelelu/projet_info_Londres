@@ -19,6 +19,19 @@
             color: #ffffff;
             background-color: blueviolet;
             border-radius: 25px;
+            width: 30%;
+            height: 100%;
+            text-align: center;
+        }
+        .addBag:hover{
+            float: right;
+            color: #ffffff;
+            background-color: blueviolet;
+            border-radius: 25px;
+            width: 30%;
+            height: 120%;
+            text-align: center;
+            text-decoration: none;
         }
     </style>
 </head>
@@ -75,7 +88,7 @@
             <img src="<?php echo $ligne ['PICTURE'] ?>" /><br/>
             <?php echo $ligne ['REF']; ?> <br/>
             <?php echo $ligne ['CATEGORY']; ?> <br/>
-            <input type="button" value="Add" class="addBag">
+            <a class="addBag" href="#">Add</a>
             <?php echo $ligne ['BRAND']; ?> <br/>
             <?php echo $ligne ['PRICE'] ." $"; ?>
         </div>

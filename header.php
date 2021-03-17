@@ -1,3 +1,9 @@
+<?php
+if (!isset($_SESSION)){
+    session_start();
+}
+?>
+
 <!doctype html>
 <html lang="en">
 <head>
@@ -94,9 +100,6 @@
             <p><a href="#">Buying</a></p>
 
             <?php
-            if (!isset($_SESSION)){
-                session_start();
-            }
 
             if ($_SESSION['loggedin'] == true) {
                 echo '<p><a href="connected-to-sell.php">Sell</a></p>';
