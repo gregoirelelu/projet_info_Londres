@@ -33,7 +33,7 @@ if (!isset($_SESSION)){
             background-color: blueviolet;
             border-radius: 25px;
             width: 30%;
-            height: 100%;
+            height: 9%;
             text-align: center;
         }
         .addBag:hover{
@@ -42,7 +42,7 @@ if (!isset($_SESSION)){
             background-color: blueviolet;
             border-radius: 25px;
             width: 30%;
-            height: 120%;
+            height: 9%;
             text-align: center;
             text-decoration: none;
         }
@@ -54,7 +54,7 @@ if (!isset($_SESSION)){
 <br><br><br>
 <p style=" text-align:center ;  margin-left: 30%; margin-right: 30%; color: #3c3c3c; font-size: 40px; border-style: solid; border-color: #3c3c3c; border-radius: 50px">Cars</p>
 <br><br>
-<div id="search">
+<div id="search-hightech">
     <form name="form" method="post" action="">
         <input id="motcle" type="text" name="motcle" placeholder="Sub-category">
         <input id="btfind" class="btfind" type="submit" name="btsubmit" value="Search" />
@@ -71,50 +71,53 @@ if (!isset($_SESSION)){
         <input id="motcle4" type="number" name="motcle4" placeholder="max price">
         <input id="btfind4" class="btfind4" type="submit" name="btsubmit4" value="Search" />
     </form>
-    <p id="log"><b>eBay</b></p>
 </div>
 <br><br>
 
-    <?php
+<?php
+if(isset($_POST['btsubmit'])){
+    $rc=$_POST['motcle'];
+    $reqSelect="select * from product where SUBCATEGORY IN ('Vehicle') like '%$rc%'";
+}
+else if(isset($_POST['btsubmit'])){
+    $mc=$_POST['motcle'];
+    $reqSelect="select * from product where BRAND IN ('Vehicle') like '%$mc%'";
+}
+else if(isset($_POST['btsubmit2'])){
+    $lc=$_POST['motcle2'];
+    $reqSelect="select * from product where MODEL IN ('Vehicle') like '%$lc%'";
+}
+else if(isset($_POST['btsubmit3'])){
+    $nc=$_POST['motcle3'];
+    $reqSelect="select * from product where PRICE IN ('Vehicle') PRICE < '$nc'";
+}
+else{
+    $reqSelect="select * from product where CATEGORY IN ('Vehicle')";
+}
+$resultat=mysqli_query($cnlondonproject_bdd,$reqSelect);
+$nbr=mysqli_num_rows($resultat);
+echo "<p class='result-found'><b>".$nbr."</b> results found</b></p>";
+?>
 
-    if(isset($_POST['btsubmit'])){
-        $rc=$_POST['motcle'];
-        $reqSelect="select * from product where SUBCATEGORY IN ('Vehicle') like '%$rc%'";
-    }
-    else if(isset($_POST['btsubmit'])){
-        $mc=$_POST['motcle'];
-        $reqSelect="select * from product where BRAND IN ('Vehicle') like '%$mc%'";
-    }
-    else if(isset($_POST['btsubmit2'])){
-        $lc=$_POST['motcle2'];
-        $reqSelect="select * from product where MODEL IN ('Vehicle') like '%$lc%'";
-    }
-    else if(isset($_POST['btsubmit3'])){
-        $nc=$_POST['motcle3'];
-        $reqSelect="select * from product where PRICE IN ('Vehicle') PRICE < '$nc'";
-    }
-    else{
-        $reqSelect="select * from product where CATEGORY IN ('Vehicle')";
-    }
-    $resultat=mysqli_query($cnlondonproject_bdd,$reqSelect);
-    $nbr=mysqli_num_rows($resultat);
-    echo "<p><b>".$nbr."</b> results found</b></p>";
-    while ($ligne=mysqli_fetch_assoc($resultat))
-    {
-
-    ?>
-
+<section class="show-product">
     <div id="layout">
-        <div id="cars">
-            <img src="<?php echo $ligne ['PICTURE'] ?>" /><br/>
-            <?php echo $ligne ['SUBCATEGORY']; ?> <br/>
-            <?php echo $ligne ['BRAND']; ?> <br/>
-            <a class="addBag" href="addBag.php?id=<?= $ligne['id']; ?>">Add</a>
-            <?php echo $ligne ['MODEL']; ?> <br/>
-            <?php echo $ligne ['PRICE'] ." $"; ?>
-        </div>
+        <?php
+        while ($ligne=mysqli_fetch_assoc($resultat))
+        {
+
+            ?>
+
+            <div id="cars">
+                <img src="<?php echo $ligne ['PICTURE'] ?>" /><br/>
+                <h5><?php echo $ligne ['SUBCATEGORY']; ?></h5>
+                <?php echo $ligne ['BRAND']; ?> <br/>
+                <a class="addBag" href="addBag.php?id=<?= $ligne['id']; ?>">Add</a>
+                <?php echo $ligne ['MODEL']; ?> <br/>
+                <?php echo $ligne ['PRICE'] ." $"; ?>
+            </div>
         <?php } ?>
     </div>
+</section>
 
 <br><br><br><br><br>
 <?php include("footer.php") ?>

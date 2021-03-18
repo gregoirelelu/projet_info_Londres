@@ -20,7 +20,7 @@
             background-color: blueviolet;
             border-radius: 25px;
             width: 30%;
-            height: 100%;
+            height: 7%;
             text-align: center;
         }
         .addBag:hover{
@@ -29,7 +29,7 @@
             background-color: blueviolet;
             border-radius: 25px;
             width: 30%;
-            height: 120%;
+            height: 7%;
             text-align: center;
             text-decoration: none;
         }
@@ -44,68 +44,73 @@
 <div id="search-hightech">
     <form name="form" method="post" action="">
         <input id="motcle" type="text" name="motcle" placeholder="Sub-category">
-        <input id="btfind" class="btfind" type="submit" name="btsubmit" value="Recherche" />
+        <input id="btfind" class="btfind" type="submit" name="btsubmit" value="Search" />
     </form>
     <form name="form2" method="post" action="">
         <input id="motcle2" type="text" name="motcle2" placeholder="brand">
-        <input id="btfind2" class="btfind2" type="submit" name="btsubmit2" value="Recherche" />
+        <input id="btfind2" class="btfind2" type="submit" name="btsubmit2" value="Search" />
     </form>
     <form name="form3" method="post" action="">
         <input id="motcle3" type="text" name="motcle3" placeholder="model">
-        <input id="btfind3" class="btfind3" type="submit" name="btsubmit3" value="Recherche" />
+        <input id="btfind3" class="btfind3" type="submit" name="btsubmit3" value="Search" />
     </form>
     <form name="form4" method="post" action="">
         <input id="motcle4" type="number" name="motcle4" placeholder="max price">
-        <input id="btfind4" class="btfind4" type="submit" name="btsubmit4" value="Recherche" />
+        <input id="btfind4" class="btfind4" type="submit" name="btsubmit4" value="Search" />
     </form>
 </div>
 
 <br><br>
 
-    <?php
+<?php
 
-    if(isset($_POST['btsubmit'])){
-        $rc=$_POST['motcle'];
-        $reqSelect="select * from product where SUBCATEGORY IN ('High-Tech') like '%$rc%'";
-    }
-    else if(isset($_POST['btsubmit2'])){
-        $mc=$_POST['motcle2'];
-        $reqSelect="select * from product where BRAND IN ('High-Tech') like '%$mc%'";
-    }
-    else if(isset($_POST['btsubmit3'])){
-        $lc=$_POST['motcle3'];
-        $reqSelect="select * from product where MODEL IN ('High-Tech') like '%$lc%'";
-    }
-    else if(isset($_POST['btsubmit4'])){
-        $nc=$_POST['motcle4'];
-        $reqSelect="select * from product where PRICE IN ('High-Tech') < '$nc'";
-    }
-    else{
-        $reqSelect="select * from product where CATEGORY IN ('High-Tech')";
-    }
-    $resultat=mysqli_query($cnlondonproject_bdd,$reqSelect);
-    $nbr=mysqli_num_rows($resultat);
-    echo "<p><b>".$nbr."</b> results found</b></p>";
-    while ($ligne=mysqli_fetch_assoc($resultat))
-    {
+if(isset($_POST['btsubmit'])){
+    $rc=$_POST['motcle'];
+    $reqSelect="select * from product where SUBCATEGORY IN ('High-Tech') like '%$rc%'";
+}
+else if(isset($_POST['btsubmit2'])){
+    $mc=$_POST['motcle2'];
+    $reqSelect="select * from product where BRAND IN ('High-Tech') like '%$mc%'";
+}
+else if(isset($_POST['btsubmit3'])){
+    $lc=$_POST['motcle3'];
+    $reqSelect="select * from product where MODEL IN ('High-Tech') like '%$lc%'";
+}
+else if(isset($_POST['btsubmit4'])){
+    $nc=$_POST['motcle4'];
+    $reqSelect="select * from product where PRICE IN ('High-Tech') < '$nc'";
+}
+else{
+    $reqSelect="select * from product where CATEGORY IN ('High-Tech')";
+}
+$resultat=mysqli_query($cnlondonproject_bdd,$reqSelect);
+$nbr=mysqli_num_rows($resultat);
+echo "<p class='result-found'><b>".$nbr."</b> results found</b></p>";
 
-        ?>
+?>
 
-    <div id="layout2">
-        <div id="hightech">
-            <img src="<?php echo $ligne ['PICTURE'] ?>" /><br/>
-            <?php echo $ligne ['SUBCATEGORY']; ?> <br/>
-            <?php echo $ligne ['BRAND']; ?> <br/>
-            <a class="addBag" href="addBag.php?id=<?= $ligne['id']; ?>">Add</a>
-            <?php echo $ligne ['MODEL']; ?> <br/>
-            <?php echo $ligne ['PRICE'] ." $"; ?>
+<section class="show-product">
+    <div id="layout">
+        <?php
+        while ($ligne=mysqli_fetch_assoc($resultat))
+        {
+            ?>
 
-        </div>
-    <?php } ?>
+            <div id="hightech">
+                <img src="<?php echo $ligne ['PICTURE'] ?>" /><br/>
+                <h5><?php echo $ligne ['SUBCATEGORY']; ?></h5>
+                <?php echo $ligne ['BRAND']; ?> <br/>
+                <a class="addBag" href="addBag.php?id=<?= $ligne['id']; ?>">Add</a>
+                <?php echo $ligne ['MODEL']; ?> <br/>
+                <?php echo $ligne ['PRICE'] ." $"; ?>
+
+            </div>
+        <?php } ?>
     </div>
+</section>
 
 <br><br><br><br><br>
-<?php include("footer.php") ?>
+
 
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>

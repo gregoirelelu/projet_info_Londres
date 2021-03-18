@@ -60,7 +60,6 @@ if (!isset($_SESSION)){
         .bag img{
             margin-right: 12px;
             width: 160px;
-            height: 160px;
         }
         .total{
             display: flex;
@@ -115,13 +114,13 @@ if (!isset($_SESSION)){
                                     <span class="category"><?= $products->SUBCATEGORY ?></span><br>
                                     <span class="brand"><?= $products->BRAND ?></span><br>
                                     <span class="model"><?= $products->MODEL ?></span><br>
-                                    <small><span class="price"><?= $products->PRICE ?>$</span></small><br>
+                                    <small><span class="price"><?= number_format($products->PRICE, 2, ',','') ?>$</span></small><br>
                                 </div>
                             </div>
                         </td>
                         <td><input type="number" name="bag[quantity][<?= $products->id; ?>]" value="<?= $_SESSION['bag'][$products->id]; ?>" style="margin-left: 3vh" onchange="this.form.submit()"></td>
                         <td><span class="action"><a href="bag.php?delBag=<?= $products->id; ?>" class="delete" style="margin-left: 3vh"><i class="far fa-trash-alt"></i></a></span></td>
-                        <td><?= $products->PRICE ?>$</td>
+                        <td><?= number_format($products->PRICE, 2, ',','') ?>$</td>
                     </tr>
                 <?php endforeach; ?>
             </table>
@@ -139,7 +138,7 @@ if (!isset($_SESSION)){
                         <td>VAT</td>
                         <td><?= number_format(($bag->total() * 1.2) - ($bag->total()), 2, ',',''); ?>$</td>
                     </tr>
-                    <tr>
+                    <tr style="background-color: blueviolet; color: #ffffff">
                         <td>Total (incl. taxes)</td>
                         <td><span><?= number_format($bag->total() * 1.2, 2, ',',''); ?>$</span></td>
                     </tr>

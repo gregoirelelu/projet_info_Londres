@@ -88,12 +88,7 @@ if (!isset($_SESSION)){
                 </button>
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                     <a class="dropdown-item" href="HighTech.php">High-Tech</a>
-                    <a class="dropdown-item" href="Clothes.php">Clothes</a>
-                    <a class="dropdown-item" href="#">Sport</a>
                     <a class="dropdown-item" href="Cars.php">Cars</a>
-                    <a class="dropdown-item" href="#">Gardening</a>
-                    <a class="dropdown-item" href="#">Care/Make-up</a>
-                    <a class="dropdown-item" href="#">Animals</a>
                 </div>
             </div>
             </p>
