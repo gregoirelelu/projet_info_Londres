@@ -3,7 +3,7 @@
 require 'database-class.php';
 require 'bag-class.php';
 $db = new database();
-$bag = new bag($db);
+$bag = new bag();
 ?>
 
 <?php
@@ -103,13 +103,15 @@ while ($ligne=mysqli_fetch_assoc($resultat))
 
 ?>
 
+<?php $product = $db->request('SELECT * FROM hightech'); ?>
+
 <div id="layout2">
     <div id="hightech">
         <img src="<?php echo $ligne ['PICTURE'] ?>" /><br/>
         <?php echo $ligne ['REF']; ?> <br/>
         <?php echo $ligne ['CATEGORY']; ?> <br/>
         <?php echo $ligne ['BRAND']; ?> <br/>
-        <a class="addBag" href="addBag.php?id=<?= $ligne['id']; ?>">Add</a>
+        <a class="addBag" href="addBag.php?id=<?= $product->id;?>">Add</a>
         <?php echo $ligne ['MODEL']; ?> <br/>
         <?php echo $ligne ['PRICE'] ." $"; ?>
 
