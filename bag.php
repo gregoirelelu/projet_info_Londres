@@ -125,7 +125,6 @@ if (!isset($_SESSION)){
                     </tr>
                 <?php endforeach; ?>
             </table>
-            <input type="submit" value="Reload">
             <div class="total">
                 <table>
                     <tr>
