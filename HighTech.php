@@ -1,16 +1,4 @@
 <?php require_once('connexion_bdd.php'); ?>
-<?php
-require 'database-class.php';
-require 'bag-class.php';
-$db = new database();
-$bag = new bag($db);
-?>
-
-<?php
-if (!isset($_SESSION)){
-    session_start();
-}
-?>
 
 <!doctype html>
 <html lang="en">
@@ -31,24 +19,11 @@ if (!isset($_SESSION)){
             color: #ffffff;
             background-color: blueviolet;
             border-radius: 25px;
-            width: 30%;
-            height: 100%;
-            text-align: center;
-        }
-        .addBag:hover{
-            float: right;
-            color: #ffffff;
-            background-color: blueviolet;
-            border-radius: 25px;
-            width: 30%;
-            height: 120%;
-            text-align: center;
-            text-decoration: none;
         }
     </style>
 </head>
 <body>
-<?php require 'header.php'?>
+<?php include("header.php") ?>
 
 <br><br><br>
 <p style=" text-align:center ;  margin-left: 30%; margin-right: 30%; color: #3c3c3c; font-size: 40px; border-style: solid; border-color: #3c3c3c; border-radius: 50px">High-Tech</p>
@@ -74,48 +49,47 @@ if (!isset($_SESSION)){
 
 <br><br>
 
-<?php
+    <?php
 
-if(isset($_POST['btsubmit'])){
-    $rc=$_POST['motcle'];
-    $reqSelect="select * from hightech where CATEGORY like '%$rc%'";
-}
-else if(isset($_POST['btsubmit2'])){
-    $mc=$_POST['motcle2'];
-    $reqSelect="select * from hightech where BRAND like '%$mc%'";
-}
-else if(isset($_POST['btsubmit3'])){
-    $lc=$_POST['motcle3'];
-    $reqSelect="select * from hightech where MODEL like '%$lc%'";
-}
-else if(isset($_POST['btsubmit4'])){
-    $nc=$_POST['motcle4'];
-    $reqSelect="select * from hightech where PRICE < '$nc'";
-}
-else{
-    $reqSelect="select * from hightech";
-}
-$resultat=mysqli_query($cnlondonproject_bdd,$reqSelect);
-$nbr=mysqli_num_rows($resultat);
-echo "<p><b>".$nbr."</b> results found</b></p>";
-while ($ligne=mysqli_fetch_assoc($resultat))
-{
+    if(isset($_POST['btsubmit'])){
+        $rc=$_POST['motcle'];
+        $reqSelect="select * from hightech where CATEGORY like '%$rc%'";
+    }
+    else if(isset($_POST['btsubmit2'])){
+        $mc=$_POST['motcle2'];
+        $reqSelect="select * from hightech where BRAND like '%$mc%'";
+    }
+    else if(isset($_POST['btsubmit3'])){
+        $lc=$_POST['motcle3'];
+        $reqSelect="select * from hightech where MODEL like '%$lc%'";
+    }
+    else if(isset($_POST['btsubmit4'])){
+        $nc=$_POST['motcle4'];
+        $reqSelect="select * from hightech where PRICE < '$nc'";
+    }
+    else{
+        $reqSelect="select * from hightech";
+    }
+    $resultat=mysqli_query($cnlondonproject_bdd,$reqSelect);
+    $nbr=mysqli_num_rows($resultat);
+    echo "<p><b>".$nbr."</b> results found</b></p>";
+    while ($ligne=mysqli_fetch_assoc($resultat))
+    {
 
-?>
+        ?>
 
-<div id="layout2">
-    <div id="hightech">
-        <img src="<?php echo $ligne ['PICTURE'] ?>" /><br/>
-        <?php echo $ligne ['REF']; ?> <br/>
-        <?php echo $ligne ['CATEGORY']; ?> <br/>
-        <?php echo $ligne ['BRAND']; ?> <br/>
-        <a class="addBag" href="addBag.php?id=<?= $ligne['id']; ?>">Add</a>
-        <?php echo $ligne ['MODEL']; ?> <br/>
-        <?php echo $ligne ['PRICE'] ." $"; ?>
+    <div id="layout2">
+        <div id="hightech">
+            <img src="<?php echo $ligne ['PICTURE'] ?>" /><br/>
+            <?php echo $ligne ['CATEGORY']; ?> <br/>
+            <?php echo $ligne ['BRAND']; ?> <br/>
+            <input type="button" value="Add" class="addBag">
+            <?php echo $ligne ['MODEL']; ?> <br/>
+            <?php echo $ligne ['PRICE'] ." $"; ?>
 
-    </div>
+        </div>
     <?php } ?>
-</div>
+    </div>
 
 <br><br><br><br><br>
 <?php include("footer.php") ?>

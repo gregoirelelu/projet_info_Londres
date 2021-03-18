@@ -86,7 +86,6 @@
     <div id="layout">
         <div id="cars">
             <img src="<?php echo $ligne ['PICTURE'] ?>" /><br/>
-            <?php echo $ligne ['PLATE']; ?> <br/>
             <?php echo $ligne ['BRAND']; ?> <br/>
             <a class="addBag" href="#">Add</a>
             <?php echo $ligne ['MODEL']; ?> <br/>
