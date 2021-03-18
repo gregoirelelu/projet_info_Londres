@@ -56,16 +56,20 @@ if (!isset($_SESSION)){
 <br><br>
 <div id="search">
     <form name="form" method="post" action="">
-        <input id="motcle" type="text" name="motcle" placeholder="brand">
-        <input id="btfind" class="btfind" type="submit" name="btsubmit" value="Recherche" />
+        <input id="motcle" type="text" name="motcle" placeholder="Sub-category">
+        <input id="btfind" class="btfind" type="submit" name="btsubmit" value="Search" />
+    </form>
+    <form name="form" method="post" action="">
+        <input id="motcle2" type="text" name="motcle2" placeholder="brand">
+        <input id="btfind2" class="btfind2" type="submit" name="btsubmit" value="Search" />
     </form>
     <form name="form2" method="post" action="">
-        <input id="motcle2" type="text" name="motcle2" placeholder="model">
-        <input id="btfind2" class="btfind2" type="submit" name="btsubmit2" value="Recherche" />
+        <input id="motcle3" type="text" name="motcle3" placeholder="model">
+        <input id="btfind3" class="btfind3" type="submit" name="btsubmit3" value="Search" />
     </form>
     <form name="form3" method="post" action="">
-        <input id="motcle3" type="number" name="motcle3" placeholder="max price">
-        <input id="btfind3" class="btfind3" type="submit" name="btsubmit3" value="Recherche" />
+        <input id="motcle4" type="number" name="motcle4" placeholder="max price">
+        <input id="btfind4" class="btfind4" type="submit" name="btsubmit4" value="Search" />
     </form>
     <p id="log"><b>eBay</b></p>
 </div>
@@ -74,19 +78,23 @@ if (!isset($_SESSION)){
     <?php
 
     if(isset($_POST['btsubmit'])){
+        $rc=$_POST['motcle'];
+        $reqSelect="select * from product where SUBCATEGORY IN ('Vehicle') like '%$rc%'";
+    }
+    else if(isset($_POST['btsubmit'])){
         $mc=$_POST['motcle'];
-        $reqSelect="select * from cars where BRAND like '%$mc%'";
+        $reqSelect="select * from product where BRAND IN ('Vehicle') like '%$mc%'";
     }
     else if(isset($_POST['btsubmit2'])){
         $lc=$_POST['motcle2'];
-        $reqSelect="select * from cars where MODEL like '%$lc%'";
+        $reqSelect="select * from product where MODEL IN ('Vehicle') like '%$lc%'";
     }
     else if(isset($_POST['btsubmit3'])){
         $nc=$_POST['motcle3'];
-        $reqSelect="select * from cars where PRICE < '$nc'";
+        $reqSelect="select * from product where PRICE IN ('Vehicle') PRICE < '$nc'";
     }
     else{
-        $reqSelect="select * from cars";
+        $reqSelect="select * from product where CATEGORY IN ('Vehicle')";
     }
     $resultat=mysqli_query($cnlondonproject_bdd,$reqSelect);
     $nbr=mysqli_num_rows($resultat);
@@ -99,6 +107,7 @@ if (!isset($_SESSION)){
     <div id="layout">
         <div id="cars">
             <img src="<?php echo $ligne ['PICTURE'] ?>" /><br/>
+            <?php echo $ligne ['SUBCATEGORY']; ?> <br/>
             <?php echo $ligne ['BRAND']; ?> <br/>
             <a class="addBag" href="addBag.php?id=<?= $ligne['id']; ?>">Add</a>
             <?php echo $ligne ['MODEL']; ?> <br/>

@@ -98,7 +98,7 @@ if (!isset($_SESSION)){
                 $ids = array_keys($_SESSION['bag']);
 
                 if (!empty($ids)){
-                    $products = $db->request('SELECT * FROM hightech WHERE id IN ('.implode(',', $ids).')');
+                    $products = $db->request('SELECT * FROM product WHERE id IN ('.implode(',', $ids).')');
                 }
                 else{
                     $products = array();
@@ -112,7 +112,7 @@ if (!isset($_SESSION)){
                             <div class="product">
                                 <a href="#" class=""><img src="<?php echo $products->PICTURE ?>"></a>
                                 <div style="margin-top: 4%">
-                                    <span class="category"><?= $products->CATEGORY ?></span><br>
+                                    <span class="category"><?= $products->SUBCATEGORY ?></span><br>
                                     <span class="brand"><?= $products->BRAND ?></span><br>
                                     <span class="model"><?= $products->MODEL ?></span><br>
                                     <small><span class="price"><?= $products->PRICE ?>$</span></small><br>

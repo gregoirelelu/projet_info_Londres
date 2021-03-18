@@ -43,7 +43,7 @@
 <br><br>
 <div id="search-hightech">
     <form name="form" method="post" action="">
-        <input id="motcle" type="text" name="motcle" placeholder="Category">
+        <input id="motcle" type="text" name="motcle" placeholder="Sub-category">
         <input id="btfind" class="btfind" type="submit" name="btsubmit" value="Recherche" />
     </form>
     <form name="form2" method="post" action="">
@@ -66,22 +66,22 @@
 
     if(isset($_POST['btsubmit'])){
         $rc=$_POST['motcle'];
-        $reqSelect="select * from hightech where CATEGORY like '%$rc%'";
+        $reqSelect="select * from product where SUBCATEGORY IN ('High-Tech') like '%$rc%'";
     }
     else if(isset($_POST['btsubmit2'])){
         $mc=$_POST['motcle2'];
-        $reqSelect="select * from hightech where BRAND like '%$mc%'";
+        $reqSelect="select * from product where BRAND IN ('High-Tech') like '%$mc%'";
     }
     else if(isset($_POST['btsubmit3'])){
         $lc=$_POST['motcle3'];
-        $reqSelect="select * from hightech where MODEL like '%$lc%'";
+        $reqSelect="select * from product where MODEL IN ('High-Tech') like '%$lc%'";
     }
     else if(isset($_POST['btsubmit4'])){
         $nc=$_POST['motcle4'];
-        $reqSelect="select * from hightech where PRICE < '$nc'";
+        $reqSelect="select * from product where PRICE IN ('High-Tech') < '$nc'";
     }
     else{
-        $reqSelect="select * from hightech";
+        $reqSelect="select * from product where CATEGORY IN ('High-Tech')";
     }
     $resultat=mysqli_query($cnlondonproject_bdd,$reqSelect);
     $nbr=mysqli_num_rows($resultat);
@@ -94,7 +94,7 @@
     <div id="layout2">
         <div id="hightech">
             <img src="<?php echo $ligne ['PICTURE'] ?>" /><br/>
-            <?php echo $ligne ['CATEGORY']; ?> <br/>
+            <?php echo $ligne ['SUBCATEGORY']; ?> <br/>
             <?php echo $ligne ['BRAND']; ?> <br/>
             <a class="addBag" href="addBag.php?id=<?= $ligne['id']; ?>">Add</a>
             <?php echo $ligne ['MODEL']; ?> <br/>

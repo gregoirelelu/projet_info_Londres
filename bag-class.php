@@ -33,7 +33,7 @@ class bag{
         $ids = array_keys($_SESSION['bag']);
 
         if (!empty($ids)) {
-            $products = $this->db->request('SELECT id, PRICE FROM hightech WHERE id IN (' . implode(',', $ids) . ')');
+            $products = $this->db->request('SELECT id, PRICE FROM product WHERE id IN (' . implode(',', $ids) . ')');
         } else {
             $products = array();
         }
