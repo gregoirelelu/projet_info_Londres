@@ -1,5 +1,18 @@
 <?php require_once('connexion_bdd.php'); ?>
 
+<?php
+require 'database-class.php';
+require 'bag-class.php';
+$db = new database();
+$bag = new bag($db);
+?>
+
+<?php
+if (!isset($_SESSION)){
+    session_start();
+}
+?>
+
 <!doctype html>
 <html lang="en">
 <head>
@@ -87,7 +100,7 @@
         <div id="clothes">
             <img src="<?php echo $ligne ['PICTURE'] ?>" /><br/>
             <?php echo $ligne ['CATEGORY']; ?> <br/>
-            <a class="addBag" href="#">Add</a>
+            <a class="addBag" href="addBag.php?id=<?= $ligne['id']; ?>">Add</a>
             <?php echo $ligne ['BRAND']; ?> <br/>
             <?php echo $ligne ['PRICE'] ." $"; ?>
         </div>
