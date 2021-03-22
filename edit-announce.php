@@ -145,6 +145,34 @@ if (isset($_GET['id']) and !empty($_GET['id'])){
 
 <?php } ?>
 
+<div style="display: flex; justify-content: center">
+    <?php
+    if (isset($error)){
+        echo '<div class="alert alert-danger" role="alert" style="width: 45%">'.$error. "</div>";
+    }
+    ?>
+    <?php
+    if (isset($success)){
+        echo '<div class="alert alert-success" role="alert" style="width: 45%">'.$success. "</div>";
+    }
+    ?>
+    <?php
+    if (isset($success1)){
+        echo '<div class="alert alert-success" role="alert" style="width: 45%">'.$success1. "</div>";
+    }
+    ?>
+    <?php
+    if (isset($success2)){
+        echo '<div class="alert alert-success" role="alert" style="width: 45%">'.$success2. "</div>";
+    }
+    ?>
+    <?php
+    if (isset($success3)){
+        echo '<div class="alert alert-success" role="alert" style="width: 45%">'.$success3. "</div>";
+    }
+    ?>
+</div>
+
 <main1>
     <div id="profile_hidden" class="profile_hidden">
         <form class="edit-profil" method="POST" action="">
@@ -190,32 +218,6 @@ if (isset($_GET['id']) and !empty($_GET['id'])){
             </table>
         </form>
     </div>
-
-    <?php
-    if (isset($error)){
-        echo '<div class="alert alert-danger" role="alert" style="width: 45%">'.$error. "</div>";
-    }
-    ?>
-    <?php
-    if (isset($success)){
-        echo '<div class="alert alert-success" role="alert" style="width: 45%">'.$success. "</div>";
-    }
-    ?>
-    <?php
-    if (isset($success1)){
-        echo '<div class="alert alert-success" role="alert" style="width: 45%">'.$success1. "</div>";
-    }
-    ?>
-    <?php
-    if (isset($success2)){
-        echo '<div class="alert alert-success" role="alert" style="width: 45%">'.$success2. "</div>";
-    }
-    ?>
-    <?php
-    if (isset($success3)){
-        echo '<div class="alert alert-success" role="alert" style="width: 45%">'.$success3. "</div>";
-    }
-    ?>
 </main1>
 
 <?php include("footer.php") ?>
