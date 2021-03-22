@@ -3,7 +3,7 @@ if (!isset($_SESSION)){
     session_start();
 }
 
-if ($_SESSION['loggedin'] == true) {
+if (isset($_SESSION['id'])) {
     header("Location: userAccount.php?id=".$_SESSION['id']);
 }
 else {

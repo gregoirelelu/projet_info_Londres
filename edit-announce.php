@@ -1,5 +1,5 @@
 <?php
-if (!isset($_SESSION)){
+if (!isset($_GET)){
     session_start();
 }
 
@@ -9,7 +9,45 @@ $server_password = 'root';
 
 $database = new PDO("mysql:host=$servername; dbname=londonproject_bdd", $username_database, $server_password);
 
+if (isset($_GET['id']) and !empty($_GET['id'])) {
+    $editArticle = htmlspecialchars($_GET['id']);
+    $sql = $database->prepare('SELECT * FROM product WHERE id = ?');
+    $sql->execute(array($editArticle));
+    $sql = $sql->fetch();
 
+    if (isset($_POST['subcategory-edit']) and $_POST['subcategory-edit'] != $sql['SUBCATEGORY'] and !empty($_POST['subcategory-edit'])) {
+        $newSubCate = htmlspecialchars($_POST['subcategory-edit']);
+
+        $newSubCategory = $database->prepare("UPDATE product SET SUBCATEGORY = ? WHERE id = ?");
+        $newSubCategory->execute(array($newSubCate, $_GET['id']));
+        header('Refresh:4; edit-announce.php?id=' . $_GET['id']);
+        $success = "Sub-category modified successfully !";
+    }
+    if (isset($_POST['brand-edit']) and $_POST['brand-edit'] != $sql['BRAND'] and !empty($_POST['brand-edit'])) {
+        $newbr = htmlspecialchars($_POST['subcategory-edit']);
+
+        $newbrand = $database->prepare("UPDATE product SET BRAND = ? WHERE id = ?");
+        $newbrand->execute(array($newbr, $_GET['id']));
+        header('Refresh:4; edit-announce.php?id=' . $_GET['id']);
+        $success1 = "Brand modified successfully !";
+    }
+    if (isset($_POST['model-edit']) and $_POST['model-edit'] != $sql['MODEL'] and !empty($_POST['model-edit'])) {
+        $newmo = htmlspecialchars($_POST['model-edit']);
+
+        $newmodel = $database->prepare("UPDATE product SET MODEL = ? WHERE id = ?");
+        $newmodel->execute(array($newmo, $_GET['id']));
+        header('Refresh:4; edit-announce.php?id=' . $_GET['id']);
+        $success2 = "Model modified successfully !";
+    }
+    if (isset($_POST['price-edit']) and $_POST['price-edit'] != $sql['PRICE'] and !empty($_POST['price-edit'])) {
+        $newpri = htmlspecialchars($_POST['price-edit']);
+
+        $newprice = $database->prepare("UPDATE product SET PRICE = ? WHERE id = ?");
+        $newprice->execute(array($newpri, $_GET['id']));
+        header('Refresh:4; edit-announce.php?id=' . $_GET['id']);
+        $success3 = "Price modified successfully !";
+    }
+}
 
 ?>
 
@@ -47,6 +85,18 @@ $database = new PDO("mysql:host=$servername; dbname=londonproject_bdd", $usernam
             color: black;
             cursor: pointer;
         }
+        main1{
+            display: flex;
+            justify-content: center;
+            padding-bottom: 15vh;
+        }
+        .profile_hidden{
+            margin-top: 15px;
+        }
+        .edit-profil{
+            justify-content: center;
+        }
+    </style>
     </style>
 </head>
 <body>
@@ -54,7 +104,7 @@ $database = new PDO("mysql:host=$servername; dbname=londonproject_bdd", $usernam
 
 <main>
     <div align="center">
-        <h2 class="title_Welcome">Your announces!</h2>
+        <h2 class="title_Welcome">Edit your announces!</h2>
         <div class="navbar">
             <ul class="nav justify-content-center">
                 <li class="nav-item">
@@ -73,36 +123,100 @@ $database = new PDO("mysql:host=$servername; dbname=londonproject_bdd", $usernam
 
 <?php
 
-$show = $database->prepare("SELECT * FROM product WHERE pseudo_seller = ?");
-$show->execute(array($_SESSION['id']));
+if (isset($_GET['id']) and !empty($_GET['id'])){
+    $editArticle = htmlspecialchars($_GET['id']);
+    $sql = $database->prepare('SELECT * FROM product WHERE id = ?');
+    $sql->execute(array($editArticle));
+    $sql = $sql->fetch();
 
-?>
-
-<?php
-
-$nbr = $show->rowCount();
-echo "<p class='result-found'><b>".$nbr."</b> results found</b></p>";
-
-?>
+    ?>
 
 <section class="show-product">
     <div id="layout">
-        <?php
-        while ($ligne = $show->fetch())
-        {
-            ?>
-
-            <div id="hightech">
-                <img src="<?php echo $ligne ['PICTURE'] ?>" /><br/>
-                <h5><?php echo $ligne ['SUBCATEGORY']; ?></h5>
-                <?php echo $ligne ['BRAND']; ?> <br/>
-                <?php echo $ligne ['MODEL']; ?> <br/>
-                <?php echo $ligne ['PRICE'] ." $"; ?>
-
-            </div>
-        <?php } ?>
+        <div id="hightech">
+            <img src="<?php echo $sql['PICTURE'] ?>" /><br/>
+            <h5><?php echo $sql['SUBCATEGORY']; ?></h5>
+            <?php echo $sql['BRAND']; ?> <br/>
+            <?php echo $sql['MODEL']; ?> <br/>
+            <?php echo $sql['PRICE'] ." $"; ?>
+        </div>
     </div>
 </section>
+
+<?php } ?>
+
+<main1>
+    <div id="profile_hidden" class="profile_hidden">
+        <form class="edit-profil" method="POST" action="">
+            <table>
+                <tr>
+                    <td align="right">
+                        <label for="subcategory-edit">Sub-category:</label>
+                    </td>
+                    <td>
+                        <input type="text" name="subcategory-edit" value="<?php echo $sql['SUBCATEGORY'] ?>">
+                    </td>
+                </tr>
+                <tr>
+                    <td align="right">
+                        <label for="brand-edit">Brand:</label>
+                    </td>
+                    <td>
+                        <input type="text" name="brand-edit" value="<?php echo $sql['BRAND'] ?>">
+                    </td>
+                </tr>
+                <tr>
+                    <td align="right">
+                        <label for="model-edit">Model:</label>
+                    </td>
+                    <td>
+                        <input type="text" name="model-edit" value="<?php echo $sql['MODEL'] ?>">
+                    </td>
+                </tr>
+                <tr>
+                    <td align="right">
+                        <label for="price-edit">Price:</label>
+                    </td>
+                    <td>
+                        <input type="text" name="price-edit" value="<?php echo $sql['PRICE'] ?>">
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        <input type="submit" value="Update">
+                    </td>
+                </tr>
+            </table>
+        </form>
+    </div>
+
+    <?php
+    if (isset($error)){
+        echo '<div class="alert alert-danger" role="alert" style="width: 45%">'.$error. "</div>";
+    }
+    ?>
+    <?php
+    if (isset($success)){
+        echo '<div class="alert alert-success" role="alert" style="width: 45%">'.$success. "</div>";
+    }
+    ?>
+    <?php
+    if (isset($success1)){
+        echo '<div class="alert alert-success" role="alert" style="width: 45%">'.$success1. "</div>";
+    }
+    ?>
+    <?php
+    if (isset($success2)){
+        echo '<div class="alert alert-success" role="alert" style="width: 45%">'.$success2. "</div>";
+    }
+    ?>
+    <?php
+    if (isset($success3)){
+        echo '<div class="alert alert-success" role="alert" style="width: 45%">'.$success3. "</div>";
+    }
+    ?>
+</main1>
 
 <?php include("footer.php") ?>
 

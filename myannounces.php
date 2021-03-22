@@ -82,7 +82,6 @@ $database = new PDO("mysql:host=$servername; dbname=londonproject_bdd", $usernam
 
 $show = $database->prepare("SELECT * FROM product WHERE pseudo_seller = ?");
 $show->execute(array($_SESSION['id']));
-
 ?>
 
 <?php
@@ -102,15 +101,12 @@ echo "<p class='result-found'><b>".$nbr."</b> results found</b></p>";
             <img src="<?php echo $ligne['PICTURE'] ?>"><br>
             <?php echo $ligne['BRAND']; ?><br>
             <?php echo $ligne['MODEL']; ?>
-            <a class="edit-ann" href=""><i class="fas fa-pencil-alt" style="float: right"></i></a><br>
+            <a class="edit-ann" href="edit-announce.php?id=<?= $ligne['id'] ?>"><i class="fas fa-pencil-alt" style="float: right"></i></a><br>
             <?php echo $ligne['PRICE']." $"; ?><br>
         </div>
         <?php } ?>
     </div>
 </section>
-
-
-
 
 <?php include("footer.php") ?>
 
