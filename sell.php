@@ -36,8 +36,11 @@ if (isset($_POST['submit-form-sell'])){
                             $picturePath = "img/".$_FILES['picture']['name'];
                             move_uploaded_file($_FILES['picture']['tmp_name'], $picturePath);
 
-                            $sql = $database->prepare("INSERT INTO product(CATEGORY, SUBCATEGORY, BRAND, MODEL, PRICE, PICTURE) VALUES('$category', '$subcategory', '$brand', '$model', '$price', '$picturePath')");
+                            $pseudo_seller = $_SESSION['id'];
+
+                            $sql = $database->prepare("INSERT INTO product(CATEGORY, SUBCATEGORY, BRAND, MODEL, PRICE, PICTURE, pseudo_seller) VALUES('$category', '$subcategory', '$brand', '$model', '$price', '$picturePath', '$pseudo_seller')");
                             $sql->execute(array($category, $subcategory, $brand, $model, $price, $picturePath));
+                            $success = "Your announce has been uploaded successfully!";
                         }
                         else{
                             $error = "Photo is too heavy! (Max 5Mo)";
@@ -149,6 +152,11 @@ if (isset($_POST['submit-form-sell'])){
     <?php
     if (isset($error)){
         echo '<div class="alert alert-danger" role="alert" style="width: 45%">'.$error. "</div>";
+    }
+    ?>
+    <?php
+    if (isset($success)){
+        echo '<div class="alert alert-success" role="alert" style="width: 45%">'.$success. "</div>";
     }
     ?>
 </div>

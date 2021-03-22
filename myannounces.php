@@ -78,6 +78,13 @@ $show->execute(array($_SESSION['id']));
 
 ?>
 
+<?php
+
+$nbr = $show->rowCount();
+echo "<p class='result-found'><b>".$nbr."</b> results found</b></p>";
+
+?>
+
 <section class="show-product">
     <div id="layout">
         <?php
