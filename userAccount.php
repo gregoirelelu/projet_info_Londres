@@ -111,6 +111,9 @@ if (isset($_GET['id']) and $_GET['id'] > 0){
     .profilePhoto{
         margin-left: 40px;
     }
+    .edit-profil{
+        justify-content: center;
+    }
 </style>
 </head>
 <body>
