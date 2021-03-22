@@ -39,7 +39,6 @@ $database = new PDO("mysql:host=$servername; dbname=londonproject_bdd", $usernam
             color: black;
             transition: all 0.3s ease-in-out;
             border-bottom: 2px solid transparent;
-            position: relative;
         }
         .nav a:hover{
             text-decoration: none;
@@ -47,12 +46,6 @@ $database = new PDO("mysql:host=$servername; dbname=londonproject_bdd", $usernam
             border-bottom: 2px solid black;
             color: black;
             cursor: pointer;
-        }
-        .edit-ann{
-            color: blueviolet;
-        }
-        .edit-ann:hover{
-            color: blueviolet;
         }
     </style>
 </head>
@@ -95,22 +88,21 @@ echo "<p class='result-found'><b>".$nbr."</b> results found</b></p>";
 <section class="show-product">
     <div id="layout">
         <?php
-        while ($ligne = $show->fetch()){
-        ?>
+        while ($ligne = $show->fetch())
+        {
+            ?>
 
-        <div id="hightech">
-            <img src="<?php echo $ligne['PICTURE'] ?>"><br>
-            <?php echo $ligne['BRAND']; ?><br>
-            <?php echo $ligne['MODEL']; ?>
-            <a class="edit-ann" href=""><i class="fas fa-pencil-alt" style="float: right"></i></a><br>
-            <?php echo $ligne['PRICE']." $"; ?><br>
-        </div>
+            <div id="hightech">
+                <img src="<?php echo $ligne ['PICTURE'] ?>" /><br/>
+                <h5><?php echo $ligne ['SUBCATEGORY']; ?></h5>
+                <?php echo $ligne ['BRAND']; ?> <br/>
+                <?php echo $ligne ['MODEL']; ?> <br/>
+                <?php echo $ligne ['PRICE'] ." $"; ?>
+
+            </div>
         <?php } ?>
     </div>
 </section>
-
-
-
 
 <?php include("footer.php") ?>
 
