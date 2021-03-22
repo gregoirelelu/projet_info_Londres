@@ -9,8 +9,6 @@ $server_password = 'root';
 
 $database = new PDO("mysql:host=$servername; dbname=londonproject_bdd", $username_database, $server_password);
 
-$_SESSION['loggedin'] = false;
-
 if (isset($_POST['submit-form-login'])){
     $email_login = htmlspecialchars($_POST['email-login']);
     $password_login = ($_POST['password-login']);
@@ -22,7 +20,6 @@ if (isset($_POST['submit-form-login'])){
         $result = $existing_userOrPassword->fetch();
 
         if ($result and password_verify($password_login, $result['password'])){
-            $_SESSION['loggedin'] = true;
             $_SESSION['id'] = $result['id'];
             $_SESSION['username'] = $result['username'];
             $_SESSION['email'] = $result['email'];
@@ -60,6 +57,9 @@ if (isset($_POST['submit-form-login'])){
     }
     .haveAccount{
         font-size: 12px;
+    }
+    .register{
+        justify-content: center;
     }
 </style>
 </head>

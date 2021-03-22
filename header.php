@@ -93,7 +93,16 @@ if (!isset($_SESSION)){
             </div>
             </p>
             <p><a href="#">Buying</a></p>
-            <p><a href="#">Sell</a></p>
+
+            <?php
+            if(!isset($_SESSION['id'])){
+                echo '<p><a href="#">Sell</a></p>';
+            }
+            else{
+                echo '<p><a href="sell.php">Sell</a></p>';
+            }
+            ?>
+
             <p><a href="#">Admin</a></p>
             <form>
                 <input type="search" placeholder="Search">
