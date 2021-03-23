@@ -55,8 +55,24 @@ if (isset($_GET['id']) and $_GET['id'] > 0){
             }
         }
     }
+    if (isset($_FILES['profile-picture-edit']) and !empty($_FILES['profile-picture-edit']['name'])){
+        $maxSize = 5000000;
+        $extensions = array('jpg', 'jpeg', 'png', 'heic');
 
+        if ($_FILES['profile-picture-edit']['size'] <= $maxSize){
 
+            $picturePaths = "img/".$_FILES['profile-picture-edit']['name'];
+            move_uploaded_file($_FILES['profile-picture-edit']['tmp_name'], $picturePaths);
+
+            $sql = $database->prepare("UPDATE users SET picture = :picture WHERE id = :id");
+            $sql->execute(array('picture' => $picturePaths, 'id' => $_SESSION['id']));
+            header('Refresh:2.5; userAccount.php?id='.$_SESSION['id']);
+            $success3 = "Your profile picture has been uploaded successfully!";
+        }
+        else{
+            $error = "Photo is too heavy! (Max 5Mo)";
+        }
+    }
 ?>
 
 <html>
@@ -108,9 +124,6 @@ if (isset($_GET['id']) and $_GET['id'] > 0){
     .profile_hidden{
         margin-top: 15px;
     }
-    .profilePhoto{
-        margin-left: 40px;
-    }
     .edit-profil{
         justify-content: center;
     }
@@ -140,17 +153,28 @@ if (isset($_GET['id']) and $_GET['id'] > 0){
         <div id="profile_hidden" class="profile_hidden">
             <div class="profileWithPhoto">
                 <div class="info_profil">
-                    <h5>Your informations:</h5>
+                    <h5>Your informations:</h5><br>
+                    <p>
+                        <?php
+                        if (!empty($result['picture'])){
+                        ?>
+                            <img src="<?php echo $result['picture'] ?>" width="150">
+                        <?php
+                        }
+                        else{
+                        ?>
+                        <?php
+                            echo '<i class="fas fa-user fa-4x"></i>';
+                        }
+                        ?>
+                    </p><br>
                     <p>Username: <?php echo $result['username'] ?></p>
                     <p>E-mail: <?php echo $result['email'] ?></p>
-                </div>
-                <div class="profilePhoto">
-                    <p>photo</p>
                 </div>
             </div>
 
             <h5 class="edit-title">Edit profile</h5>
-            <form class="edit-profil" method="POST" action="">
+            <form class="edit-profil" method="POST" action="" enctype="multipart/form-data">
                 <table>
                     <tr>
                         <td align="right">
@@ -193,6 +217,14 @@ if (isset($_GET['id']) and $_GET['id'] > 0){
                         </td>
                     </tr>
                     <tr>
+                        <td align="right">
+                            <label for="profile-picture-edit">Picture:</label>
+                        </td>
+                        <td>
+                            <input type="file"name="profile-picture-edit"><br>
+                        </td>
+                    </tr>
+                    <tr>
                         <td></td>
                         <td>
                             <input type="submit" value="Update">
@@ -220,6 +252,11 @@ if (isset($_GET['id']) and $_GET['id'] > 0){
         <?php
         if (isset($success2)){
             echo '<div class="alert alert-success" role="alert" style="width: 45%">'.$success2. "</div>";
+        }
+        ?>
+        <?php
+        if (isset($success3)){
+            echo '<div class="alert alert-success" role="alert" style="width: 45%">'.$success3. "</div>";
         }
         ?>
     </div>

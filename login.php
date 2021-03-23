@@ -23,6 +23,7 @@ if (isset($_POST['submit-form-login'])){
             $_SESSION['id'] = $result['id'];
             $_SESSION['username'] = $result['username'];
             $_SESSION['email'] = $result['email'];
+            $_SESSION['picture-profile'] = $result['picture'];
             header("Location: userAccount.php?id=".$_SESSION['id']);
         }
         else{

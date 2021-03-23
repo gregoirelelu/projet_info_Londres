@@ -15,9 +15,6 @@ if (isset($_POST['submit-form-sell'])){
     $brand = htmlspecialchars($_POST['brand']);
     $model = htmlspecialchars($_POST['model']);
     $price = htmlspecialchars($_POST['price']);
-    $picture = $_FILES['picture']['name'];
-    $uploadPicture = "../projet_info_Londres/img/".$picture;
-    move_uploaded_file($_FILES['picture']['tmp_name'], $uploadPicture);
 
     if (!empty($_POST['category']) and !empty($_POST['subcategory']) and !empty($_POST['brand']) and !empty($_POST['model']) and !empty($_POST['price'])){
 

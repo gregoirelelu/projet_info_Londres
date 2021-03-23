@@ -108,7 +108,25 @@ if (!isset($_SESSION)){
                 <input type="search" placeholder="Search">
             </form>
             <p><a href="bag.php"><i class="fas fa-shopping-bag"></i></a></p>
-            <p><a href="accountOrLogin.php"><i class="fas fa-user"></i></a></p>
+
+            <?php
+            if (!isset($_SESSION['id'])){
+                echo '<p><a href="accountOrLogin.php"><i class="fas fa-user"></i></a></p>';
+            }
+            else{
+                if (!empty($_SESSION['picture-profile'])){
+                    ?>
+                    <p><a href="accountOrLogin.php" style="border-bottom: none"><img src="<?php echo $_SESSION['picture-profile'] ?>" width="32" height="32"></a></p>
+                    <?php
+                }
+                else{
+                    ?>
+                    <?php
+                    echo '<p><a href="accountOrLogin.php"><i class="fas fa-user"></i></a></p>';
+                }
+            }
+            ?>
+
         </div>
     </div>
 </nav>
