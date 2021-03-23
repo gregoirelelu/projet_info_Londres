@@ -140,5 +140,5 @@ echo "<p class='result-found'><b>".$nbr."</b> results found</b></p>";
 </body>
 </html>
 
-
+<?php include ("footer.php")?>
 
