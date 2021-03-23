@@ -54,6 +54,13 @@ $database = new PDO("mysql:host=$servername; dbname=londonproject_bdd", $usernam
         .edit-ann:hover{
             color: blueviolet;
         }
+        .redirectsell{
+            text-decoration: none;
+            color: black;
+        }
+        .redirectsell:hover{
+            color: black;
+        }
     </style>
 </head>
 <body>
@@ -87,7 +94,7 @@ $show->execute(array($_SESSION['id']));
 <?php
 
 $nbr = $show->rowCount();
-echo "<p class='result-found'><b>".$nbr."</b> results found</b></p>";
+echo "<p class='result-found'><b>".$nbr."</b> results found</b>, <a href='sell.php' class='redirectsell'>upload an announce?</a></p>";
 
 ?>
 
