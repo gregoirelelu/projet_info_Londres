@@ -9,8 +9,6 @@ $server_password = 'root';
 
 $database = new PDO("mysql:host=$servername; dbname=londonproject_bdd", $username_database, $server_password);
 
-
-
 ?>
 
 <!doctype html>

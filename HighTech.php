@@ -1,5 +1,18 @@
 <?php require_once('connexion_bdd.php'); ?>
 
+<?php
+if (!isset($_SESSION)){
+    session_start();
+}
+
+$servername = 'localhost';
+$username_database = 'root';
+$server_password = 'root';
+
+$database = new PDO("mysql:host=$servername; dbname=londonproject_bdd", $username_database, $server_password);
+
+?>
+
 <!doctype html>
 <html lang="en">
 <head>
@@ -66,25 +79,34 @@
 
 if(isset($_POST['btsubmit'])){
     $rc=$_POST['motcle'];
-    $reqSelect="select * from product where SUBCATEGORY IN ('High-Tech') like '%$rc%'";
+    $show = $database->prepare("SELECT * FROM product WHERE CATEGORY = 'High-Tech' AND SUBCATEGORY LIKE ?");
+    $show->execute(array('%'.$rc.'%'));
+    $nbr= $show->rowCount();
 }
 else if(isset($_POST['btsubmit2'])){
     $mc=$_POST['motcle2'];
-    $reqSelect="select * from product where BRAND IN ('High-Tech') like '%$mc%'";
+    $show = $database->prepare("SELECT * FROM product WHERE CATEGORY = 'High-Tech' AND BRAND LIKE ?");
+    $show->execute(array('%'.$mc.'%'));
+    $nbr= $show->rowCount();
 }
 else if(isset($_POST['btsubmit3'])){
     $lc=$_POST['motcle3'];
-    $reqSelect="select * from product where MODEL IN ('High-Tech') like '%$lc%'";
+    $show = $database->prepare("SELECT * FROM product WHERE CATEGORY = 'High-Tech' AND MODEL LIKE ?");
+    $show->execute(array('%'.$lc.'%'));
+    $nbr= $show->rowCount();
 }
 else if(isset($_POST['btsubmit4'])){
     $nc=$_POST['motcle4'];
-    $reqSelect="select * from product where PRICE IN ('High-Tech') < '$nc'";
+    $show = $database->prepare("SELECT * FROM product WHERE CATEGORY = 'High-Tech' AND PRICE < ?");
+    $show->execute(array($nc));
+    $nbr= $show->rowCount();
 }
 else{
-    $reqSelect="select * from product where CATEGORY IN ('High-Tech')";
+    $show = $database->prepare("SELECT * FROM product WHERE CATEGORY IN ('High-Tech')");
+    $show->execute(array());
+    $nbr= $show->rowCount();
 }
-$resultat=mysqli_query($cnlondonproject_bdd,$reqSelect);
-$nbr=mysqli_num_rows($resultat);
+
 echo "<p class='result-found'><b>".$nbr."</b> results found</b></p>";
 
 ?>
@@ -92,7 +114,7 @@ echo "<p class='result-found'><b>".$nbr."</b> results found</b></p>";
 <section class="show-product">
     <div id="layout">
         <?php
-        while ($ligne=mysqli_fetch_assoc($resultat))
+        while ($ligne = $show->fetch())
         {
             ?>
 

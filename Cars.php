@@ -11,6 +11,12 @@ $bag = new bag($db);
 if (!isset($_SESSION)){
     session_start();
 }
+
+$servername = 'localhost';
+$username_database = 'root';
+$server_password = 'root';
+
+$database = new PDO("mysql:host=$servername; dbname=londonproject_bdd", $username_database, $server_password);
 ?>
 
 <!doctype html>
@@ -59,15 +65,15 @@ if (!isset($_SESSION)){
         <input id="motcle" type="text" name="motcle" placeholder="Sub-category">
         <input id="btfind" class="btfind" type="submit" name="btsubmit" value="Search" />
     </form>
-    <form name="form" method="post" action="">
-        <input id="motcle2" type="text" name="motcle2" placeholder="brand">
-        <input id="btfind2" class="btfind2" type="submit" name="btsubmit" value="Search" />
-    </form>
     <form name="form2" method="post" action="">
+        <input id="motcle2" type="text" name="motcle2" placeholder="brand">
+        <input id="btfind2" class="btfind2" type="submit" name="btsubmit2" value="Search" />
+    </form>
+    <form name="form3" method="post" action="">
         <input id="motcle3" type="text" name="motcle3" placeholder="model">
         <input id="btfind3" class="btfind3" type="submit" name="btsubmit3" value="Search" />
     </form>
-    <form name="form3" method="post" action="">
+    <form name="form4" method="post" action="">
         <input id="motcle4" type="number" name="motcle4" placeholder="max price">
         <input id="btfind4" class="btfind4" type="submit" name="btsubmit4" value="Search" />
     </form>
@@ -77,32 +83,42 @@ if (!isset($_SESSION)){
 <?php
 if(isset($_POST['btsubmit'])){
     $rc=$_POST['motcle'];
-    $reqSelect="select * from product where SUBCATEGORY IN ('Vehicle') like '%$rc%'";
-}
-else if(isset($_POST['btsubmit'])){
-    $mc=$_POST['motcle'];
-    $reqSelect="select * from product where BRAND IN ('Vehicle') like '%$mc%'";
+    $show = $database->prepare("SELECT * FROM product WHERE CATEGORY = 'vehicle' AND SUBCATEGORY LIKE ?");
+    $show->execute(array('%'.$rc.'%'));
+    $nbr= $show->rowCount();
 }
 else if(isset($_POST['btsubmit2'])){
-    $lc=$_POST['motcle2'];
-    $reqSelect="select * from product where MODEL IN ('Vehicle') like '%$lc%'";
+    $mc=$_POST['motcle2'];
+    $show = $database->prepare("SELECT * FROM product WHERE CATEGORY = 'vehicle' AND BRAND LIKE ?");
+    $show->execute(array('%'.$mc.'%'));
+    $nbr= $show->rowCount();
 }
 else if(isset($_POST['btsubmit3'])){
-    $nc=$_POST['motcle3'];
-    $reqSelect="select * from product where PRICE IN ('Vehicle') PRICE < '$nc'";
+    $lc=$_POST['motcle3'];
+    $show = $database->prepare("SELECT * FROM product WHERE CATEGORY = 'vehicle' AND MODEL LIKE ?");
+    $show->execute(array('%'.$lc.'%'));
+    $nbr= $show->rowCount();
+}
+else if(isset($_POST['btsubmit4'])){
+    $nc=$_POST['motcle4'];
+    $show = $database->prepare("SELECT * FROM product WHERE CATEGORY = 'vehicle' AND PRICE < ?");
+    $show->execute(array($nc));
+    $nbr= $show->rowCount();
 }
 else{
-    $reqSelect="select * from product where CATEGORY IN ('Vehicle')";
+    $show = $database->prepare("SELECT * FROM product WHERE CATEGORY IN ('vehicle')");
+    $show->execute(array());
+    $nbr= $show->rowCount();
 }
-$resultat=mysqli_query($cnlondonproject_bdd,$reqSelect);
-$nbr=mysqli_num_rows($resultat);
+
 echo "<p class='result-found'><b>".$nbr."</b> results found</b></p>";
+
 ?>
 
 <section class="show-product">
     <div id="layout">
         <?php
-        while ($ligne=mysqli_fetch_assoc($resultat))
+        while ($ligne = $show->fetch())
         {
 
             ?>
