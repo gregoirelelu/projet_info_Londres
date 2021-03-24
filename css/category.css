@@ -75,3 +75,36 @@
 .result-found{
     margin-left: 25px;
 }
+
+#insert{
+    margin-left: 15%;
+    padding: 3%;
+    border-style: solid;
+    border-color: #3c3c3c;
+    color: #3c3c3c;
+    width: 170px;
+}
+#btn_ins{
+    color: #ffffff;
+    background-color: blueviolet;
+    border-radius: 25px;
+    text-align: center;
+}
+.delProduct{
+    float: right;
+    color: #ffffff;
+    background-color: red;
+    border-radius: 25px;
+    width: 30%;
+    height: 9%;
+    text-align: center;
+}
+.editProduct{
+    float: right;
+    color: #ffffff;
+    background-color: blue;
+    border-radius: 25px;
+    width: 30%;
+    height: 9%;
+    text-align: center;
+}

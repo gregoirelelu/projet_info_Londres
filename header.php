@@ -88,45 +88,28 @@ if (!isset($_SESSION)){
                 </button>
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                     <a class="dropdown-item" href="HighTech.php">High-Tech</a>
-                    <a class="dropdown-item" href="Cars.php">Cars</a>
+                    <a class="dropdown-item" href="Cars.php">Vehicles</a>
                 </div>
             </div>
             </p>
             <p><a href="#">Buying</a></p>
-
-            <?php
-            if(!isset($_SESSION['id'])){
-                echo '<p><a href="#">Sell</a></p>';
-            }
-            else{
-                echo '<p><a href="sell.php">Sell</a></p>';
-            }
-            ?>
-
-            <p><a href="#">Admin</a></p>
+            <p><a href="#">Sell</a></p>
+            <p>
+            <div class="dropdown">
+                <button class="btn btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Admin
+                </button>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    <a class="dropdown-item" href="Admin-products.php">Access to products</a>
+                    <a class="dropdown-item" href="Admin-sellers.php">Access to sellers</a>
+                </div>
+            </div>
+            </p>
             <form>
                 <input type="search" placeholder="Search">
             </form>
             <p><a href="bag.php"><i class="fas fa-shopping-bag"></i></a></p>
-
-            <?php
-            if (!isset($_SESSION['id'])){
-                echo '<p><a href="accountOrLogin.php"><i class="fas fa-user"></i></a></p>';
-            }
-            else{
-                if (!empty($_SESSION['picture-profile'])){
-                    ?>
-                    <p><a href="accountOrLogin.php" style="border-bottom: none"><img src="<?php echo $_SESSION['picture-profile'] ?>" width="32" height="32"></a></p>
-                    <?php
-                }
-                else{
-                    ?>
-                    <?php
-                    echo '<p><a href="accountOrLogin.php"><i class="fas fa-user"></i></a></p>';
-                }
-            }
-            ?>
-
+            <p><a href="accountOrLogin.php"><i class="fas fa-user"></i></a></p>
         </div>
     </div>
 </nav>

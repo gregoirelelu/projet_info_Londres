@@ -17,7 +17,7 @@ $database = new PDO("mysql:host=$servername; dbname=londonproject_bdd", $usernam
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>High-Tech</title>
+    <title>Admin-products</title>
     <link rel="stylesheet" href="css/category.css" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="css/normalize.css">
@@ -52,7 +52,7 @@ $database = new PDO("mysql:host=$servername; dbname=londonproject_bdd", $usernam
 <?php include("header.php") ?>
 
 <br><br><br>
-<p style=" text-align:center ;  margin-left: 30%; margin-right: 30%; color: #3c3c3c; font-size: 40px; border-style: solid; border-color: #3c3c3c; border-radius: 50px">High-Tech</p>
+<p style=" text-align:center ;  margin-left: 30%; margin-right: 30%; color: #3c3c3c; font-size: 40px; border-style: solid; border-color: #3c3c3c; border-radius: 50px">All Products</p>
 <br><br>
 <div id="search-hightech">
     <form name="form" method="post" action="">
@@ -79,30 +79,30 @@ $database = new PDO("mysql:host=$servername; dbname=londonproject_bdd", $usernam
 
 if(isset($_POST['btsubmit'])){
     $rc=$_POST['motcle'];
-    $show = $database->prepare("SELECT * FROM product WHERE CATEGORY = 'High-Tech' AND SUBCATEGORY LIKE ?");
+    $show = $database->prepare("SELECT * FROM product WHERE SUBCATEGORY LIKE ?");
     $show->execute(array('%'.$rc.'%'));
     $nbr= $show->rowCount();
 }
 else if(isset($_POST['btsubmit2'])){
     $mc=$_POST['motcle2'];
-    $show = $database->prepare("SELECT * FROM product WHERE CATEGORY = 'High-Tech' AND BRAND LIKE ?");
+    $show = $database->prepare("SELECT * FROM product WHERE BRAND LIKE ?");
     $show->execute(array('%'.$mc.'%'));
     $nbr= $show->rowCount();
 }
 else if(isset($_POST['btsubmit3'])){
     $lc=$_POST['motcle3'];
-    $show = $database->prepare("SELECT * FROM product WHERE CATEGORY = 'High-Tech' AND MODEL LIKE ?");
+    $show = $database->prepare("SELECT * FROM product WHERE MODEL LIKE ?");
     $show->execute(array('%'.$lc.'%'));
     $nbr= $show->rowCount();
 }
 else if(isset($_POST['btsubmit4'])){
     $nc=$_POST['motcle4'];
-    $show = $database->prepare("SELECT * FROM product WHERE CATEGORY = 'High-Tech' AND PRICE < ?");
+    $show = $database->prepare("SELECT * FROM product WHERE PRICE < ?");
     $show->execute(array($nc));
     $nbr= $show->rowCount();
 }
 else{
-    $show = $database->prepare("SELECT * FROM product WHERE CATEGORY IN ('High-Tech')");
+    $show = $database->prepare("SELECT * FROM product");
     $show->execute(array());
     $nbr= $show->rowCount();
 }
@@ -111,6 +111,8 @@ echo "<p class='result-found'><b>".$nbr."</b> results found</b></p>";
 
 ?>
 
+<p style="text-align: center; margin-left: 30.5%; margin-bottom: -6%; padding: 3%; border-style: solid; border-color: #3c3c3c; color: #3c3c3c; width: 273px; font-size: 40px"><a href="Add_Product.php">+</a></p>
+
 <section class="show-product">
     <div id="layout">
         <?php
@@ -118,15 +120,16 @@ echo "<p class='result-found'><b>".$nbr."</b> results found</b></p>";
         {
             ?>
 
-            <div id="hightech">
+            <div id="cars">
                 <img src="<?php echo $ligne ['PICTURE'] ?>" /><br/>
                 <h5><?php echo $ligne ['SUBCATEGORY']; ?></h5>
+                <a class="delProduct" href="Del_Product.php?id=<?=$ligne['id'] ?>">Delete</a>
                 <?php echo $ligne ['BRAND']; ?> <br/>
-                <a class="addBag" href="addBag.php?id=<?= $ligne['id']; ?>">Add</a>
                 <?php echo $ligne ['MODEL']; ?> <br/>
                 <?php echo $ligne ['PRICE'] ." $"; ?>
-
+                <a class="editProduct" href="Edit_Product.php?id=<?php echo $ligne['id']; ?>">Edit</a>
             </div>
+
         <?php } ?>
     </div>
 </section>
@@ -141,4 +144,5 @@ echo "<p class='result-found'><b>".$nbr."</b> results found</b></p>";
 </html>
 
 <?php include ("footer.php")?>
+
 

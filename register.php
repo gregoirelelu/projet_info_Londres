@@ -2,7 +2,7 @@
 
 $servername = 'localhost';
 $username_database = 'root';
-$server_password = 'root';
+$server_password = '';
 
 $database = new PDO("mysql:host=$servername; dbname=londonproject_bdd", $username_database, $server_password);
 
