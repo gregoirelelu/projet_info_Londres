@@ -19,7 +19,7 @@
 
 <?php
 
-$objetPdo = new PDO ("mysql:host=127.0.0.1; dbname=londonproject_bdd; charset=utf8", "root", "");
+$objetPdo = new PDO ("mysql:host=localhost; dbname=londonproject_bdd; charset=utf8", "root", "root");
 
 $pdoStat = $objetPdo->prepare('DELETE FROM product WHERE id=:id');
 

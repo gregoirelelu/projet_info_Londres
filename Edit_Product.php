@@ -31,7 +31,7 @@
 </div>
 <?php
 
-$objetPdo = new PDO ("mysql:host=127.0.0.1; dbname=londonproject_bdd; charset=utf8", "root", "");
+$objetPdo = new PDO ("mysql:host=localhost; dbname=londonproject_bdd; charset=utf8", "root", "root");
 
 $pdoStat = $objetPdo->prepare('DELETE FROM product WHERE id=:id');
 
@@ -39,7 +39,7 @@ $pdoStat->bindValue(':id',$_GET['id'],PDO::PARAM_INT);
 
 $executeIsOK = $pdoStat->execute();
 
-$bdd = new PDO ("mysql:host=127.0.0.1; dbname=londonproject_bdd; charset=utf8", "root", "");
+$bdd = new PDO ("mysql:host=localhost; dbname=londonproject_bdd; charset=utf8", "root", "root");
 
 if ( isset($_POST['CATEGORY']) AND isset($_POST['SUBCATEGORY']) AND isset($_POST['BRAND']) AND isset($_POST['MODEL']) AND isset($_POST['PRICE']) AND isset($_POST['PICTURE'])){
 
