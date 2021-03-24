@@ -43,8 +43,9 @@ if(isset($_POST['submit-form'])){
                                     if ($email == $confirm_email){
 
                                         if ($password == $confirm_password){
-                                            $add_user = $database->prepare("INSERT INTO users(username, email, password) VALUES('$username', '$email', '$hashedpassword')");
-                                            $add_user->execute(array($username, $email, $hashedpassword));
+                                            $type = "user";
+                                            $add_user = $database->prepare("INSERT INTO users(username, email, password, type) VALUES('$username', '$email', '$hashedpassword', '$type')");
+                                            $add_user->execute(array($username, $email, $hashedpassword, $type));
                                             header('Refresh:4; login.php');
                                             $success = "Account created successfully ! <a href= \"login.php\" style='color: #155724'>Login</a>";
                                         }

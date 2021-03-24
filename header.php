@@ -136,8 +136,6 @@ if (!isset($_SESSION)){
                 }
             }
             ?>
-
-            <p><a href="accountOrLogin.php"><i class="fas fa-user"></i></a></p>
         </div>
     </div>
 </nav>
