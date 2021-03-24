@@ -7,7 +7,7 @@ if (!isset($_SESSION)){
 
 $servername = 'localhost';
 $username_database = 'root';
-$server_password = 'root';
+$server_password = '';
 
 $database = new PDO("mysql:host=$servername; dbname=londonproject_bdd", $username_database, $server_password);
 
@@ -73,17 +73,7 @@ $database = new PDO("mysql:host=$servername; dbname=londonproject_bdd", $usernam
     </form>
 </div>
 
-<form method="POST" action="">
-    <select style="margin-left: 25px; margin-top: 20px" class="form-select form-select-lg mb-3" aria-label=".form-select-lg example" name="type">
-        <option value="buyNow">Buy it Now</option>
-        <option value="bestOffer">Best offer</option>
-        <option value="auctions">Auctions</option>
-    </select>
-    <input type="submit" name="btsubmit5" value="Go!">
-</form>
-
 <br><br>
-
 
 <?php
 
@@ -110,25 +100,6 @@ else if(isset($_POST['btsubmit4'])){
     $show = $database->prepare("SELECT * FROM product WHERE CATEGORY = 'High-Tech' AND PRICE < ?");
     $show->execute(array($nc));
     $nbr= $show->rowCount();
-}
-else if(isset($_POST['type'])){
-    $hc=$_POST['type'];
-    if (strcmp($hc, "buyNow")){
-        $show = $database->prepare("SELECT * FROM product WHERE CATEGORY = 'High-Tech' AND type LIKE ?");
-        $show->execute(array($hc));
-        $nbr= $show->rowCount();
-    }
-    else if (strcmp($hc, "bestOffer")){
-        $show = $database->prepare("SELECT * FROM product WHERE CATEGORY = 'High-Tech' AND type LIKE ?");
-        $show->execute(array($hc));
-        $nbr= $show->rowCount();
-    }
-    else if (strcmp($hc, "auctions")){
-        $show = $database->prepare("SELECT * FROM product WHERE CATEGORY = 'High-Tech' AND type LIKE ?");
-        $show->execute(array($hc));
-        $nbr= $show->rowCount();
-    }
-
 }
 else{
     $show = $database->prepare("SELECT * FROM product WHERE CATEGORY IN ('High-Tech')");
