@@ -52,7 +52,17 @@ $database = new PDO("mysql:host=$servername; dbname=londonproject_bdd", $usernam
 <?php include("header.php") ?>
 
 <br><br><br>
-<p style=" text-align:center ;  margin-left: 30%; margin-right: 30%; color: #3c3c3c; font-size: 40px; border-style: solid; border-color: #3c3c3c; border-radius: 50px">High-Tech</p>
+<p style=" text-align:center ;  margin-left: 30%; margin-right: 30%; color: #3c3c3c; font-size: 40px; border-style: solid; border-color: #3c3c3c; border-radius: 50px">Buying</p>
+
+<form style="justify-content: center" method="POST" action="">
+    <select style="margin-left: 25px; margin-top: 20px" class="form-select form-select-lg mb-3" aria-label=".form-select-lg example" name="type">
+        <option value="buyNow" selected>Buy it Now</option>
+        <option value="bestOffer">Best offer</option>
+        <option value="auctions">Auctions</option>
+    </select>
+    <input type="submit" name="btsubmit5" value="Go!">
+</form>
+
 <br><br>
 <div id="search-hightech">
     <form name="form" method="post" action="">
@@ -73,63 +83,54 @@ $database = new PDO("mysql:host=$servername; dbname=londonproject_bdd", $usernam
     </form>
 </div>
 
-<form method="POST" action="">
-    <select style="margin-left: 25px; margin-top: 20px" class="form-select form-select-lg mb-3" aria-label=".form-select-lg example" name="type">
-        <option value="buyNow">Buy it Now</option>
-        <option value="bestOffer">Best offer</option>
-        <option value="auctions">Auctions</option>
-    </select>
-    <input type="submit" name="btsubmit5" value="Go!">
-</form>
-
 <br><br>
 
 <?php
 
 if(isset($_POST['btsubmit'])){
     $rc=$_POST['motcle'];
-    $show = $database->prepare("SELECT * FROM product WHERE CATEGORY = 'High-Tech' AND SUBCATEGORY LIKE ?");
+    $show = $database->prepare("SELECT * FROM product WHERE SUBCATEGORY LIKE ?");
     $show->execute(array('%'.$rc.'%'));
     $nbr= $show->rowCount();
 }
 else if(isset($_POST['btsubmit2'])){
     $mc=$_POST['motcle2'];
-    $show = $database->prepare("SELECT * FROM product WHERE CATEGORY = 'High-Tech' AND BRAND LIKE ?");
+    $show = $database->prepare("SELECT * FROM product WHERE BRAND LIKE ?");
     $show->execute(array('%'.$mc.'%'));
     $nbr= $show->rowCount();
 }
 else if(isset($_POST['btsubmit3'])){
     $lc=$_POST['motcle3'];
-    $show = $database->prepare("SELECT * FROM product WHERE CATEGORY = 'High-Tech' AND MODEL LIKE ?");
+    $show = $database->prepare("SELECT * FROM product WHERE MODEL LIKE ?");
     $show->execute(array('%'.$lc.'%'));
     $nbr= $show->rowCount();
 }
 else if(isset($_POST['btsubmit4'])){
     $nc=$_POST['motcle4'];
-    $show = $database->prepare("SELECT * FROM product WHERE CATEGORY = 'High-Tech' AND PRICE < ?");
+    $show = $database->prepare("SELECT * FROM product WHERE PRICE < ?");
     $show->execute(array($nc));
     $nbr= $show->rowCount();
 }
 else if(isset($_POST['type'])){
     $hc=$_POST['type'];
     if (strcmp($hc, "buyNow")){
-        $show = $database->prepare("SELECT * FROM product WHERE CATEGORY = 'High-Tech' AND type LIKE ?");
+        $show = $database->prepare("SELECT * FROM product WHERE type LIKE ?");
         $show->execute(array($hc));
         $nbr= $show->rowCount();
     }
     else if (strcmp($hc, "bestOffer")){
-        $show = $database->prepare("SELECT * FROM product WHERE CATEGORY = 'High-Tech' AND type LIKE ?");
+        $show = $database->prepare("SELECT * FROM product WHERE type LIKE ?");
         $show->execute(array($hc));
         $nbr= $show->rowCount();
     }
     else if (strcmp($hc, "auctions")){
-        $show = $database->prepare("SELECT * FROM product WHERE CATEGORY = 'High-Tech' AND type LIKE ?");
+        $show = $database->prepare("SELECT * FROM product WHERE type LIKE ?");
         $show->execute(array($hc));
         $nbr= $show->rowCount();
     }
 }
 else{
-    $show = $database->prepare("SELECT * FROM product WHERE CATEGORY IN ('High-Tech')");
+    $show = $database->prepare("SELECT * FROM product");
     $show->execute(array());
     $nbr= $show->rowCount();
 }

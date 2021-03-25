@@ -92,7 +92,7 @@ if (!isset($_SESSION)){
                 </div>
             </div>
             </p>
-            <p><a href="#">Buying</a></p>
+            <p><a href="buying.php">Buying</a></p>
 
             <?php
             if(!isset($_SESSION['id'])){
