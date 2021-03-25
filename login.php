@@ -5,7 +5,7 @@ if (!isset($_SESSION)){
 
 $servername = 'localhost';
 $username_database = 'root';
-$server_password = '';
+$server_password = 'root';
 
 $database = new PDO("mysql:host=$servername; dbname=londonproject_bdd", $username_database, $server_password);
 

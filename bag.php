@@ -144,6 +144,16 @@ if (!isset($_SESSION)){
                     </tr>
                 </table>
             </div>
+            <?php
+            if (!empty($ids)) {
+                echo '<a style="background-color: blueviolet; color: #ffffff; border-radius: 25px; float: right; margin-top: 25px; width: 25%; height: 30px; text-align: center" href="confirmOrderOrlogin.php">Go to order!</a>';
+            }
+            else {
+                echo '<a style="background-color: blueviolet; color: #ffffff; border-radius: 25px; float: right; margin-top: 25px; width: 25%; height: 30px; text-align: center; cursor: pointer">Go to order!</a>';
+                echo '<div class="alert alert-danger" role="alert" style="width: 45%">'."Your bag is empty!". "</div>";
+            }
+            ?>
+
         </div>
     </form>
 
