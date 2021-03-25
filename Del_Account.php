@@ -15,25 +15,25 @@
 
 <div id="insert">
     <form name="formdelet" class="formulaire">
-        <p><a href="Admin-products.php" class >Return</a></p>
+        <p><a href="Admin-sellers.php" class >Return</a></p>
 
-<?php
+        <?php
 
-$objetPdo = new PDO ("mysql:host=localhost; dbname=londonproject_bdd; charset=utf8", "root", "");
+        $objetPdo = new PDO ("mysql:host=localhost; dbname=londonproject_bdd; charset=utf8", "root", "");
 
-$pdoStat = $objetPdo->prepare('DELETE FROM product WHERE id=:id');
+        $pdoStat = $objetPdo->prepare('DELETE FROM users WHERE id=:id');
 
-$pdoStat->bindValue(':id',$_GET['id'],PDO::PARAM_INT);
+        $pdoStat->bindValue(':id',$_GET['id'],PDO::PARAM_INT);
 
-$executeIsOK = $pdoStat->execute();
+        $executeIsOK = $pdoStat->execute();
 
-    if ($executeIsOK){
-        echo "Product deleted";
-    }else{
-        echo "Deletion failed";
-    }
+        if ($executeIsOK){
+            echo "Account deleted";
+        }else{
+            echo "Deletion failed";
+        }
 
-?>
+        ?>
 
     </form>
 </div>
