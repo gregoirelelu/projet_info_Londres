@@ -2,7 +2,7 @@
 
 $servername = 'localhost';
 $username_database = 'root';
-$server_password = 'root';
+$server_password = '';
 
 $database = new PDO("mysql:host=$servername; dbname=londonproject_bdd", $username_database, $server_password);
 
@@ -43,7 +43,16 @@ if(isset($_POST['submit-form'])){
                                     if ($email == $confirm_email){
 
                                         if ($password == $confirm_password){
-                                            $type = "user";
+
+                                            if ($email = "uniqueadmin@gmail.com") {
+
+                                                $type = "admin";
+
+                                            }else{
+
+                                                $type = "user";
+
+                                                }
                                             $add_user = $database->prepare("INSERT INTO users(username, email, password, type) VALUES('$username', '$email', '$hashedpassword', '$type')");
                                             $add_user->execute(array($username, $email, $hashedpassword, $type));
                                             header('Refresh:4; login.php');

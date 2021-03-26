@@ -5,7 +5,7 @@ if (!isset($_SESSION)){
 
 $servername = 'localhost';
 $username_database = 'root';
-$server_password = 'root';
+$server_password = '';
 
 $database = new PDO("mysql:host=$servername; dbname=londonproject_bdd", $username_database, $server_password);
 
@@ -24,6 +24,7 @@ if (isset($_POST['submit-form-login'])){
             $_SESSION['username'] = $result['username'];
             $_SESSION['email'] = $result['email'];
             $_SESSION['picture-profile'] = $result['picture'];
+            $_SESSION['type'] = $result['type'];
             header("Location: userAccount.php?id=".$_SESSION['id']);
         }
         else{

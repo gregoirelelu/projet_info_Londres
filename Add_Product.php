@@ -8,7 +8,8 @@
     <link rel="stylesheet" href="css/category.css" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="css/normalize.css">
-
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
 </head>
 <body>
 <?php include("header.php") ?>
@@ -30,7 +31,7 @@
 </div>
 <?php
 
-$bdd = new PDO ("mysql:host=localhost; dbname=londonproject_bdd; charset=utf8", "root", "root");
+$bdd = new PDO ("mysql:host=localhost; dbname=londonproject_bdd; charset=utf8", "root", "");
 
 if ( isset($_POST['CATEGORY']) AND isset($_POST['SUBCATEGORY']) AND isset($_POST['BRAND']) AND isset($_POST['MODEL']) AND isset($_POST['PRICE']) AND isset($_POST['PICTURE'])){
 
@@ -45,8 +46,6 @@ if ( isset($_POST['CATEGORY']) AND isset($_POST['SUBCATEGORY']) AND isset($_POST
 ?>
 
 
-<br><br><br><br><br>
-<?php include("footer.php") ?>
 
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
