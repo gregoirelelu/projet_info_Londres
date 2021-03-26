@@ -11,18 +11,19 @@ $database = new PDO("mysql:host=$servername; dbname=londonproject_bdd", $usernam
 
 if (isset($_POST['submit'])){
 
-    if (!empty($_POST['name']) and !empty($_POST['surname']) and !empty($_POST['address']) and !empty($_POST['city']) and !empty($_POST['state']) and !empty($_POST['postal']) and !empty($_POST['telephone'])){
+    if (!empty($_POST['name']) and !empty($_POST['surname']) and !empty($_POST['address']) and !empty($_POST['address2']) and !empty($_POST['city']) and !empty($_POST['state']) and !empty($_POST['postal']) and !empty($_POST['telephone'])){
         $name = $_POST['name'];
         $surname = $_POST['surname'];
         $address = $_POST['address'];
+        $address2 = $_POST['address2'];
         $city = $_POST['city'];
         $state = $_POST['state'];
         $postal = $_POST['postal'];
         $telephone = $_POST['telephone'];
 
-        $sql = $database->prepare("INSERT INTO payments(name, surname, address, city, state, postal, telephone) VALUES ('$name', '$surname', '$address', '$city', '$state', '$postal', '$telephone')");
-        $sql->execute(array($name, $surname, $address, $city, $state, $postal, $telephone));
-        header('Refresh:4; payment.php?id='.$_SESSION['id']);
+        $sql = $database->prepare("INSERT INTO payments(name, surname, address, address2, city, state, postal, telephone) VALUES ('$name', '$surname', '$address', '$address2', '$city', '$state', '$postal', '$telephone')");
+        $sql->execute(array($name, $surname, $address, $address2, $city, $state, $postal, $telephone));
+        header('Refresh:2; payment.php?id='.$_SESSION['id']);
         $success = "Correct informations! Redirect to payment!";
     }
     else{
@@ -57,10 +58,20 @@ if (isset($_POST['submit'])){
             color: white;
             text-decoration: none;
         }
+        .back{
+            color: black;
+            margin-left: 20px;
+        }
+        .back:hover{
+            color: black;
+        }
     </style>
 </head>
 <body>
 <?php include("header.php") ?>
+
+<a class="back" href="bag.php"><i class="fas fa-times fa-2x"></i></a>
+<p style=" text-align:center ;  margin-left: 30%; margin-right: 30%; color: #3c3c3c; font-size: 40px; border-style: solid; border-color: #3c3c3c; border-radius: 50px">Confirm order</p>
 
 <main class="confirmOrder">
     <form method="post" class="row g-3 needs-validation" action="" novalidate>
@@ -79,7 +90,16 @@ if (isset($_POST['submit'])){
             </div>
         </div>
         <div class="col-md-4">
-            <label for="validationCustomUsername" class="form-label">Address</label>
+            <label for="validationCustomUsername" class="form-label">City</label>
+            <div class="input-group has-validation">
+                <input name="city" type="text" class="form-control" id="validationCustomUsername" aria-describedby="inputGroupPrepend" required>
+                <div class="invalid-feedback">
+                    Please choose a username.
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <label for="validationCustomUsername" class="form-label">Address line 1</label>
             <div class="input-group has-validation">
                 <span class="input-group-text" id="inputGroupPrepend"><i class="fas fa-home"></i></span>
                 <input name="address" type="text" class="form-control" id="validationCustomUsername" aria-describedby="inputGroupPrepend" required>
@@ -88,11 +108,14 @@ if (isset($_POST['submit'])){
                 </div>
             </div>
         </div>
-        <div class="col-md-6">
-            <label for="validationCustom03" class="form-label">City</label>
-            <input name="city" type="text" class="form-control" id="validationCustom03" required>
-            <div class="invalid-feedback">
-                Please provide a valid city.
+        <div class="col-md-4">
+            <label for="validationCustomUsername" class="form-label">Address line 2</label>
+            <div class="input-group has-validation">
+                <span class="input-group-text" id="inputGroupPrepend"><i class="fas fa-home"></i></span>
+                <input name="address2" type="text" class="form-control" id="validationCustomUsername" aria-describedby="inputGroupPrepend" required>
+                <div class="invalid-feedback">
+                    Please choose a username.
+                </div>
             </div>
         </div>
         <div class="col-md-3">
