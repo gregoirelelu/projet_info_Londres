@@ -49,6 +49,7 @@ if (isset($_POST['submit'])){
             for ($i = 0; $i < sizeof($ids); $i++){
                 $deleteProduct = $database->prepare("DELETE FROM product WHERE id = ?");
                 $deleteProduct->execute(array($ids[$i]));
+                $bag->delete($ids[$i]);
             }
         }
         else if (strcmp($cardType, "American Express") == 0){
@@ -59,6 +60,7 @@ if (isset($_POST['submit'])){
             for ($i = 0; $i < sizeof($ids); $i++){
                 $deleteProduct = $database->prepare("DELETE FROM product WHERE id = ?");
                 $deleteProduct->execute(array($ids[$i]));
+                $bag->delete($ids[$i]);
             }
         }
         else if (strcmp($cardType, "PayPal") == 0){
@@ -72,6 +74,7 @@ if (isset($_POST['submit'])){
                 for ($i = 0; $i < sizeof($ids); $i++){
                     $deleteProduct = $database->prepare("DELETE FROM product WHERE id = ?");
                     $deleteProduct->execute(array($ids[$i]));
+                    $bag->delete($ids[$i]);
                 }
             }
         }
@@ -82,6 +85,7 @@ if (isset($_POST['submit'])){
                 for ($i = 0; $i < sizeof($ids); $i++){
                     $deleteProduct = $database->prepare("DELETE FROM product WHERE id = ?");
                     $deleteProduct->execute(array($ids[$i]));
+                    $bag->delete($ids[$i]);
                 }
             }
         }
