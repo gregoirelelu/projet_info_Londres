@@ -76,6 +76,9 @@ $database = new PDO("mysql:host=$servername; dbname=londonproject_bdd", $usernam
                     <a class="nav-link" href="myannounces.php">My announces</a>
                 </li>
                 <li class="nav-item">
+                    <a class="nav-link" href="paymentCard.php">Payment card</a>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link" href="logout.php">Log out</a>
                 </li>
             </ul>

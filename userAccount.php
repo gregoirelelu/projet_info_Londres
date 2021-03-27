@@ -145,6 +145,9 @@ if (isset($_GET['id']) and $_GET['id'] > 0){
                     <a class="nav-link" href="myannounces.php">My announces</a>
                 </li>
                 <li class="nav-item">
+                    <a class="nav-link" href="paymentCard.php">Payment card</a>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link" href="logout.php">Log out</a>
                 </li>
             </ul>
