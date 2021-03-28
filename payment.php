@@ -23,14 +23,14 @@ if (isset($_POST['submit'])){
 
     if (isset($_POST['paymentType']) and !empty($_POST['cardNumber']) and !empty($_POST['cardName']) and !empty($_POST['cardExpiration']) and !empty($_POST['cardSecurity'])){
         $cardType = $_POST['paymentType'];
-        $cardNumber = $_POST['cardNumber'];
-        $cardName = $_POST['cardName'];
-        $cardExpiration = $_POST['cardExpiration'];
-        $cardSecurity = $_POST['cardSecurity'];
         $paypalEmail = $_POST['paypalEmail'];
         $paypalPassword = $_POST['paypalPassword'];
 
         if (strcmp($cardType, "Visa") == 0){
+            $cardNumber = $_POST['cardNumber'];
+            $cardName = $_POST['cardName'];
+            $cardExpiration = $_POST['cardExpiration'];
+            $cardSecurity = $_POST['cardSecurity'];
             $sql = $database->prepare("UPDATE users SET cardType = ?, cardNumber = ?, cardName = ?, cardExpiration = ?, cardSecurity = ? WHERE id = ?");
             $sql->execute(array($cardType, $cardNumber, $cardName, $cardExpiration, $cardSecurity, $_SESSION['id']));
             $success = "Order successfully completed!";
@@ -42,8 +42,12 @@ if (isset($_POST['submit'])){
             }
         }
         else if (strcmp($cardType, "MasterCard") == 0){
+            $cardNumber1 = $_POST['cardNumber1'];
+            $cardName1 = $_POST['cardName1'];
+            $cardExpiration1 = $_POST['cardExpiration1'];
+            $cardSecurity1 = $_POST['cardSecurity1'];
             $sql = $database->prepare("UPDATE users SET cardType = ?, cardNumber = ?, cardName = ?, cardExpiration = ?, cardSecurity = ? WHERE id = ?");
-            $sql->execute(array($cardType, $cardNumber, $cardName, $cardExpiration, $cardSecurity, $_SESSION['id']));
+            $sql->execute(array($cardType, $cardNumber1, $cardName1, $cardExpiration1, $cardSecurity1, $_SESSION['id']));
             $success = "Order successfully completed!";
 
             for ($i = 0; $i < sizeof($ids); $i++){
@@ -53,8 +57,12 @@ if (isset($_POST['submit'])){
             }
         }
         else if (strcmp($cardType, "American Express") == 0){
+            $cardNumber2 = $_POST['cardNumber2'];
+            $cardName2 = $_POST['cardName2'];
+            $cardExpiration2 = $_POST['cardExpiration2'];
+            $cardSecurity2 = $_POST['cardSecurity2'];
             $sql = $database->prepare("UPDATE users SET cardType = ?, cardNumber = ?, cardName = ?, cardExpiration = ?, cardSecurity = ? WHERE id = ?");
-            $sql->execute(array($cardType, $cardNumber, $cardName, $cardExpiration, $cardSecurity, $_SESSION['id']));
+            $sql->execute(array($cardType, $cardNumber2, $cardName2, $cardExpiration2, $cardSecurity2, $_SESSION['id']));
             $success = "Order successfully completed!";
 
             for ($i = 0; $i < sizeof($ids); $i++){
@@ -235,40 +243,40 @@ if (isset($_POST['submit'])){
             <div id="masterCardForm">
                 <div id="formCard" class="masterCardForm">
                     <div>
-                        <label for="cardNumber">Card number</label>
-                        <input type="text" id="cardNumber" name="cardNumber" placeholder="xxxx xxxx xxxx xxxx">
+                        <label for="cardNumber1">Card number</label>
+                        <input type="text" id="cardNumber1" name="cardNumber1" placeholder="xxxx xxxx xxxx xxxx">
                     </div>
                     <div>
-                        <label for="cardName">Card name</label>
-                        <input type="text" id="cardName" name="cardName" placeholder="NAME SURNAME">
+                        <label for="cardName1">Card name</label>
+                        <input type="text" id="cardName1" name="cardName1" placeholder="NAME SURNAME">
                     </div>
                     <div>
-                        <label for="cardExpiration">Card expiration</label>
-                        <input type="text" id="cardExpiration" name="cardExpiration" placeholder="xx/xx">
+                        <label for="cardExpiration1">Card expiration</label>
+                        <input type="text" id="cardExpiration1" name="cardExpiration1" placeholder="xx/xx">
                     </div>
                     <div>
-                        <label for="cardSecurity">Security code</label>
-                        <input type="text" id="cardSecurity" name="cardSecurity" placeholder="xxx">
+                        <label for="cardSecurity1">Security code</label>
+                        <input type="text" id="cardSecurity1" name="cardSecurity1" placeholder="xxx">
                     </div>
                 </div>
             </div>
             <div id="americanExpressForm">
                 <div id="formCard" class="americanExpressForm">
                     <div>
-                        <label for="cardNumber">Card number</label>
-                        <input type="text" id="cardNumber" name="cardNumber" placeholder="xxxx xxxxxx xxxxx">
+                        <label for="cardNumber2">Card number</label>
+                        <input type="text" id="cardNumber2" name="cardNumber2" placeholder="xxxx xxxxxx xxxxx">
                     </div>
                     <div>
-                        <label for="cardName">Card name</label>
-                        <input type="text" id="cardName" name="cardName" placeholder="NAME SURNAME">
+                        <label for="cardName2">Card name</label>
+                        <input type="text" id="cardName2" name="cardName2" placeholder="NAME SURNAME">
                     </div>
                     <div>
-                        <label for="cardExpiration">Card expiration</label>
-                        <input type="text" id="cardExpiration" name="cardExpiration" placeholder="xx/xx">
+                        <label for="cardExpiration2">Card expiration</label>
+                        <input type="text" id="cardExpiration2" name="cardExpiration2" placeholder="xx/xx">
                     </div>
                     <div>
-                        <label for="cardSecurity">Security code</label>
-                        <input type="text" id="cardSecurity" name="cardSecurity" placeholder="xxx">
+                        <label for="cardSecurity2">Security code</label>
+                        <input type="text" id="cardSecurity2" name="cardSecurity2" placeholder="xxx">
                     </div>
                 </div>
             </div>
