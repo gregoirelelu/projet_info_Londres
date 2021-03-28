@@ -3,7 +3,7 @@
 $serveur="localhost";
 $user="root";
 $bdd="londonproject_bdd";
-$pw="root";
+$pw="";
 
 $cnlondonproject_bdd = new mysqli($serveur,$user,$pw,$bdd);
 

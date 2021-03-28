@@ -4,7 +4,7 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>Edit product</title>
+    <title>Bidding</title>
     <link rel="stylesheet" href="css/category.css" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="css/normalize.css">
@@ -15,38 +15,25 @@
 <?php include("header.php") ?>
 
 <div id="insert" style="width: 500px">
-    <h2> Insert the modified product </h2>
+    <h2> Offer a price </h2> <br>
     <form  name="ins" method="post" action="">
-        <input type="text" name="CATEGORY" placeholder="Category"/><br><br>
-        <input type="text" name="SUBCATEGORY" placeholder="Sub-category"/><br><br>
-        <input type="text" name="BRAND" placeholder="Brand"/><br><br>
-        <input type="text" name="MODEL" placeholder="Model"/><br><br>
         <input type="text" name="PRICE" placeholder="Price"/><br><br>
-        <input type="text" name="PICTURE" placeholder="Picture"/><br><br>
-        <input type="text" name="pseudo_seller" placeholder="pseudo_seller"/><br><br>
-        <input type="text" name="type" placeholder="Type"/><br><br>
-        <input id="btn_ins" type="submit" value="Insert" />
+        <input id="btn_ins" type="submit" value="Offer" />
     </form>
 
-    <br><p style="text-align: center"><a href="Admin-products.php">Return</a></p>
+    <br><p style="text-align: center"><a href="Buying.php">Return</a></p>
 
 </div>
 <?php
 
-$objetPdo = new PDO ("mysql:host=localhost; dbname=londonproject_bdd; charset=utf8", "root", "");
-
-$pdoStat = $objetPdo->prepare('DELETE FROM product WHERE id=:id');
-
-$pdoStat->bindValue(':id',$_GET['id'],PDO::PARAM_INT);
-
-$executeIsOK = $pdoStat->execute();
 
 $bdd = new PDO ("mysql:host=localhost; dbname=londonproject_bdd; charset=utf8", "root", "");
 
-if ( isset($_POST['CATEGORY']) AND isset($_POST['SUBCATEGORY']) AND isset($_POST['BRAND']) AND isset($_POST['MODEL']) AND isset($_POST['PRICE']) AND isset($_POST['PICTURE']) AND isset($_POST['pseudo_seller']) AND isset($_POST['type'])){
+if (isset($_POST['PRICE']) ){
 
-    $requete = $bdd->prepare("INSERT INTO product (CATEGORY, SUBCATEGORY, BRAND, MODEL, PRICE, PICTURE, pseudo_seller, type) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
-    $requete->execute(array($_POST['CATEGORY'], $_POST['SUBCATEGORY'], $_POST['BRAND'], $_POST['MODEL'], $_POST['PRICE'], $_POST['PICTURE'], $_POST['pseudo_seller'], $_POST['type']));
+    $requete = $bdd->prepare("UPDATE product SET PRICE = (?)");
+
+    $requete->execute(array($_POST['PRICE']));
 
 
     ?>

@@ -124,8 +124,10 @@ echo "<p class='result-found'><b>".$nbr."</b> results found</b></p>";
                 <a class="delProduct" href="Del_Product.php?id=<?=$ligne['id'] ?>">Delete</a>
                 <?php echo $ligne ['BRAND']; ?> <br/>
                 <?php echo $ligne ['MODEL']; ?> <br/>
-                <?php echo $ligne ['PRICE'] ." $"; ?>
+                <?php echo $ligne ['PRICE'] ." $"; ?> <br/>
                 <a class="editProduct" href="Edit_Product.php?id=<?php echo $ligne['id']; ?>">Edit</a>
+                <?php echo $ligne ['type']; ?>
+
             </div>
 
         <?php } ?>

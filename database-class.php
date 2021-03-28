@@ -3,7 +3,7 @@
 class database{
     private $host = 'localhost';
     private $username = 'root';
-    private $password = 'root';
+    private $password = '';
     private $database = 'londonproject_bdd';
     private $datab;
 

@@ -7,7 +7,7 @@ if (!isset($_SESSION)){
 
 $servername = 'localhost';
 $username_database = 'root';
-$server_password = 'root';
+$server_password = '';
 
 $database = new PDO("mysql:host=$servername; dbname=londonproject_bdd", $username_database, $server_password);
 
@@ -151,7 +151,8 @@ echo "<p class='result-found'><b>".$nbr."</b> results found</b></p>";
                 <?php echo $ligne ['BRAND']; ?> <br/>
                 <a class="addBag" href="addBag.php?id=<?= $ligne['id']; ?>">Add</a>
                 <?php echo $ligne ['MODEL']; ?> <br/>
-                <?php echo $ligne ['PRICE'] ." $"; ?>
+                <?php echo $ligne ['PRICE'] ." $"; ?> <br/>
+                <?php echo $ligne ['type']; ?>
 
             </div>
         <?php } ?>
