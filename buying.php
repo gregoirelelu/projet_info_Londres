@@ -7,7 +7,7 @@ if (!isset($_SESSION)){
 
 $servername = 'localhost';
 $username_database = 'root';
-$server_password = 'root';
+$server_password = '';
 
 $database = new PDO("mysql:host=$servername; dbname=londonproject_bdd", $username_database, $server_password);
 
@@ -17,7 +17,7 @@ $database = new PDO("mysql:host=$servername; dbname=londonproject_bdd", $usernam
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>High-Tech</title>
+    <title>Buying</title>
     <link rel="stylesheet" href="css/category.css" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="css/normalize.css">
@@ -31,6 +31,15 @@ $database = new PDO("mysql:host=$servername; dbname=londonproject_bdd", $usernam
             float: right;
             color: #ffffff;
             background-color: blueviolet;
+            border-radius: 25px;
+            width: 30%;
+            height: 7%;
+            text-align: center;
+        }
+        .addBid{
+            float: right;
+            color: #ffffff;
+            background-color: #7bdbdb;
             border-radius: 25px;
             width: 30%;
             height: 7%;
@@ -58,7 +67,7 @@ $database = new PDO("mysql:host=$servername; dbname=londonproject_bdd", $usernam
     <select style="margin-left: 25px; margin-top: 20px" class="form-select form-select-lg mb-3" aria-label=".form-select-lg example" name="type">
         <option value="buyNow" selected>Buy it Now</option>
         <option value="bestOffer">Best offer</option>
-        <option value="auctions">Auctions</option>
+        <option value="auctions"><a href="Add_Product.php">Auctions</a></option>
     </select>
     <input type="submit" name="btsubmit5" value="Go!">
 </form>
@@ -149,11 +158,29 @@ echo "<p class='result-found'><b>".$nbr."</b> results found</b></p>";
                 <img src="<?php echo $ligne ['PICTURE'] ?>" /><br/>
                 <h5><?php echo $ligne ['SUBCATEGORY']; ?></h5>
                 <?php echo $ligne ['BRAND']; ?> <br/>
-                <a class="addBag" href="addBag.php?id=<?= $ligne['id']; ?>">Add</a>
-                <?php echo $ligne ['MODEL']; ?> <br/>
-                <?php echo $ligne ['PRICE'] ." $"; ?>
 
+                <?php
+                if (!strcmp($ligne['type'], "auctions")){
+                ?>
+
+                    <a class="addBid" href="Bidding.php?id=<?= $ligne['id']; ?>">Bid</a>
+
+                <?php
+                }
+                else if (!strcmp($ligne['type'], "buyNow")){
+                ?>
+
+                <a class="addBag" href="addBag.php?id=<?= $ligne['id']; ?>">Add</a>
+
+                <?php
+                }
+                ?>
+
+                <?php echo $ligne ['MODEL']; ?> <br/>
+                <?php echo $ligne ['PRICE'] ." $"; ?> <br/>
+                <?php echo $ligne ['type']; ?>
             </div>
+
         <?php } ?>
     </div>
 </section>
