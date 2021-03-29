@@ -5,7 +5,7 @@ if (!isset($_SESSION)){
 
 $servername = 'localhost';
 $username_database = 'root';
-$server_password = '';
+$server_password = 'root';
 
 $database = new PDO("mysql:host=$servername; dbname=londonproject_bdd", $username_database, $server_password);
 
@@ -73,6 +73,22 @@ if (isset($_GET['id']) and $_GET['id'] > 0){
             $error = "Photo is too heavy! (Max 5Mo)";
         }
     }
+    if (isset($_POST['profile-address']) and !empty($_POST['profile-address'])){
+        $addressChange = $_POST['profile-address'];
+
+        $sql2 = $database->prepare("UPDATE users SET address = ? WHERE id = ?");
+        $sql2->execute(array($addressChange, $_SESSION['id']));
+        header('Refresh:2.5; userAccount.php?id='.$_SESSION['id']);
+        $success4 = "Address has been update successfully!";
+    }
+    if (isset($_POST['profile-city']) and !empty($_POST['profile-city'])){
+        $cityChange = $_POST['profile-city'];
+
+        $sql2 = $database->prepare("UPDATE users SET city = ? WHERE id = ?");
+        $sql2->execute(array($cityChange, $_SESSION['id']));
+        header('Refresh:2.5; userAccount.php?id='.$_SESSION['id']);
+        $success5 = "City has been update successfully!";
+    }
 ?>
 
 <html>
@@ -123,6 +139,7 @@ if (isset($_GET['id']) and $_GET['id'] > 0){
     }
     .profile_hidden{
         margin-top: 15px;
+
     }
     .edit-profil{
         justify-content: center;
@@ -228,6 +245,44 @@ if (isset($_GET['id']) and $_GET['id'] > 0){
                         </td>
                     </tr>
                     <tr>
+                        <td align="right">
+                            <label for="profile-address">Address:</label>
+                        </td>
+                        <td>
+                            <?php
+                            if (!empty($result['address'])){
+                                ?>
+                                <input type="text"name="profile-address" value="<?php echo $result['address']?>"><br>
+                                <?php
+                            }
+                            else{
+                                ?>
+                                <input type="text"name="profile-address" placeholder="Address"><br>
+                                <?php
+                            }
+                            ?>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="right">
+                            <label for="profile-city">City:</label>
+                        </td>
+                        <td>
+                            <?php
+                            if (!empty($result['city'])){
+                                ?>
+                            <input type="text"name="profile-city" value="<?php echo $result['city']?>"><br>
+                            <?php
+                            }
+                            else{
+                                ?>
+                                <input type="text"name="profile-city" placeholder="City"><br>
+                            <?php
+                            }
+                            ?>
+                        </td>
+                    </tr>
+                    <tr>
                         <td></td>
                         <td>
                             <input type="submit" value="Update">
@@ -260,6 +315,16 @@ if (isset($_GET['id']) and $_GET['id'] > 0){
         <?php
         if (isset($success3)){
             echo '<div class="alert alert-success" role="alert" style="width: 45%">'.$success3. "</div>";
+        }
+        ?>
+        <?php
+        if (isset($success4)){
+            echo '<div class="alert alert-success" role="alert" style="width: 45%">'.$success4. "</div>";
+        }
+        ?>
+        <?php
+        if (isset($success5)){
+            echo '<div class="alert alert-success" role="alert" style="width: 45%">'.$success5. "</div>";
         }
         ?>
     </div>
