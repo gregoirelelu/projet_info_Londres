@@ -145,7 +145,6 @@ echo "<p class='result-found'><b>".$nbr."</b> results found</b></p>";
         while ($ligne = $show->fetch())
         {
             ?>
-
             <div id="hightech">
                 <img src="<?php echo $ligne ['PICTURE'] ?>" /><br/>
                 <h5><?php echo $ligne ['SUBCATEGORY']; ?></h5>

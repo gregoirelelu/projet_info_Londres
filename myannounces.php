@@ -9,6 +9,11 @@ $server_password = 'root';
 
 $database = new PDO("mysql:host=$servername; dbname=londonproject_bdd", $username_database, $server_password);
 
+if (isset($_GET['delete-ann']) and $_GET['delete-ann'] === 1){
+    echo 'vrai';
+}
+
+
 ?>
 
 <!doctype html>

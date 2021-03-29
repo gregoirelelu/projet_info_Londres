@@ -47,6 +47,11 @@ if (isset($_GET['id']) and !empty($_GET['id'])) {
         header('Refresh:4; edit-announce.php?id=' . $_GET['id']);
         $success3 = "Price modified successfully !";
     }
+    if (isset($_POST['delete-btn'])){
+        $sqlDelete = $database->prepare("DELETE FROM product WHERE id = ?");
+        $sqlDelete->execute(array($editArticle));
+        header("Location: myannounces.php");
+    }
 }
 
 ?>
@@ -212,8 +217,12 @@ if (isset($_GET['id']) and !empty($_GET['id'])){
                 <tr>
                     <td></td>
                     <td>
-                        <input type="submit" value="Update">
+                        <input style="background-color: blueviolet; color: #ffffff" type="submit" value="Update">
                     </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td><input name="delete-btn" style="background-color: red; color: #ffffff" type="submit" value="Delete"></td>
                 </tr>
             </table>
         </form>
