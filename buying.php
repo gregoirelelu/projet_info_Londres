@@ -179,7 +179,7 @@ echo "<p class='result-found'><b>".$nbr."</b> results found</b></p>";
                 <?php echo $ligne ['MODEL']; ?> <br/>
                 <?php echo $ligne ['PRICE'] ." $"; ?> <br/>
                 <?php echo $ligne ['type']; ?><br/>
-                <?php echo $ligne ['dateAdd']; ?>
+                <div style="float: right; font-size: 10px;"><?php echo $ligne ['dateAdd']; ?></div>
             </div>
 
         <?php } ?>
