@@ -125,7 +125,8 @@ echo "<p class='result-found'><b>".$nbr."</b> results found</b></p>";
                 <a class="addBag" href="addBag.php?id=<?= $ligne['id']; ?>">Add</a>
                 <?php echo $ligne ['MODEL']; ?> <br/>
                 <?php echo $ligne ['PRICE'] ." $"; ?> <br/>
-                <?php echo $ligne ['type']; ?>
+                <?php echo $ligne ['type']; ?><br/>
+                <?php echo $ligne ['dateAdd']; ?>
 
             </div>
         <?php } ?>

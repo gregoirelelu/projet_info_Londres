@@ -5,7 +5,7 @@ if (!isset($_SESSION)){
 
 $servername = 'localhost';
 $username_database = 'root';
-$server_password = '';
+$server_password = 'root';
 
 $database = new PDO("mysql:host=$servername; dbname=londonproject_bdd", $username_database, $server_password);
 
@@ -34,9 +34,10 @@ if (isset($_POST['submit-form-sell'])){
                             move_uploaded_file($_FILES['picture']['tmp_name'], $picturePath);
 
                             $pseudo_seller = $_SESSION['id'];
+                            $type = "buyNow";
 
-                            $sql = $database->prepare("INSERT INTO product(CATEGORY, SUBCATEGORY, BRAND, MODEL, PRICE, PICTURE, pseudo_seller) VALUES('$category', '$subcategory', '$brand', '$model', '$price', '$picturePath', '$pseudo_seller')");
-                            $sql->execute(array($category, $subcategory, $brand, $model, $price, $picturePath));
+                            $sql = $database->prepare("INSERT INTO product(CATEGORY, SUBCATEGORY, BRAND, MODEL, PRICE, PICTURE, dateAdd, pseudo_seller, type) VALUES('$category', '$subcategory', '$brand', '$model', '$price', '$picturePath', NOW(), '$pseudo_seller', '$type')");
+                            $sql->execute(array($category, $subcategory, $brand, $model, $price, $picturePath, $type));
                             $success = "Your announce has been uploaded successfully!";
                         }
                         else{
