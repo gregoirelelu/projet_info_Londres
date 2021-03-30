@@ -45,6 +45,15 @@ $database = new PDO("mysql:host=$servername; dbname=londonproject_bdd", $usernam
             height: 7%;
             text-align: center;
         }
+        .addBid:hover{
+            float: right;
+            color: #ffffff;
+            background-color: #7bdbdb;
+            border-radius: 25px;
+            width: 30%;
+            height: 7%;
+            text-align: center;
+        }
         .addBag:hover{
             float: right;
             color: #ffffff;
@@ -54,6 +63,24 @@ $database = new PDO("mysql:host=$servername; dbname=londonproject_bdd", $usernam
             height: 7%;
             text-align: center;
             text-decoration: none;
+        }
+        .addOffer{
+            float: right;
+            color: #ffffff;
+            background-color: #338301;
+            border-radius: 25px;
+            width: 30%;
+            height: 7%;
+            text-align: center;
+        }
+        .addOffer:hover{
+            float: right;
+            color: #ffffff;
+            background-color: #338301;
+            border-radius: 25px;
+            width: 30%;
+            height: 7%;
+            text-align: center;
         }
     </style>
 </head>
@@ -158,27 +185,35 @@ echo "<p class='result-found'><b>".$nbr."</b> results found</b></p>";
                 <img src="<?php echo $ligne ['PICTURE'] ?>" /><br/>
                 <h5><?php echo $ligne ['SUBCATEGORY']; ?></h5>
                 <?php echo $ligne ['BRAND']; ?> <br/>
-
-                <?php
-                if (!strcmp($ligne['type'], "auctions")){
-                ?>
-
-                    <a class="addBid" href="Bidding.php?id=<?= $ligne['id']; ?>">Bid</a>
-
-                <?php
-                }
-                else if (!strcmp($ligne['type'], "buyNow")){
-                ?>
-
-                <a class="addBag" href="addBag.php?id=<?= $ligne['id']; ?>">Add</a>
-
-                <?php
-                }
-                ?>
-
                 <?php echo $ligne ['MODEL']; ?> <br/>
                 <?php echo $ligne ['PRICE'] ." $"; ?> <br/>
                 <?php echo $ligne ['type']; ?><br/>
+                <?php
+                if (!strcmp($ligne['type'], "auctions")){
+                    ?>
+
+                    <a class="addBid" href="Bidding.php?id=<?= $ligne['id']; ?>">Bid</a><br>
+
+                    <?php
+                }
+                else if (!strcmp($ligne['type'], "buyNow")){
+                    ?>
+
+                    <a class="addBag" href="addBag.php?id=<?= $ligne['id']; ?>">Add</a><br>
+
+                    <?php
+                }
+                else if (!strcmp($ligne['type'], "bestOffer")){
+                    ?>
+
+                    <form method="post" action="bestOffer.php?id=<?= $ligne['id']; ?>">
+                        <textarea style="height: 30px; width: 240px" placeholder="Your offer" name="offerBuyer"></textarea>
+                        <input style="font-size: 10px" class="addOffer" type="submit" value="Send offer" name="offerSubmit">
+                    </form>
+
+                    <?php
+                }
+                ?>
                 <div style="float: right; font-size: 10px;"><?php echo $ligne ['dateAdd']; ?></div>
             </div>
 

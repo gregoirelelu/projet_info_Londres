@@ -10,13 +10,14 @@ $server_password = 'root';
 $database = new PDO("mysql:host=$servername; dbname=londonproject_bdd", $username_database, $server_password);
 
 if (isset($_POST['submit-form-sell'])){
+    $type = $_POST['type'];
     $category = $_POST['category'];
     $subcategory = htmlspecialchars($_POST['subcategory']);
     $brand = htmlspecialchars($_POST['brand']);
     $model = htmlspecialchars($_POST['model']);
     $price = htmlspecialchars($_POST['price']);
 
-    if (!empty($_POST['category']) and !empty($_POST['subcategory']) and !empty($_POST['brand']) and !empty($_POST['model']) and !empty($_POST['price'])){
+    if (!empty($_POST['type']) and !empty($_POST['category']) and !empty($_POST['subcategory']) and !empty($_POST['brand']) and !empty($_POST['model']) and !empty($_POST['price'])){
 
         if ($subcategory <= 50){
 
@@ -34,7 +35,6 @@ if (isset($_POST['submit-form-sell'])){
                             move_uploaded_file($_FILES['picture']['tmp_name'], $picturePath);
 
                             $pseudo_seller = $_SESSION['id'];
-                            $type = "buyNow";
 
                             $sql = $database->prepare("INSERT INTO product(CATEGORY, SUBCATEGORY, BRAND, MODEL, PRICE, PICTURE, dateAdd, pseudo_seller, type) VALUES('$category', '$subcategory', '$brand', '$model', '$price', '$picturePath', NOW(), '$pseudo_seller', '$type')");
                             $sql->execute(array($category, $subcategory, $brand, $model, $price, $picturePath, $type));
@@ -90,6 +90,18 @@ if (isset($_POST['submit-form-sell'])){
 <div class="sellmain" align="center">
     <form method="POST" class="sellForm" action="" enctype="multipart/form-data">
         <table>
+            <tr>
+                <td align="right">
+                    <label for="type">Type:</label>
+                </td>
+                <td>
+                    <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg example" name="type">
+                        <option value="BuyNow">Buy it now</option>
+                        <option value="bestOffer">Best offer</option>
+                        <option value="auctions">Auctions</option>
+                    </select>
+                </td>
+            </tr>
             <tr>
                 <td align="right">
                     <label for="category">Category:</label>
