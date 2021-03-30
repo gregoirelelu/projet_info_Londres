@@ -7,6 +7,21 @@ require 'bag-class.php';
 $db = new database();
 $bag = new bag($db);
 
+$header="MIME-Version: 1.0\r\n";
+$header.='From:"Pierre&Greg_Ebay.com"<support@Pierre&Greg_Ebay.com>'."\n";
+$header.='Content-Type:text/html; charset="utf-8"'."\n";
+$header.='Content-Transfer-Encoding: 8bit';
+
+$message = '
+<html>
+<body>
+    <div align="center">
+        Thank you for your trust!
+    </div>
+</body>
+</html>
+';
+
 $servername = 'localhost';
 $username_database = 'root';
 $server_password = 'root';
@@ -34,6 +49,7 @@ if (isset($_POST['submit'])){
             $sql = $database->prepare("UPDATE users SET cardType = ?, cardNumber = ?, cardName = ?, cardExpiration = ?, cardSecurity = ? WHERE id = ?");
             $sql->execute(array($cardType, $cardNumber, $cardName, $cardExpiration, $cardSecurity, $_SESSION['id']));
             $success = "Order successfully completed!";
+            mail($_SESSION['email'], "Confirmation order", $message, $header);
 
             for ($i = 0; $i < sizeof($ids); $i++){
                 $deleteProduct = $database->prepare("DELETE FROM product WHERE id = ?");
@@ -87,8 +103,12 @@ if (isset($_POST['submit'])){
             }
         }
         else if (strcmp($cardType, "myCard") == 0){
+            $cardNumber3 = $_POST['cardNumber3'];
+            $cardName3 = $_POST['cardName3'];
+            $cardExpiration3 = $_POST['cardExpiration3'];
+            $cardSecurity3 = $_POST['cardSecurity3'];
 
-            if (strcmp($cardType, $select_id['cardType']) and strcmp($cardNumber, $select_id['cardNumber']) and strcmp($cardName, $select_id['cardName']) and strcmp($cardExpiration, $select_id['cardExpiration']) and strcmp($cardSecurity, $select_id['cardSecurity'])){
+            if (strcmp($cardType, $select_id['cardType']) and strcmp($cardNumber3, $select_id['cardNumber']) and strcmp($cardName3, $select_id['cardName']) and strcmp($cardExpiration3, $select_id['cardExpiration']) and strcmp($cardSecurity3, $select_id['cardSecurity'])){
                 $success = "Order successfully completed!";
                 for ($i = 0; $i < sizeof($ids); $i++){
                     $deleteProduct = $database->prepare("DELETE FROM product WHERE id = ?");
@@ -295,20 +315,20 @@ if (isset($_POST['submit'])){
             <div id="myCardForm">
                 <div id="formCard" class="myCardForm">
                     <div>
-                        <label for="cardNumber">Card number</label>
-                        <input type="text" id="cardNumber" name="cardNumber" value="<?php echo $result['cardNumber'] ?>">
+                        <label for="cardNumber3">Card number</label>
+                        <input type="text" id="cardNumber3" name="cardNumber3" value="<?php echo $result['cardNumber'] ?>">
                     </div>
                     <div>
-                        <label for="cardName">Card name</label>
-                        <input type="text" id="cardName" name="cardName" value="<?php echo $result['cardName'] ?>">
+                        <label for="cardName3">Card name</label>
+                        <input type="text" id="cardName3" name="cardName3" value="<?php echo $result['cardName'] ?>">
                     </div>
                     <div>
-                        <label for="cardExpiration">Card expiration</label>
-                        <input type="text" id="cardExpiration" name="cardExpiration" value="<?php echo $result['cardExpiration'] ?>">
+                        <label for="cardExpiration3">Card expiration</label>
+                        <input type="text" id="cardExpiration3" name="cardExpiration3" value="<?php echo $result['cardExpiration'] ?>">
                     </div>
                     <div>
-                        <label for="cardSecurity">Security code</label>
-                        <input type="text" id="cardSecurity" name="cardSecurity" value="<?php echo $result['cardSecurity'] ?>">
+                        <label for="cardSecurity3">Security code</label>
+                        <input type="text" id="cardSecurity3" name="cardSecurity3" value="<?php echo $result['cardSecurity'] ?>">
                     </div>
                 </div>
             </div>
