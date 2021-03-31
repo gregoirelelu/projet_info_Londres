@@ -207,7 +207,7 @@ echo "<p class='result-found'><b>".$nbr."</b> results found</b></p>";
                     ?>
 
                     <form method="post" action="bestOffer.php?id=<?= $ligne['id']; ?>">
-                        <textarea style="height: 30px; width: 240px" placeholder="Your offer" name="offerBuyer"></textarea>
+                        <textarea style="height: 30px; width: 240px" placeholder="Your offer" name="offerBuyer"></textarea>$
                         <input style="font-size: 10px" class="addOffer" type="submit" value="Send offer" name="offerSubmit">
                     </form>
 

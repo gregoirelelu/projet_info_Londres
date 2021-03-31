@@ -171,6 +171,9 @@ if (isset($_POST['submit'])){
                     <a class="nav-link" href="paymentCard.php">Payment card</a>
                 </li>
                 <li class="nav-item">
+                    <a class="nav-link" href="bestOffer.php">My messages</a>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link" href="logout.php">Log out</a>
                 </li>
             </ul>

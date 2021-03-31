@@ -10,7 +10,12 @@ $server_password = 'root';
 
 $database = new PDO("mysql:host=$servername; dbname=londonproject_bdd", $username_database, $server_password);
 
+
 if (isset($_GET['id'])){
+
+    $idSeller = $database->prepare("SELECT * FROM product WHERE id = ?");
+    $idSeller->execute(array($_GET['id']));
+    $a = $idSeller->fetch();
 
     if (isset($_POST['offerSubmit'], $_POST['offerBuyer'])){
 
@@ -18,17 +23,152 @@ if (isset($_GET['id'])){
 
             if (!empty($_POST['offerBuyer'])){
                 $offer = $_POST['offerBuyer'];
+                $idSeller1 = $a['pseudo_seller'];
 
-                $sql = $database->prepare("INSERT INTO offers(id_product, id_buyer, date, offer) VALUES (?, ?, NOW(), ?)");
-                $sql->execute(array($_GET['id'], $_SESSION['id'], $offer));
+                $sql = $database->prepare("INSERT INTO offers(id_product, id_buyer, id_seller, date, offer) VALUES (?, ?, ?, NOW(), ?)");
+                $sql->execute(array($_GET['id'], $_SESSION['id'], $idSeller1, $offer));
+                header("Location: buying.php?id=".$_SESSION['id']);
             }
         }
         else{
 
         }
     }
-    else{
-        echo 'non';
-    }
 }
+
 ?>
+
+<html>
+<link>
+<title>Register</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link rel="stylesheet" href="css/normalize.css">
+<link rel="stylesheet" href="css/footer.css">
+
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
+
+<style type="text/css">
+    main{
+        height: 77.5vh;
+    }
+    .title_Welcome{
+        margin-top: 25px;
+        margin-bottom: 0px;
+        background-color: #f5f5f5;
+    }
+    .navbar{
+        background-color: #f5f5f5;
+        width: 100%;
+    }
+    .nav a{
+        text-decoration: none;
+        color: black;
+        transition: all 0.3s ease-in-out;
+        border-bottom: 2px solid transparent;
+    }
+    .nav a:hover{
+        text-decoration: none;
+        padding-top: 3px;
+        border-bottom: 2px solid black;
+        color: black;
+        cursor: pointer;
+    }
+    .allMessages{
+        margin-top: 25px;
+    }
+</style>
+</head>
+<body>
+
+<?php include("header.php") ?>
+
+<main>
+    <div align="center">
+        <h2 class="title_Welcome">My messages</h2>
+        <div class="navbar">
+            <ul class="nav justify-content-center">
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" id="yourProfile">Your profile</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="myannounces.php">My announces</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="paymentCard.php">Payment card</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="bestOffer.php">My messages</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="logout.php">Log out</a>
+                </li>
+            </ul>
+        </div>
+
+        <div class="allMessages">
+            <?php
+            $messagesOffer = $database->prepare("SELECT * FROM offers WHERE id_seller = ?");
+            $messagesOffer->execute(array($_SESSION['id']));
+
+            while ($i = $messagesOffer->fetch()){ ?>
+
+            <div class="message">
+                <tr>
+                    <td><?php echo $i['id_buyer']; ?></td>
+                    <td><?php echo $i['offer']." $"; ?></td>
+                </tr>
+            </div>
+
+            <?php } ?>
+        </div>
+
+        <?php
+        if (isset($error)){
+            echo '<div class="alert alert-danger" role="alert" style="width: 45%">'.$error. "</div>";
+        }
+        ?>
+        <?php
+        if (isset($success)){
+            echo '<div class="alert alert-success" role="alert" style="width: 45%">'.$success. "</div>";
+        }
+        ?>
+        <?php
+        if (isset($success1)){
+            echo '<div class="alert alert-success" role="alert" style="width: 45%">'.$success1. "</div>";
+        }
+        ?>
+        <?php
+        if (isset($success2)){
+            echo '<div class="alert alert-success" role="alert" style="width: 45%">'.$success2. "</div>";
+        }
+        ?>
+        <?php
+        if (isset($success3)){
+            echo '<div class="alert alert-success" role="alert" style="width: 45%">'.$success3. "</div>";
+        }
+        ?>
+        <?php
+        if (isset($success4)){
+            echo '<div class="alert alert-success" role="alert" style="width: 45%">'.$success4. "</div>";
+        }
+        ?>
+        <?php
+        if (isset($success5)){
+            echo '<div class="alert alert-success" role="alert" style="width: 45%">'.$success5. "</div>";
+        }
+        ?>
+    </div>
+</main>
+
+
+
+<?php include("footer.php") ?>
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+</body>
+</html>

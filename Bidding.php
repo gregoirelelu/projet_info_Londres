@@ -27,14 +27,13 @@
 <?php
 
 
-$bdd = new PDO ("mysql:host=localhost; dbname=londonproject_bdd; charset=utf8", "root", "");
+$bdd = new PDO ("mysql:host=localhost; dbname=londonproject_bdd; charset=utf8", "root", "root");
 
 if (isset($_POST['PRICE']) ){
 
-    $requete = $bdd->prepare("UPDATE product SET PRICE = (?)");
+    $requete = $bdd->prepare("UPDATE product SET PRICE = (?) WHERE id = ?");
 
-    $requete->execute(array($_POST['PRICE']));
-
+    $requete->execute(array($_POST['PRICE'], $_GET['id']));
 
     ?>
 
