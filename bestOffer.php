@@ -35,7 +35,6 @@ if (isset($_GET['id'])){
         }
     }
 }
-
 ?>
 
 <html>
@@ -77,6 +76,29 @@ if (isset($_GET['id'])){
     }
     .allMessages{
         margin-top: 25px;
+        display: grid;
+        margin-left: auto;
+        margin-right: auto;
+        width: 450px;
+    }
+    .msg{
+        background: white;
+    }
+    .msg tr{
+        border-bottom: 1px solid #f5f5f5;
+        background: white;
+        transition: all 0.3s ease;
+    }
+    .msg tr:nth-child(odd){
+        background: #f5f5f5;
+    }
+    .msg tr td, .msg tr th{
+        padding: 12px 20px;
+        vertical-align: middle;
+    }
+    .msg tr th{
+        font-size: 13px;
+        text-transform: uppercase;
     }
 </style>
 </head>
@@ -108,57 +130,86 @@ if (isset($_GET['id'])){
         </div>
 
         <div class="allMessages">
-            <?php
-            $messagesOffer = $database->prepare("SELECT * FROM offers WHERE id_seller = ?");
-            $messagesOffer->execute(array($_SESSION['id']));
+            <table class="msg">
 
-            while ($i = $messagesOffer->fetch()){ ?>
-
-            <div class="message">
                 <tr>
-                    <td><?php echo $i['id_buyer']; ?></td>
-                    <td><?php echo $i['offer']." $"; ?></td>
+                    <th>Product</th>
+                    <th>Buyer</th>
+                    <th col>Offer</th>
+                    <th colspan="2">Your choice</th>
                 </tr>
-            </div>
+                <?php
+                $messagesOffer = $database->prepare("SELECT * FROM offers WHERE id_seller = ?");
+                $messagesOffer->execute(array($_SESSION['id']));
 
-            <?php } ?>
+                while ($i = $messagesOffer->fetch()){ ?>
+
+                    <?php
+                    $product = $database->prepare("SELECT * FROM product WHERE id = ?");
+                    $product->execute(array($i['id_product']));
+                    $product1 = $product->fetch();
+
+                    $name_buyer = $database->prepare("SELECT * FROM users WHERE id = ?");
+                    $name_buyer->execute(array($i['id_buyer']));
+                    $name_buyer1 = $name_buyer->fetch();
+                    ?>
+
+                    <tr>
+                        <form method="post" action="bestOfferSubmition.php?id=<?= $i['id']; ?>">
+                            <td style="font-size: 10px"><img style="width: 60px; height: auto" src="<?php echo $product1['PICTURE']; ?>">
+                                <?php echo $product1['SUBCATEGORY'] ?><br>
+                                <?php echo $product1['BRAND'] ?><br>
+                                <?php echo $product1['MODEL'] ?><br>
+                            </td>
+                            <td><?php echo $name_buyer1['username']; ?></td>
+                            <td><?php echo $i['offer']; ?>$</td>
+                            <td><input name="accept" style="background-color: green; color: white; border-radius: 20px" type="submit" value="Accept"></td>
+                            <td><input name="refuse" style="background-color: red; color: white; border-radius: 20px" type="submit" value="Refuse"></td>
+                        </form>
+                    </tr>
+
+                <?php } ?>
+
+
+            </table>
         </div>
+    </div>
 
-        <?php
-        if (isset($error)){
-            echo '<div class="alert alert-danger" role="alert" style="width: 45%">'.$error. "</div>";
-        }
-        ?>
-        <?php
-        if (isset($success)){
-            echo '<div class="alert alert-success" role="alert" style="width: 45%">'.$success. "</div>";
-        }
-        ?>
-        <?php
-        if (isset($success1)){
-            echo '<div class="alert alert-success" role="alert" style="width: 45%">'.$success1. "</div>";
-        }
-        ?>
-        <?php
-        if (isset($success2)){
-            echo '<div class="alert alert-success" role="alert" style="width: 45%">'.$success2. "</div>";
-        }
-        ?>
-        <?php
-        if (isset($success3)){
-            echo '<div class="alert alert-success" role="alert" style="width: 45%">'.$success3. "</div>";
-        }
-        ?>
-        <?php
-        if (isset($success4)){
-            echo '<div class="alert alert-success" role="alert" style="width: 45%">'.$success4. "</div>";
-        }
-        ?>
-        <?php
-        if (isset($success5)){
-            echo '<div class="alert alert-success" role="alert" style="width: 45%">'.$success5. "</div>";
-        }
-        ?>
+    <?php
+    if (isset($error)){
+        echo '<div class="alert alert-danger" role="alert" style="width: 45%">'.$error. "</div>";
+    }
+    ?>
+    <?php
+    if (isset($success)){
+        echo '<div class="alert alert-success" role="alert" style="width: 45%">'.$success. "</div>";
+    }
+    ?>
+    <?php
+    if (isset($success1)){
+        echo '<div class="alert alert-success" role="alert" style="width: 45%">'.$success1. "</div>";
+    }
+    ?>
+    <?php
+    if (isset($success2)){
+        echo '<div class="alert alert-success" role="alert" style="width: 45%">'.$success2. "</div>";
+    }
+    ?>
+    <?php
+    if (isset($success3)){
+        echo '<div class="alert alert-success" role="alert" style="width: 45%">'.$success3. "</div>";
+    }
+    ?>
+    <?php
+    if (isset($success4)){
+        echo '<div class="alert alert-success" role="alert" style="width: 45%">'.$success4. "</div>";
+    }
+    ?>
+    <?php
+    if (isset($success5)){
+        echo '<div class="alert alert-success" role="alert" style="width: 45%">'.$success5. "</div>";
+    }
+    ?>
     </div>
 </main>
 
