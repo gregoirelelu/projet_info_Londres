@@ -28,8 +28,8 @@ if (isset($_GET['id'])){
                 $showOffer = 1;
                 $count = $count++;
 
-                $sql = $database->prepare("INSERT INTO offers(id_product, id_buyer, id_seller, date, offer, showOffer) VALUES (?, ?, ?, NOW(), ?, ?)");
-                $sql->execute(array($_GET['id'], $_SESSION['id'], $idSeller1, $offer, $showOffer));
+                $sql = $database->prepare("INSERT INTO offers(id_product, id_buyer, id_seller, date, offer, counter, showOffer) VALUES (?, ?, ?, NOW(), ?, ?, ?)");
+                $sql->execute(array($_GET['id'], $_SESSION['id'], $idSeller1, $offer, $count, $showOffer));
                 header("Location: buying.php?id=".$_SESSION['id']);
             }
         }
@@ -138,8 +138,9 @@ if (isset($_GET['id'])){
                 <tr>
                     <th>Product</th>
                     <th>Buyer</th>
-                    <th col>Offer</th>
+                    <th>Offer</th>
                     <th colspan="4">Your choice</th>
+                    <th>Number of try</th>
                 </tr>
                 <?php
                 $messagesOffer = $database->prepare("SELECT * FROM offers WHERE id_seller = ?");
@@ -172,6 +173,7 @@ if (isset($_GET['id'])){
                                 <td><input name="refuse" style="background-color: red; color: white; border-radius: 20px" type="submit" value="Refuse"></td>
                                 <td><input style="width: 70px" type="text" placeholder="$$$$$" name="counterOfferPrice"></td>
                                 <td><input name="counterOffer" style="background-color: red; color: white; border-radius: 20px" type="submit" value="Counter-offer"></td>
+                                <td>-</td>
                             </form>
                         </tr>
 
@@ -184,34 +186,44 @@ if (isset($_GET['id'])){
 
                 while ($i = $messagesOffer->fetch()){ ?>
 
-                    <?php if ($i['showOffer'] == 0){ ?>
+                    <?php if ($i['counter'] <= 5){ ?>
 
-                        <?php
-                        $product = $database->prepare("SELECT * FROM product WHERE id = ?");
-                        $product->execute(array($i['id_product']));
-                        $product1 = $product->fetch();
+                        <?php if ($i['showOffer'] == 0){ ?>
 
-                        $name_buyer = $database->prepare("SELECT * FROM users WHERE id = ?");
-                        $name_buyer->execute(array($i['id_buyer']));
-                        $name_buyer1 = $name_buyer->fetch();
-                        ?>
+                            <?php
+                            $product = $database->prepare("SELECT * FROM product WHERE id = ?");
+                            $product->execute(array($i['id_product']));
+                            $product1 = $product->fetch();
 
-                        <tr>
-                            <form method="post" action="bestOfferSubmition.php?id=<?= $i['id']; ?>">
-                                <td style="font-size: 10px"><img style="width: 60px; height: auto" src="<?php echo $product1['PICTURE']; ?>"><br>
-                                    <?php echo $product1['SUBCATEGORY'] ?><br>
-                                    <?php echo $product1['BRAND'] ?><br>
-                                    <?php echo $product1['MODEL'] ?><br>
-                                </td>
-                                <td>You</td>
-                                <td><?php echo $i['offer']; ?>$</td>
-                                <td><input name="accept" style="background-color: green; color: white; border-radius: 20px" type="submit" value="Accept"></td>
-                                <td><input style="width: 70px" type="text" placeholder="$$$$$" name="counterOfferPrice"></td>
-                                <td><input name="counterOffer2" style="background-color: red; color: white; border-radius: 20px" type="submit" value="Counter-offer"></td>
-                            </form>
-                        </tr>
+                            $name_buyer = $database->prepare("SELECT * FROM users WHERE id = ?");
+                            $name_buyer->execute(array($i['id_buyer']));
+                            $name_buyer1 = $name_buyer->fetch();
+                            ?>
 
-                    <?php }?>
+                            <tr>
+                                <form method="post" action="bestOfferSubmition.php?id=<?= $i['id']; ?>">
+                                    <td style="font-size: 10px"><img style="width: 60px; height: auto" src="<?php echo $product1['PICTURE']; ?>"><br>
+                                        <?php echo $product1['SUBCATEGORY'] ?><br>
+                                        <?php echo $product1['BRAND'] ?><br>
+                                        <?php echo $product1['MODEL'] ?><br>
+                                    </td>
+                                    <td>You</td>
+                                    <td><?php echo $i['offer']; ?>$</td>
+                                    <td><input name="accept" style="background-color: green; color: white; border-radius: 20px" type="submit" value="Accept"></td>
+                                    <td><input name="refuse" style="background-color: red; color: white; border-radius: 20px" type="submit" value="Refuse"></td>
+                                    <td><input style="width: 70px" type="text" placeholder="$$$$$" name="counterOfferPrice"></td>
+                                    <td><input name="counterOffer2" style="background-color: red; color: white; border-radius: 20px" type="submit" value="Counter-offer!!!"></td>
+                                    <td><?php echo $i['counter'].'/5'?></td>
+                                </form>
+                            </tr>
+
+                        <?php }?>
+                    <?php }
+                    else{
+                        $sql3 = $database->prepare("DELETE FROM offers WHERE id = ?");
+                        $sql3->execute(array($i['id']));
+                    }
+                    ?>
                 <?php } ?>
 
             </table>
