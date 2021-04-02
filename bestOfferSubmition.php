@@ -10,8 +10,8 @@ $server_password = 'root';
 
 $database = new PDO("mysql:host=$servername; dbname=londonproject_bdd", $username_database, $server_password);
 
-
 if (isset($_GET['id'])){
+    $count = 0;
 
     $idSeller = $database->prepare("SELECT * FROM offers WHERE id = ?");
     $idSeller->execute(array($_GET['id']));
@@ -24,6 +24,22 @@ if (isset($_GET['id'])){
     else if (isset($_POST['refuse'])){
         $sql = $database->prepare("DELETE FROM offers WHERE id = ?");
         $sql->execute(array($_GET['id']));
+        header("Location: bestOffer.php?id=".$_SESSION['id']);
+    }
+    else if (isset($_POST['counterOffer'])){
+        $offer = $_POST['counterOfferPrice'];
+        $showOffer = 0;
+
+        $sql1 = $database->prepare("UPDATE offers SET offer = ?, showOffer = ? WHERE id = ?");
+        $sql1->execute((array($offer, $showOffer, $_GET['id'])));
+        header("Location: bestOffer.php?id=".$_SESSION['id']);
+    }
+    else if (isset($_POST['counterOffer2'])){
+        $offer = $_POST['counterOfferPrice'];
+        $showOffer = 1;
+
+        $sql1 = $database->prepare("UPDATE offers SET offer = ?, showOffer = ? WHERE id = ?");
+        $sql1->execute((array($offer, $showOffer, $_GET['id'])));
         header("Location: bestOffer.php?id=".$_SESSION['id']);
     }
 }

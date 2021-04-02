@@ -12,6 +12,7 @@ $database = new PDO("mysql:host=$servername; dbname=londonproject_bdd", $usernam
 
 
 if (isset($_GET['id'])){
+    $count = 0;
 
     $idSeller = $database->prepare("SELECT * FROM product WHERE id = ?");
     $idSeller->execute(array($_GET['id']));
@@ -24,9 +25,11 @@ if (isset($_GET['id'])){
             if (!empty($_POST['offerBuyer'])){
                 $offer = $_POST['offerBuyer'];
                 $idSeller1 = $a['pseudo_seller'];
+                $showOffer = 1;
+                $count = $count++;
 
-                $sql = $database->prepare("INSERT INTO offers(id_product, id_buyer, id_seller, date, offer) VALUES (?, ?, ?, NOW(), ?)");
-                $sql->execute(array($_GET['id'], $_SESSION['id'], $idSeller1, $offer));
+                $sql = $database->prepare("INSERT INTO offers(id_product, id_buyer, id_seller, date, offer, showOffer) VALUES (?, ?, ?, NOW(), ?, ?)");
+                $sql->execute(array($_GET['id'], $_SESSION['id'], $idSeller1, $offer, $showOffer));
                 header("Location: buying.php?id=".$_SESSION['id']);
             }
         }
@@ -79,7 +82,7 @@ if (isset($_GET['id'])){
         display: grid;
         margin-left: auto;
         margin-right: auto;
-        width: 450px;
+        width: 700px;
     }
     .msg{
         background: white;
@@ -136,7 +139,7 @@ if (isset($_GET['id'])){
                     <th>Product</th>
                     <th>Buyer</th>
                     <th col>Offer</th>
-                    <th colspan="2">Your choice</th>
+                    <th colspan="4">Your choice</th>
                 </tr>
                 <?php
                 $messagesOffer = $database->prepare("SELECT * FROM offers WHERE id_seller = ?");
@@ -144,32 +147,72 @@ if (isset($_GET['id'])){
 
                 while ($i = $messagesOffer->fetch()){ ?>
 
-                    <?php
-                    $product = $database->prepare("SELECT * FROM product WHERE id = ?");
-                    $product->execute(array($i['id_product']));
-                    $product1 = $product->fetch();
+                    <?php if ($i['showOffer'] == 1){ ?>
 
-                    $name_buyer = $database->prepare("SELECT * FROM users WHERE id = ?");
-                    $name_buyer->execute(array($i['id_buyer']));
-                    $name_buyer1 = $name_buyer->fetch();
-                    ?>
+                        <?php
+                        $product = $database->prepare("SELECT * FROM product WHERE id = ?");
+                        $product->execute(array($i['id_product']));
+                        $product1 = $product->fetch();
 
-                    <tr>
-                        <form method="post" action="bestOfferSubmition.php?id=<?= $i['id']; ?>">
-                            <td style="font-size: 10px"><img style="width: 60px; height: auto" src="<?php echo $product1['PICTURE']; ?>">
-                                <?php echo $product1['SUBCATEGORY'] ?><br>
-                                <?php echo $product1['BRAND'] ?><br>
-                                <?php echo $product1['MODEL'] ?><br>
-                            </td>
-                            <td><?php echo $name_buyer1['username']; ?></td>
-                            <td><?php echo $i['offer']; ?>$</td>
-                            <td><input name="accept" style="background-color: green; color: white; border-radius: 20px" type="submit" value="Accept"></td>
-                            <td><input name="refuse" style="background-color: red; color: white; border-radius: 20px" type="submit" value="Refuse"></td>
-                        </form>
-                    </tr>
+                        $name_buyer = $database->prepare("SELECT * FROM users WHERE id = ?");
+                        $name_buyer->execute(array($i['id_buyer']));
+                        $name_buyer1 = $name_buyer->fetch();
+                        ?>
 
+                        <tr>
+                            <form method="post" action="bestOfferSubmition.php?id=<?= $i['id']; ?>">
+                                <td style="font-size: 10px"><img style="width: 60px; height: auto" src="<?php echo $product1['PICTURE']; ?>"><br>
+                                    <?php echo $product1['SUBCATEGORY'] ?><br>
+                                    <?php echo $product1['BRAND'] ?><br>
+                                    <?php echo $product1['MODEL'] ?><br>
+                                </td>
+                                <td><?php echo $name_buyer1['username']; ?></td>
+                                <td><?php echo $i['offer']; ?>$</td>
+                                <td><input name="accept" style="background-color: green; color: white; border-radius: 20px" type="submit" value="Accept"></td>
+                                <td><input name="refuse" style="background-color: red; color: white; border-radius: 20px" type="submit" value="Refuse"></td>
+                                <td><input style="width: 70px" type="text" placeholder="$$$$$" name="counterOfferPrice"></td>
+                                <td><input name="counterOffer" style="background-color: red; color: white; border-radius: 20px" type="submit" value="Counter-offer"></td>
+                            </form>
+                        </tr>
+
+                    <?php }?>
                 <?php } ?>
 
+                <?php
+                $messagesOffer = $database->prepare("SELECT * FROM offers WHERE id_buyer = ?");
+                $messagesOffer->execute(array($_SESSION['id']));
+
+                while ($i = $messagesOffer->fetch()){ ?>
+
+                    <?php if ($i['showOffer'] == 0){ ?>
+
+                        <?php
+                        $product = $database->prepare("SELECT * FROM product WHERE id = ?");
+                        $product->execute(array($i['id_product']));
+                        $product1 = $product->fetch();
+
+                        $name_buyer = $database->prepare("SELECT * FROM users WHERE id = ?");
+                        $name_buyer->execute(array($i['id_buyer']));
+                        $name_buyer1 = $name_buyer->fetch();
+                        ?>
+
+                        <tr>
+                            <form method="post" action="bestOfferSubmition.php?id=<?= $i['id']; ?>">
+                                <td style="font-size: 10px"><img style="width: 60px; height: auto" src="<?php echo $product1['PICTURE']; ?>"><br>
+                                    <?php echo $product1['SUBCATEGORY'] ?><br>
+                                    <?php echo $product1['BRAND'] ?><br>
+                                    <?php echo $product1['MODEL'] ?><br>
+                                </td>
+                                <td>You</td>
+                                <td><?php echo $i['offer']; ?>$</td>
+                                <td><input name="accept" style="background-color: green; color: white; border-radius: 20px" type="submit" value="Accept"></td>
+                                <td><input style="width: 70px" type="text" placeholder="$$$$$" name="counterOfferPrice"></td>
+                                <td><input name="counterOffer2" style="background-color: red; color: white; border-radius: 20px" type="submit" value="Counter-offer"></td>
+                            </form>
+                        </tr>
+
+                    <?php }?>
+                <?php } ?>
 
             </table>
         </div>
