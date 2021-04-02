@@ -213,7 +213,7 @@ if (isset($_GET['id'])){
                                     </td>
                                     <td>You</td>
                                     <td><?php echo $i['offer']; ?>$</td>
-                                    <td><input name="accept" style="background-color: green; color: white; border-radius: 20px" type="submit" value="Accept"></td>
+                                    <td><input name="accept2" style="background-color: green; color: white; border-radius: 20px" type="submit" value="Accept"></td>
                                     <td><input name="refuse" style="background-color: red; color: white; border-radius: 20px" type="submit" value="Refuse"></td>
                                     <td><input style="width: 70px" type="text" placeholder="$$$$$" name="counterOfferPrice"></td>
                                     <td><input name="counterOffer2" style="background-color: red; color: white; border-radius: 20px" type="submit" value="Counter-offer!!!"></td>

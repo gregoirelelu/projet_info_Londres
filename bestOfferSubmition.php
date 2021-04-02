@@ -18,7 +18,9 @@ if (isset($_GET['id'])){
 
     if (isset($_POST['accept'])){
 
-
+    }
+    if (isset($_POST['accept2'])){
+        header("Location: confirmOrder.php?id=".$_GET['id']);
     }
     else if (isset($_POST['refuse'])){
         $sql = $database->prepare("DELETE FROM offers WHERE id = ?");
