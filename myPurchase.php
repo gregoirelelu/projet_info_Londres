@@ -115,7 +115,7 @@ if (isset($_GET['id'])){
 
 <main>
     <div align="center">
-        <h2 class="title_Welcome">My messages</h2>
+        <h2 class="title_Welcome">My purchase</h2>
         <div class="navbar">
             <ul class="nav justify-content-center">
                 <li class="nav-item">
@@ -144,8 +144,7 @@ if (isset($_GET['id'])){
 
                 <tr>
                     <th>Product</th>
-                    <th>Buyer</th>
-                    <th>Offer</th>
+                    <th>Price</th>
                     <th colspan="4">Your choice</th>
                     <th>Number of try</th>
                 </tr>
@@ -174,13 +173,7 @@ if (isset($_GET['id'])){
                                     <?php echo $product1['BRAND'] ?><br>
                                     <?php echo $product1['MODEL'] ?><br>
                                 </td>
-                                <td><?php echo $name_buyer1['username']; ?></td>
                                 <td><?php echo $i['offer']; ?>$</td>
-                                <td><input name="accept" style="background-color: green; color: white; border-radius: 20px" type="submit" value="Accept"></td>
-                                <td><input name="refuse" style="background-color: red; color: white; border-radius: 20px" type="submit" value="Refuse"></td>
-                                <td><input style="width: 70px" type="text" placeholder="$$$$$" name="counterOfferPrice"></td>
-                                <td><input name="counterOffer" style="background-color: red; color: white; border-radius: 20px" type="submit" value="Counter-offer"></td>
-                                <td>-</td>
                             </form>
                         </tr>
 
@@ -219,45 +212,13 @@ if (isset($_GET['id'])){
                                     <td><input name="accept2" style="background-color: green; color: white; border-radius: 20px" type="submit" value="Accept"></td>
                                     <td><input name="refuse" style="background-color: red; color: white; border-radius: 20px" type="submit" value="Refuse"></td>
                                     <td><input style="width: 70px" type="text" placeholder="$$$$$" name="counterOfferPrice"></td>
-                                    <td><input name="counterOffer2" style="background-color: red; color: white; border-radius: 20px" type="submit" value="Counter-offer"></td>
+                                    <td><input name="counterOffer2" style="background-color: red; color: white; border-radius: 20px" type="submit" value="Counter-offer!!!"></td>
                                     <td><?php echo $i['counter'].'/5'?></td>
                                 </form>
                             </tr>
 
                         <?php }?>
                     <?php }
-                    else if ($i['counter'] == 6){ ?>
-
-                        <?php if ($i['showOffer'] == 0){ ?>
-
-                            <?php
-                            $product = $database->prepare("SELECT * FROM product WHERE id = ?");
-                            $product->execute(array($i['id_product']));
-                            $product1 = $product->fetch();
-
-                            $name_buyer = $database->prepare("SELECT * FROM users WHERE id = ?");
-                            $name_buyer->execute(array($i['id_buyer']));
-                            $name_buyer1 = $name_buyer->fetch();
-                            ?>
-
-                            <tr>
-                                <form method="post" action="bestOfferSubmition.php?id=<?= $i['id']; ?>">
-                                    <td style="font-size: 10px"><img style="width: 60px; height: auto" src="<?php echo $product1['PICTURE']; ?>"><br>
-                                        <?php echo $product1['SUBCATEGORY'] ?><br>
-                                        <?php echo $product1['BRAND'] ?><br>
-                                        <?php echo $product1['MODEL'] ?><br>
-                                    </td>
-                                    <td>You</td>
-                                    <td><?php echo $i['offer']; ?>$</td>
-                                    <td><input name="accept2" style="background-color: green; color: white; border-radius: 20px" type="submit" value="Accept"></td>
-                                    <td>It is the good one!</td>
-                                </form>
-                            </tr>
-
-                        <?php }?>
-
-                    <?php }
-
                     else{
                         $sql3 = $database->prepare("DELETE FROM offers WHERE id = ?");
                         $sql3->execute(array($i['id']));

@@ -33,11 +33,12 @@ if (isset($_POST['submit-form-sell'])){
 
                             $picturePath = "img/".$_FILES['picture']['name'];
                             move_uploaded_file($_FILES['picture']['tmp_name'], $picturePath);
+                            $state = "online";
 
                             $pseudo_seller = $_SESSION['id'];
 
-                            $sql = $database->prepare("INSERT INTO product(CATEGORY, SUBCATEGORY, BRAND, MODEL, PRICE, PICTURE, dateAdd, pseudo_seller, type) VALUES('$category', '$subcategory', '$brand', '$model', '$price', '$picturePath', NOW(), '$pseudo_seller', '$type')");
-                            $sql->execute(array($category, $subcategory, $brand, $model, $price, $picturePath, $type));
+                            $sql = $database->prepare("INSERT INTO product(CATEGORY, SUBCATEGORY, BRAND, MODEL, PRICE, PICTURE, dateAdd, pseudo_seller, type, state) VALUES('$category', '$subcategory', '$brand', '$model', '$price', '$picturePath', NOW(), '$pseudo_seller', '$type', '$state')");
+                            $sql->execute(array($category, $subcategory, $brand, $model, $price, $picturePath, $type, $state));
                             $success = "Your announce has been uploaded successfully!";
                         }
                         else{

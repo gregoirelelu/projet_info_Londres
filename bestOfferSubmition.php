@@ -17,7 +17,13 @@ if (isset($_GET['id'])){
     $b = $idSeller->fetch();
 
     if (isset($_POST['accept'])){
+        $showOffer = 0;
+        $count = $b['counter'];
+        $count = 6;
 
+        $sql1 = $database->prepare("UPDATE offers SET counter = ?, showOffer = ? WHERE id = ?");
+        $sql1->execute((array($count, $showOffer, $_GET['id'])));
+        header("Location: bestOffer.php?id=".$_SESSION['id']);
     }
     if (isset($_POST['accept2'])){
         header("Location: confirmOrder.php?id=".$_GET['id']);

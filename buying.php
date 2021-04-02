@@ -181,6 +181,9 @@ echo "<p class='result-found'><b>".$nbr."</b> results found</b></p>";
         while ($ligne = $show->fetch())
         {
             ?>
+
+            <?php if (!strcmp($ligne['state'], "online")){ ?>
+
             <div id="hightech">
                 <img src="<?php echo $ligne ['PICTURE'] ?>" /><br/>
                 <h5><?php echo $ligne ['SUBCATEGORY']; ?></h5>
@@ -216,7 +219,7 @@ echo "<p class='result-found'><b>".$nbr."</b> results found</b></p>";
                 ?>
                 <div style="float: right; font-size: 10px;"><?php echo $ligne ['dateAdd']; ?></div>
             </div>
-
+        <?php } ?>
         <?php } ?>
     </div>
 </section>

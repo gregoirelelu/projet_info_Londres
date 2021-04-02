@@ -30,6 +30,7 @@ if (isset($_POST['submit'])){
         $cardType = $_POST['paymentType'];
         $paypalEmail = $_POST['paypalEmail'];
         $paypalPassword = $_POST['paypalPassword'];
+        $state = "outline";
 
         if (strcmp($cardType, "Visa") == 0){
             $cardNumber = $_POST['cardNumber'];
@@ -45,8 +46,8 @@ if (isset($_POST['submit'])){
                 $sql3->execute(array($_GET['id']));
                 $sqlFetch = $sql3->fetch();
 
-                $sql4 = $database->prepare("DELETE FROM product WHERE id = ?");
-                $sql4->execute(array($sqlFetch['id_product']));
+                $sql4 = $database->prepare("UPDATE product SET state = ? WHERE id = ?");
+                $sql4->execute(array($state, $sqlFetch['id_product']));
 
                 $sql5 = $database->prepare("DELETE FROM offers WHERE id = ?");
                 $sql5->execute(array($_GET['id']));
@@ -55,8 +56,8 @@ if (isset($_POST['submit'])){
             }
             else{
                 for ($i = 0; $i < sizeof($ids); $i++){
-                    $deleteProduct = $database->prepare("DELETE FROM product WHERE id = ?");
-                    $deleteProduct->execute(array($ids[$i]));
+                    $deleteProduct = $database->prepare("UPDATE product SET state = ? WHERE id = ?");
+                    $deleteProduct->execute(array($state, $ids[$i]));
                     $bag->delete($ids[$i]);
                 }
             }
@@ -75,8 +76,8 @@ if (isset($_POST['submit'])){
                 $sql3->execute(array($_GET['id']));
                 $sqlFetch = $sql3->fetch();
 
-                $sql4 = $database->prepare("DELETE FROM product WHERE id = ?");
-                $sql4->execute(array($sqlFetch['id_product']));
+                $sql4 = $database->prepare("UPDATE product SET state = ? WHERE id = ?");
+                $sql4->execute(array($state, $sqlFetch['id_product']));
 
                 $sql5 = $database->prepare("DELETE FROM offers WHERE id = ?");
                 $sql5->execute(array($_GET['id']));
@@ -85,8 +86,8 @@ if (isset($_POST['submit'])){
             }
             else{
                 for ($i = 0; $i < sizeof($ids); $i++){
-                    $deleteProduct = $database->prepare("DELETE FROM product WHERE id = ?");
-                    $deleteProduct->execute(array($ids[$i]));
+                    $deleteProduct = $database->prepare("UPDATE product SET state = ? WHERE id = ?");
+                    $deleteProduct->execute(array($state, $ids[$i]));
                     $bag->delete($ids[$i]);
                 }
             }
@@ -105,8 +106,8 @@ if (isset($_POST['submit'])){
                 $sql3->execute(array($_GET['id']));
                 $sqlFetch = $sql3->fetch();
 
-                $sql4 = $database->prepare("DELETE FROM product WHERE id = ?");
-                $sql4->execute(array($sqlFetch['id_product']));
+                $sql4 = $database->prepare("UPDATE product SET state = ? WHERE id = ?");
+                $sql4->execute(array($state, $sqlFetch['id_product']));
 
                 $sql5 = $database->prepare("DELETE FROM offers WHERE id = ?");
                 $sql5->execute(array($_GET['id']));
@@ -115,8 +116,8 @@ if (isset($_POST['submit'])){
             }
             else{
                 for ($i = 0; $i < sizeof($ids); $i++){
-                    $deleteProduct = $database->prepare("DELETE FROM product WHERE id = ?");
-                    $deleteProduct->execute(array($ids[$i]));
+                    $deleteProduct = $database->prepare("UPDATE product SET state = ? WHERE id = ?");
+                    $deleteProduct->execute(array($state, $ids[$i]));
                     $bag->delete($ids[$i]);
                 }
             }
@@ -134,8 +135,8 @@ if (isset($_POST['submit'])){
                     $sql3->execute(array($_GET['id']));
                     $sqlFetch = $sql3->fetch();
 
-                    $sql4 = $database->prepare("DELETE FROM product WHERE id = ?");
-                    $sql4->execute(array($sqlFetch['id_product']));
+                    $sql4 = $database->prepare("UPDATE product SET state = ? WHERE id = ?");
+                    $sql4->execute(array($state, $sqlFetch['id_product']));
 
                     $sql5 = $database->prepare("DELETE FROM offers WHERE id = ?");
                     $sql5->execute(array($_GET['id']));
@@ -144,8 +145,8 @@ if (isset($_POST['submit'])){
                 }
                 else{
                     for ($i = 0; $i < sizeof($ids); $i++){
-                        $deleteProduct = $database->prepare("DELETE FROM product WHERE id = ?");
-                        $deleteProduct->execute(array($ids[$i]));
+                        $deleteProduct = $database->prepare("UPDATE product SET state = ? WHERE id = ?");
+                        $deleteProduct->execute(array($state, $ids[$i]));
                         $bag->delete($ids[$i]);
                     }
                 }
@@ -164,8 +165,8 @@ if (isset($_POST['submit'])){
                     $sql3->execute(array($_GET['id']));
                     $sqlFetch = $sql3->fetch();
 
-                    $sql4 = $database->prepare("DELETE FROM product WHERE id = ?");
-                    $sql4->execute(array($sqlFetch['id_product']));
+                    $sql4 = $database->prepare("UPDATE product SET state = ? WHERE id = ?");
+                    $sql4->execute(array($state, $sqlFetch['id_product']));
 
                     $sql5 = $database->prepare("DELETE FROM offers WHERE id = ?");
                     $sql5->execute(array($_GET['id']));
@@ -174,8 +175,8 @@ if (isset($_POST['submit'])){
                 }
                 else{
                     for ($i = 0; $i < sizeof($ids); $i++){
-                        $deleteProduct = $database->prepare("DELETE FROM product WHERE id = ?");
-                        $deleteProduct->execute(array($ids[$i]));
+                        $deleteProduct = $database->prepare("UPDATE product SET state = ? WHERE id = ?");
+                        $deleteProduct->execute(array($state, $ids[$i]));
                         $bag->delete($ids[$i]);
                     }
                 }
