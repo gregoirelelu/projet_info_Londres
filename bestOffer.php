@@ -12,11 +12,14 @@ $database = new PDO("mysql:host=$servername; dbname=londonproject_bdd", $usernam
 
 
 if (isset($_GET['id'])){
-    $count = 0;
 
     $idSeller = $database->prepare("SELECT * FROM product WHERE id = ?");
     $idSeller->execute(array($_GET['id']));
     $a = $idSeller->fetch();
+
+    $idSeller = $database->prepare("SELECT * FROM offers WHERE id = ?");
+    $idSeller->execute(array($_GET['id']));
+    $b = $idSeller->fetch();
 
     if (isset($_POST['offerSubmit'], $_POST['offerBuyer'])){
 
@@ -26,7 +29,8 @@ if (isset($_GET['id'])){
                 $offer = $_POST['offerBuyer'];
                 $idSeller1 = $a['pseudo_seller'];
                 $showOffer = 1;
-                $count = $count++;
+                $count = $b['counter'];
+                $count += 1;
 
                 $sql = $database->prepare("INSERT INTO offers(id_product, id_buyer, id_seller, date, offer, counter, showOffer) VALUES (?, ?, ?, NOW(), ?, ?, ?)");
                 $sql->execute(array($_GET['id'], $_SESSION['id'], $idSeller1, $offer, $count, $showOffer));
