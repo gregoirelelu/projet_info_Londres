@@ -145,39 +145,22 @@ if (isset($_GET['id'])){
                 <tr>
                     <th>Product</th>
                     <th>Price</th>
-                    <th colspan="4">Your choice</th>
-                    <th>Number of try</th>
+                    <th>Date</th>
                 </tr>
                 <?php
-                $messagesOffer = $database->prepare("SELECT * FROM offers WHERE id_seller = ?");
+                $messagesOffer = $database->prepare("SELECT * FROM product WHERE pseudo_seller = ?");
                 $messagesOffer->execute(array($_SESSION['id']));
 
                 while ($i = $messagesOffer->fetch()){ ?>
-
-                    <?php if ($i['showOffer'] == 1){ ?>
-
-                        <?php
-                        $product = $database->prepare("SELECT * FROM product WHERE id = ?");
-                        $product->execute(array($i['id_product']));
-                        $product1 = $product->fetch();
-
-                        $name_buyer = $database->prepare("SELECT * FROM users WHERE id = ?");
-                        $name_buyer->execute(array($i['id_buyer']));
-                        $name_buyer1 = $name_buyer->fetch();
-                        ?>
-
                         <tr>
-                            <form method="post" action="bestOfferSubmition.php?id=<?= $i['id']; ?>">
-                                <td style="font-size: 10px"><img style="width: 60px; height: auto" src="<?php echo $product1['PICTURE']; ?>"><br>
-                                    <?php echo $product1['SUBCATEGORY'] ?><br>
-                                    <?php echo $product1['BRAND'] ?><br>
-                                    <?php echo $product1['MODEL'] ?><br>
+                                <td style="font-size: 10px"><img style="width: 60px; height: auto" src="<?php echo $i['PICTURE']; ?>"><br>
+                                    <?php echo $i['SUBCATEGORY'] ?><br>
+                                    <?php echo $i['BRAND'] ?><br>
+                                    <?php echo $i['MODEL'] ?><br>
                                 </td>
-                                <td><?php echo $i['offer']; ?>$</td>
-                            </form>
+                                <td><?php echo $i['PRICE']; ?>$</td>
+                                <td><?php echo $i['dateBuying']; ?></td>
                         </tr>
-
-                    <?php }?>
                 <?php } ?>
 
                 <?php

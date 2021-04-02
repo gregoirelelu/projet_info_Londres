@@ -46,8 +46,9 @@ if (isset($_POST['submit'])){
                 $sql3->execute(array($_GET['id']));
                 $sqlFetch = $sql3->fetch();
 
-                $sql4 = $database->prepare("UPDATE product SET state = ? WHERE id = ?");
-                $sql4->execute(array($state, $sqlFetch['id_product']));
+                $price = $sqlFetch['offer'];
+                $sql4 = $database->prepare("UPDATE product SET PRICE, state = ?, dateBuying = NOW() WHERE id = ?");
+                $sql4->execute(array($price, $state, $sqlFetch['id_product']));
 
                 $sql5 = $database->prepare("DELETE FROM offers WHERE id = ?");
                 $sql5->execute(array($_GET['id']));
@@ -56,7 +57,7 @@ if (isset($_POST['submit'])){
             }
             else{
                 for ($i = 0; $i < sizeof($ids); $i++){
-                    $deleteProduct = $database->prepare("UPDATE product SET state = ? WHERE id = ?");
+                    $deleteProduct = $database->prepare("UPDATE product SET state = ?, dateBuying = NOW() WHERE id = ?");
                     $deleteProduct->execute(array($state, $ids[$i]));
                     $bag->delete($ids[$i]);
                 }
@@ -76,8 +77,9 @@ if (isset($_POST['submit'])){
                 $sql3->execute(array($_GET['id']));
                 $sqlFetch = $sql3->fetch();
 
-                $sql4 = $database->prepare("UPDATE product SET state = ? WHERE id = ?");
-                $sql4->execute(array($state, $sqlFetch['id_product']));
+                $price = $sqlFetch['offer'];
+                $sql4 = $database->prepare("UPDATE product SET PRICE, state = ?, dateBuying = NOW() WHERE id = ?");
+                $sql4->execute(array($price, $state, $sqlFetch['id_product']));
 
                 $sql5 = $database->prepare("DELETE FROM offers WHERE id = ?");
                 $sql5->execute(array($_GET['id']));
@@ -86,7 +88,7 @@ if (isset($_POST['submit'])){
             }
             else{
                 for ($i = 0; $i < sizeof($ids); $i++){
-                    $deleteProduct = $database->prepare("UPDATE product SET state = ? WHERE id = ?");
+                    $deleteProduct = $database->prepare("UPDATE product SET state = ?, dateBuying = NOW() WHERE id = ?");
                     $deleteProduct->execute(array($state, $ids[$i]));
                     $bag->delete($ids[$i]);
                 }
@@ -106,8 +108,9 @@ if (isset($_POST['submit'])){
                 $sql3->execute(array($_GET['id']));
                 $sqlFetch = $sql3->fetch();
 
-                $sql4 = $database->prepare("UPDATE product SET state = ? WHERE id = ?");
-                $sql4->execute(array($state, $sqlFetch['id_product']));
+                $price = $sqlFetch['offer'];
+                $sql4 = $database->prepare("UPDATE product SET PRICE, state = ?, dateBuying = NOW() WHERE id = ?");
+                $sql4->execute(array($price, $state, $sqlFetch['id_product']));
 
                 $sql5 = $database->prepare("DELETE FROM offers WHERE id = ?");
                 $sql5->execute(array($_GET['id']));
@@ -116,7 +119,7 @@ if (isset($_POST['submit'])){
             }
             else{
                 for ($i = 0; $i < sizeof($ids); $i++){
-                    $deleteProduct = $database->prepare("UPDATE product SET state = ? WHERE id = ?");
+                    $deleteProduct = $database->prepare("UPDATE product SET state = ?, dateBuying = NOW() WHERE id = ?");
                     $deleteProduct->execute(array($state, $ids[$i]));
                     $bag->delete($ids[$i]);
                 }
@@ -135,8 +138,9 @@ if (isset($_POST['submit'])){
                     $sql3->execute(array($_GET['id']));
                     $sqlFetch = $sql3->fetch();
 
-                    $sql4 = $database->prepare("UPDATE product SET state = ? WHERE id = ?");
-                    $sql4->execute(array($state, $sqlFetch['id_product']));
+                    $price = $sqlFetch['offer'];
+                    $sql4 = $database->prepare("UPDATE product SET PRICE, state = ?, dateBuying = NOW() WHERE id = ?");
+                    $sql4->execute(array($price, $state, $sqlFetch['id_product']));
 
                     $sql5 = $database->prepare("DELETE FROM offers WHERE id = ?");
                     $sql5->execute(array($_GET['id']));
@@ -145,7 +149,7 @@ if (isset($_POST['submit'])){
                 }
                 else{
                     for ($i = 0; $i < sizeof($ids); $i++){
-                        $deleteProduct = $database->prepare("UPDATE product SET state = ? WHERE id = ?");
+                        $deleteProduct = $database->prepare("UPDATE product SET state = ?, dateBuying = NOW() WHERE id = ?");
                         $deleteProduct->execute(array($state, $ids[$i]));
                         $bag->delete($ids[$i]);
                     }
@@ -165,8 +169,9 @@ if (isset($_POST['submit'])){
                     $sql3->execute(array($_GET['id']));
                     $sqlFetch = $sql3->fetch();
 
-                    $sql4 = $database->prepare("UPDATE product SET state = ? WHERE id = ?");
-                    $sql4->execute(array($state, $sqlFetch['id_product']));
+                    $price = $sqlFetch['offer'];
+                    $sql4 = $database->prepare("UPDATE product SET PRICE, state = ?, dateBuying = NOW() WHERE id = ?");
+                    $sql4->execute(array($price, $state, $sqlFetch['id_product']));
 
                     $sql5 = $database->prepare("DELETE FROM offers WHERE id = ?");
                     $sql5->execute(array($_GET['id']));
@@ -175,7 +180,7 @@ if (isset($_POST['submit'])){
                 }
                 else{
                     for ($i = 0; $i < sizeof($ids); $i++){
-                        $deleteProduct = $database->prepare("UPDATE product SET state = ? WHERE id = ?");
+                        $deleteProduct = $database->prepare("UPDATE product SET state = ?, dateBuying = NOW() WHERE id = ?");
                         $deleteProduct->execute(array($state, $ids[$i]));
                         $bag->delete($ids[$i]);
                     }
