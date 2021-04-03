@@ -5,7 +5,7 @@ if (!isset($_SESSION)){
 
 $servername = 'localhost';
 $username_database = 'root';
-$server_password = 'root';
+$server_password = '';
 
 $database = new PDO("mysql:host=$servername; dbname=londonproject_bdd", $username_database, $server_password);
 
@@ -36,10 +36,18 @@ if (isset($_POST['submit-form-sell'])){
                             $state = "online";
 
                             $pseudo_seller = $_SESSION['id'];
+                            $endBidding = $_POST['endBidding'];
+                            $endBidding2 = NULL;
 
-                            $sql = $database->prepare("INSERT INTO product(CATEGORY, SUBCATEGORY, BRAND, MODEL, PRICE, PICTURE, dateAdd, pseudo_seller, type, state) VALUES('$category', '$subcategory', '$brand', '$model', '$price', '$picturePath', NOW(), '$pseudo_seller', '$type', '$state')");
-                            $sql->execute(array($category, $subcategory, $brand, $model, $price, $picturePath, $type, $state));
-                            $success = "Your announce has been uploaded successfully!";
+                            if(!strcmp($type, "auctions")){
+                                $sql = $database->prepare("INSERT INTO product(CATEGORY, SUBCATEGORY, BRAND, MODEL, PRICE, PICTURE, dateAdd, pseudo_seller, type, state, endBidding) VALUES('$category', '$subcategory', '$brand', '$model', '$price', '$picturePath', NOW(), '$pseudo_seller', '$type', '$state', '$endBidding')");
+                                $sql->execute(array($category, $subcategory, $brand, $model, $price, $picturePath, $type, $state, $endBidding));
+                                $success = "Your announce has been uploaded successfully!";
+                            }else{
+                                $sql = $database->prepare("INSERT INTO product(CATEGORY, SUBCATEGORY, BRAND, MODEL, PRICE, PICTURE, dateAdd, pseudo_seller, type, state, endBidding) VALUES('$category', '$subcategory', '$brand', '$model', '$price', '$picturePath', NOW(), '$pseudo_seller', '$type', '$state', NULL)");
+                                $sql->execute(array($category, $subcategory, $brand, $model, $price, $picturePath, $type, $state));
+                                $success = "Your announce has been uploaded successfully!";
+                            }
                         }
                         else{
                             $error = "Photo is too heavy! (Max 5Mo)";
@@ -152,6 +160,14 @@ if (isset($_POST['submit-form-sell'])){
                 </td>
                 <td>
                     <input type="file" id="picture" name="picture" class="picture" accept="image/heic, image/png, image/jpeg">
+                </td>
+            </tr>
+            <tr>
+                <td align="right">
+                    <label for="endBidding">Date end bidding:</label>
+                </td>
+                <td>
+                    <input type="date" placeholder="endBidding" id="endBidding" name="endBidding" aria-placeholder="endBidding">
                 </td>
             </tr>
             <tr>
