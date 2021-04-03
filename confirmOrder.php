@@ -9,7 +9,33 @@ $server_password = 'root';
 
 $database = new PDO("mysql:host=$servername; dbname=londonproject_bdd", $username_database, $server_password);
 
-if (isset($_POST['submit'])){
+if (isset($_POST['submit']) and !isset($_GET['id'])){
+
+    if (!empty($_POST['name']) and !empty($_POST['surname']) and !empty($_POST['address']) and !empty($_POST['address2']) and !empty($_POST['city']) and !empty($_POST['state']) and !empty($_POST['postal']) and !empty($_POST['telephone'])){
+        if (!empty($_POST['terms'])){
+            $name = $_POST['name'];
+            $surname = $_POST['surname'];
+            $address = $_POST['address'];
+            $address2 = $_POST['address2'];
+            $city = $_POST['city'];
+            $state = $_POST['state'];
+            $postal = $_POST['postal'];
+            $telephone = $_POST['telephone'];
+
+            $sql = $database->prepare("INSERT INTO payments(name, surname, address, address2, city, state, postal, telephone) VALUES ('$name', '$surname', '$address', '$address2', '$city', '$state', '$postal', '$telephone')");
+            $sql->execute(array($name, $surname, $address, $address2, $city, $state, $postal, $telephone));
+            header('Refresh:2; payment.php?id='.$_SESSION['id']);
+            $success = "Correct informations! Redirect to payment!";
+        }
+        else{
+            $error1 = "You must agree before confirm order!";
+        }
+    }
+    else{
+        $error = "All fields must be completed!";
+    }
+}
+if (isset($_POST['submit']) and isset($_GET['id'])){
 
     if (!empty($_POST['name']) and !empty($_POST['surname']) and !empty($_POST['address']) and !empty($_POST['address2']) and !empty($_POST['city']) and !empty($_POST['state']) and !empty($_POST['postal']) and !empty($_POST['telephone'])){
         $name = $_POST['name'];
@@ -23,7 +49,7 @@ if (isset($_POST['submit'])){
 
         $sql = $database->prepare("INSERT INTO payments(name, surname, address, address2, city, state, postal, telephone) VALUES ('$name', '$surname', '$address', '$address2', '$city', '$state', '$postal', '$telephone')");
         $sql->execute(array($name, $surname, $address, $address2, $city, $state, $postal, $telephone));
-        header('Refresh:2; payment.php?id='.$_SESSION['id']);
+        header('Refresh:2; payment.php?id='.$_GET['id']);
         $success = "Correct informations! Redirect to payment!";
     }
     else{
@@ -148,7 +174,7 @@ if (isset($_POST['submit'])){
         </div>
         <div class="col-12">
             <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="" id="invalidCheck" required>
+                <input name="terms" class="form-check-input" type="checkbox" value="" id="invalidCheck" required>
                 <label class="form-check-label" for="invalidCheck">
                     Agree to terms and conditions
                 </label>
@@ -164,6 +190,11 @@ if (isset($_POST['submit'])){
     <?php
     if (isset($error)){
         echo '<div class="alert alert-danger" role="alert" style="width: 45%">'.$error. "</div>";
+    }
+    ?>
+    <?php
+    if (isset($error1)){
+        echo '<div class="alert alert-danger" role="alert" style="width: 45%">'.$error1. "</div>";
     }
     ?>
     <?php

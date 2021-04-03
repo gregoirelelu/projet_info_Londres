@@ -12,16 +12,6 @@ $header.='From:"Pierre&Greg_Ebay.com"<support@Pierre&Greg_Ebay.com>'."\n";
 $header.='Content-Type:text/html; charset="utf-8"'."\n";
 $header.='Content-Transfer-Encoding: 8bit';
 
-$message = '
-<html>
-<body>
-    <div align="center">
-        Thank you for your trust!
-    </div>
-</body>
-</html>
-';
-
 $servername = 'localhost';
 $username_database = 'root';
 $server_password = 'root';
@@ -40,6 +30,7 @@ if (isset($_POST['submit'])){
         $cardType = $_POST['paymentType'];
         $paypalEmail = $_POST['paypalEmail'];
         $paypalPassword = $_POST['paypalPassword'];
+        $state = "outline";
 
         if (strcmp($cardType, "Visa") == 0){
             $cardNumber = $_POST['cardNumber'];
@@ -49,12 +40,27 @@ if (isset($_POST['submit'])){
             $sql = $database->prepare("UPDATE users SET cardType = ?, cardNumber = ?, cardName = ?, cardExpiration = ?, cardSecurity = ? WHERE id = ?");
             $sql->execute(array($cardType, $cardNumber, $cardName, $cardExpiration, $cardSecurity, $_SESSION['id']));
             $success = "Order successfully completed!";
-            mail($_SESSION['email'], "Confirmation order", $message, $header);
 
-            for ($i = 0; $i < sizeof($ids); $i++){
-                $deleteProduct = $database->prepare("DELETE FROM product WHERE id = ?");
-                $deleteProduct->execute(array($ids[$i]));
-                $bag->delete($ids[$i]);
+            if (isset($_GET['id'])){
+                $sql3 = $database->prepare("SELECT * FROM offers WHERE id = ?");
+                $sql3->execute(array($_GET['id']));
+                $sqlFetch = $sql3->fetch();
+
+                $price = $sqlFetch['offer'];
+                $sql4 = $database->prepare("UPDATE product SET PRICE, state = ?, dateBuying = NOW() WHERE id = ?");
+                $sql4->execute(array($price, $state, $sqlFetch['id_product']));
+
+                $sql5 = $database->prepare("DELETE FROM offers WHERE id = ?");
+                $sql5->execute(array($_GET['id']));
+
+                header("Location: bestOffer.php?id=".$_SESSION['id']);
+            }
+            else{
+                for ($i = 0; $i < sizeof($ids); $i++){
+                    $deleteProduct = $database->prepare("UPDATE product SET state = ?, dateBuying = NOW() WHERE id = ?");
+                    $deleteProduct->execute(array($state, $ids[$i]));
+                    $bag->delete($ids[$i]);
+                }
             }
         }
         else if (strcmp($cardType, "MasterCard") == 0){
@@ -66,10 +72,26 @@ if (isset($_POST['submit'])){
             $sql->execute(array($cardType, $cardNumber1, $cardName1, $cardExpiration1, $cardSecurity1, $_SESSION['id']));
             $success = "Order successfully completed!";
 
-            for ($i = 0; $i < sizeof($ids); $i++){
-                $deleteProduct = $database->prepare("DELETE FROM product WHERE id = ?");
-                $deleteProduct->execute(array($ids[$i]));
-                $bag->delete($ids[$i]);
+            if (isset($_GET['id'])){
+                $sql3 = $database->prepare("SELECT * FROM offers WHERE id = ?");
+                $sql3->execute(array($_GET['id']));
+                $sqlFetch = $sql3->fetch();
+
+                $price = $sqlFetch['offer'];
+                $sql4 = $database->prepare("UPDATE product SET PRICE, state = ?, dateBuying = NOW() WHERE id = ?");
+                $sql4->execute(array($price, $state, $sqlFetch['id_product']));
+
+                $sql5 = $database->prepare("DELETE FROM offers WHERE id = ?");
+                $sql5->execute(array($_GET['id']));
+
+                header("Location: bestOffer.php?id=".$_SESSION['id']);
+            }
+            else{
+                for ($i = 0; $i < sizeof($ids); $i++){
+                    $deleteProduct = $database->prepare("UPDATE product SET state = ?, dateBuying = NOW() WHERE id = ?");
+                    $deleteProduct->execute(array($state, $ids[$i]));
+                    $bag->delete($ids[$i]);
+                }
             }
         }
         else if (strcmp($cardType, "American Express") == 0){
@@ -81,10 +103,26 @@ if (isset($_POST['submit'])){
             $sql->execute(array($cardType, $cardNumber2, $cardName2, $cardExpiration2, $cardSecurity2, $_SESSION['id']));
             $success = "Order successfully completed!";
 
-            for ($i = 0; $i < sizeof($ids); $i++){
-                $deleteProduct = $database->prepare("DELETE FROM product WHERE id = ?");
-                $deleteProduct->execute(array($ids[$i]));
-                $bag->delete($ids[$i]);
+            if (isset($_GET['id'])){
+                $sql3 = $database->prepare("SELECT * FROM offers WHERE id = ?");
+                $sql3->execute(array($_GET['id']));
+                $sqlFetch = $sql3->fetch();
+
+                $price = $sqlFetch['offer'];
+                $sql4 = $database->prepare("UPDATE product SET PRICE, state = ?, dateBuying = NOW() WHERE id = ?");
+                $sql4->execute(array($price, $state, $sqlFetch['id_product']));
+
+                $sql5 = $database->prepare("DELETE FROM offers WHERE id = ?");
+                $sql5->execute(array($_GET['id']));
+
+                header("Location: bestOffer.php?id=".$_SESSION['id']);
+            }
+            else{
+                for ($i = 0; $i < sizeof($ids); $i++){
+                    $deleteProduct = $database->prepare("UPDATE product SET state = ?, dateBuying = NOW() WHERE id = ?");
+                    $deleteProduct->execute(array($state, $ids[$i]));
+                    $bag->delete($ids[$i]);
+                }
             }
         }
         else if (strcmp($cardType, "PayPal") == 0){
@@ -95,10 +133,26 @@ if (isset($_POST['submit'])){
             if ($result and password_verify($paypalPassword, $result['password'])){
                 $success = "Order successfully completed!";
 
-                for ($i = 0; $i < sizeof($ids); $i++){
-                    $deleteProduct = $database->prepare("DELETE FROM product WHERE id = ?");
-                    $deleteProduct->execute(array($ids[$i]));
-                    $bag->delete($ids[$i]);
+                if (isset($_GET['id'])){
+                    $sql3 = $database->prepare("SELECT * FROM offers WHERE id = ?");
+                    $sql3->execute(array($_GET['id']));
+                    $sqlFetch = $sql3->fetch();
+
+                    $price = $sqlFetch['offer'];
+                    $sql4 = $database->prepare("UPDATE product SET PRICE, state = ?, dateBuying = NOW() WHERE id = ?");
+                    $sql4->execute(array($price, $state, $sqlFetch['id_product']));
+
+                    $sql5 = $database->prepare("DELETE FROM offers WHERE id = ?");
+                    $sql5->execute(array($_GET['id']));
+
+                    header("Location: bestOffer.php?id=".$_SESSION['id']);
+                }
+                else{
+                    for ($i = 0; $i < sizeof($ids); $i++){
+                        $deleteProduct = $database->prepare("UPDATE product SET state = ?, dateBuying = NOW() WHERE id = ?");
+                        $deleteProduct->execute(array($state, $ids[$i]));
+                        $bag->delete($ids[$i]);
+                    }
                 }
             }
         }
@@ -110,10 +164,26 @@ if (isset($_POST['submit'])){
 
             if (strcmp($cardType, $select_id['cardType']) and strcmp($cardNumber3, $select_id['cardNumber']) and strcmp($cardName3, $select_id['cardName']) and strcmp($cardExpiration3, $select_id['cardExpiration']) and strcmp($cardSecurity3, $select_id['cardSecurity'])){
                 $success = "Order successfully completed!";
-                for ($i = 0; $i < sizeof($ids); $i++){
-                    $deleteProduct = $database->prepare("DELETE FROM product WHERE id = ?");
-                    $deleteProduct->execute(array($ids[$i]));
-                    $bag->delete($ids[$i]);
+                if (isset($_GET['id'])){
+                    $sql3 = $database->prepare("SELECT * FROM offers WHERE id = ?");
+                    $sql3->execute(array($_GET['id']));
+                    $sqlFetch = $sql3->fetch();
+
+                    $price = $sqlFetch['offer'];
+                    $sql4 = $database->prepare("UPDATE product SET PRICE, state = ?, dateBuying = NOW() WHERE id = ?");
+                    $sql4->execute(array($price, $state, $sqlFetch['id_product']));
+
+                    $sql5 = $database->prepare("DELETE FROM offers WHERE id = ?");
+                    $sql5->execute(array($_GET['id']));
+
+                    header("Location: bestOffer.php?id=".$_SESSION['id']);
+                }
+                else{
+                    for ($i = 0; $i < sizeof($ids); $i++){
+                        $deleteProduct = $database->prepare("UPDATE product SET state = ?, dateBuying = NOW() WHERE id = ?");
+                        $deleteProduct->execute(array($state, $ids[$i]));
+                        $bag->delete($ids[$i]);
+                    }
                 }
             }
         }

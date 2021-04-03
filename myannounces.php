@@ -87,6 +87,9 @@ if (isset($_GET['delete-ann']) and $_GET['delete-ann'] === 1){
                     <a class="nav-link" href="bestOffer.php">My messages</a>
                 </li>
                 <li class="nav-item">
+                    <a class="nav-link" href="myPurchase.php">My purchase</a>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link" href="logout.php">Log out</a>
                 </li>
             </ul>
