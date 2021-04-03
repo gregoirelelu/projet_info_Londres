@@ -27,13 +27,22 @@
 <?php
 
 
-$bdd = new PDO ("mysql:host=localhost; dbname=londonproject_bdd; charset=utf8", "root", "root");
+$bdd = new PDO ("mysql:host=localhost; dbname=londonproject_bdd; charset=utf8", "root", "");
 
 if (isset($_POST['PRICE']) ){
 
-    $requete = $bdd->prepare("UPDATE product SET PRICE = (?) WHERE id = ?");
 
-    $requete->execute(array($_POST['PRICE'], $_GET['id']));
+    $requete = $bdd->prepare("UPDATE product SET dateAdd = (NOW()), PRICE = (?)  WHERE id = ? AND PRICE < (?)");
+
+    $executeIsOK = $requete->execute(array($_POST['PRICE'], $_GET['id'], $_POST['PRICE']));
+
+    /*
+    if ($executeIsOK){
+        echo "Successful bid";
+    }else{
+        echo "Your offer was not accepted. Please enter a higher price than the previous offer.";
+    }
+     */
 
     ?>
 

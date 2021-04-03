@@ -35,7 +35,7 @@
 
 $bdd = new PDO ("mysql:host=localhost; dbname=londonproject_bdd; charset=utf8", "root", "");
 
-if ( isset($_POST['CATEGORY']) AND isset($_POST['SUBCATEGORY']) AND isset($_POST['BRAND']) AND isset($_POST['MODEL']) AND isset($_POST['PRICE']) AND isset($_POST['PICTURE']) AND isset($_POST['pseudo_seller']) AND isset($_POST['type'])){
+if ( isset($_POST['CATEGORY']) AND isset($_POST['SUBCATEGORY']) AND isset($_POST['BRAND']) AND isset($_POST['MODEL']) AND isset($_POST['PRICE']) AND isset($_POST['PICTURE']) AND isset($_POST['PICTURE']) AND isset($_POST['pseudo_seller']) AND isset($_POST['type'])){
 
     $requete = $bdd->prepare("INSERT INTO product (CATEGORY, SUBCATEGORY, BRAND, MODEL, PRICE, PICTURE, dateAdd, pseudo_seller, type) VALUES (?, ?, ?, ?, ?, ?, NOW(), ?, ?)");
     $requete->execute(array($_POST['CATEGORY'], $_POST['SUBCATEGORY'], $_POST['BRAND'], $_POST['MODEL'], $_POST['PRICE'], $_POST['PICTURE'], $_POST['pseudo_seller'], $_POST['type']));

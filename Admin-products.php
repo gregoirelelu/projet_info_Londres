@@ -52,10 +52,14 @@ $database = new PDO("mysql:host=$servername; dbname=londonproject_bdd", $usernam
 <br><br><br>
 <p style=" text-align:center ;  margin-left: 30%; margin-right: 30%; color: #3c3c3c; font-size: 40px; border-style: solid; border-color: #3c3c3c; border-radius: 50px">All Products</p>
 <br><br>
-<div id="search-hightech">
+<div id="search">
     <form name="form" method="post" action="">
-        <input id="motcle" type="text" name="motcle" placeholder="Sub-category">
+        <input id="motcle" type="text" name="motcle" placeholder="Category">
         <input id="btfind" class="btfind" type="submit" name="btsubmit" value="Search" />
+    </form>
+    <form name="form1" method="post" action="">
+        <input id="motcle1" type="text" name="motcle1" placeholder="Sub-category">
+        <input id="btfind1" class="btfind1" type="submit" name="btsubmit1" value="Search" />
     </form>
     <form name="form2" method="post" action="">
         <input id="motcle2" type="text" name="motcle2" placeholder="brand">
@@ -69,14 +73,28 @@ $database = new PDO("mysql:host=$servername; dbname=londonproject_bdd", $usernam
         <input id="motcle4" type="number" name="motcle4" placeholder="max price">
         <input id="btfind4" class="btfind4" type="submit" name="btsubmit4" value="Search" />
     </form>
+    <form name="form5" method="post" action="">
+        <input id="motcle5" type="text" name="motcle5" placeholder="way of buying">
+        <input id="btfind5" class="btfind5" type="submit" name="btsubmit5" value="Search" />
+    </form>
+    <form name="form6" method="post" action="">
+        <input id="motcle6" type="date" name="motcle6" placeholder="max auction end date">
+        <input id="btfind6" class="btfind6" type="submit" name="btsubmit6" value="Search" />
+    </form>
 </div>
 
 <br><br>
 
 <?php
 
-if(isset($_POST['btsubmit'])){
-    $rc=$_POST['motcle'];
+if(isset($_POST['btsubmit'])) {
+    $tc = $_POST['motcle'];
+    $show = $database->prepare("SELECT * FROM product WHERE CATEGORY LIKE ?");
+    $show->execute(array('%' . $tc . '%'));
+    $nbr = $show->rowCount();
+}
+else if(isset($_POST['btsubmit1'])){
+    $rc=$_POST['motcle1'];
     $show = $database->prepare("SELECT * FROM product WHERE SUBCATEGORY LIKE ?");
     $show->execute(array('%'.$rc.'%'));
     $nbr= $show->rowCount();
@@ -97,6 +115,18 @@ else if(isset($_POST['btsubmit4'])){
     $nc=$_POST['motcle4'];
     $show = $database->prepare("SELECT * FROM product WHERE PRICE < ?");
     $show->execute(array($nc));
+    $nbr= $show->rowCount();
+}
+else if(isset($_POST['btsubmit5'])){
+    $bc=$_POST['motcle5'];
+    $show = $database->prepare("SELECT * FROM product WHERE type LIKE ?");
+    $show->execute(array('%'.$bc.'%'));
+    $nbr= $show->rowCount();
+}
+else if(isset($_POST['btsubmit6'])){
+    $qc=$_POST['motcle6'];
+    $show = $database->prepare("SELECT * FROM product WHERE endBidding < ?");
+    $show->execute(array($qc));
     $nbr= $show->rowCount();
 }
 else{
@@ -126,7 +156,13 @@ echo "<p class='result-found'><b>".$nbr."</b> results found</b></p>";
                 <?php echo $ligne ['MODEL']; ?> <br/>
                 <?php echo $ligne ['PRICE'] ." $"; ?> <br/>
                 <a class="editProduct" href="Edit_Product.php?id=<?php echo $ligne['id']; ?>">Edit</a>
-                <?php echo $ligne ['type']; ?>
+                <?php echo $ligne ['type']; ?> <br/><br/>
+                <?php echo '<span style="font-size: 10px;">' . $ligne ['dateAdd']; ?> <br/>
+                <?php
+                if (!strcmp($ligne['type'], "auctions")) {
+                        echo '<span style="color: orange;  font-size: 10px;">' . $ligne ['endBidding'] . ' (End bidding) ';
+                }
+                ?>
 
             </div>
 

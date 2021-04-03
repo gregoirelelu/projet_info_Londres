@@ -2,7 +2,8 @@
     background-color: #3c3c3c;
     display: grid;
     padding: 5px;
-    grid-template-columns: 25% 25% 47% 25%;
+    grid-template-columns: 25% 25% 25% 25%;
+    grid-auto-rows: minmax(50px, auto);
 }
 #search-hightech{
     background-color: #3c3c3c;
@@ -12,12 +13,18 @@
 }
 #log{
     color: white;
-
 }
 #motcle {
     color: blueviolet;
 }
 #btfind {
+    background-color: blueviolet;
+    color: white;
+}
+#motcle1 {
+    color: blueviolet;
+}
+#btfind1 {
     background-color: blueviolet;
     color: white;
 }
@@ -39,6 +46,21 @@
     color: blueviolet;
 }
 #btfind4 {
+    background-color: blueviolet;
+    color: white;
+}
+#motcle5 {
+    color: blueviolet;
+}
+#btfind5 {
+    background-color: blueviolet;
+    color: white;
+}
+#motcle6 {
+    color: dimgrey;
+
+}
+#btfind6 {
     background-color: blueviolet;
     color: white;
 }
