@@ -158,9 +158,11 @@ echo "<p class='result-found'><b>".$nbr."</b> results found</b></p>";
                 <a class="editProduct" href="Edit_Product.php?id=<?php echo $ligne['id']; ?>">Edit</a>
                 <?php echo $ligne ['type']; ?> <br/><br/>
                 <?php echo '<span style="font-size: 10px;">' . $ligne ['dateAdd']; ?> <br/>
+                <a href="mailto:"> <?php echo $ligne ['emailBuyerAuctions']; ?> </a><br/>
                 <?php
                 if (!strcmp($ligne['type'], "auctions")) {
-                        echo '<span style="color: orange;  font-size: 10px;">' . $ligne ['endBidding'] . ' (End bidding) ';
+                    echo '<span style="color: orange;  font-size: 10px;">' . $ligne ['endBidding'] . ' (End bidding) ';
+
                 }
                 ?>
 

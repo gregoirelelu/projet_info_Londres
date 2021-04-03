@@ -17,7 +17,8 @@
 <div id="insert" style="width: 500px">
     <h2> Offer a price </h2> <br>
     <form  name="ins" method="post" action="">
-        <input type="text" name="PRICE" placeholder="Price"/><br><br>
+        <input type="text" name="PRICE" placeholder="higher price"/><br><br>
+        <input type="text" name="emailBuyerAuctions" placeholder="your email"/><br><br>
         <input id="btn_ins" type="submit" value="Offer" />
     </form>
 
@@ -26,15 +27,14 @@
 </div>
 <?php
 
-
 $bdd = new PDO ("mysql:host=localhost; dbname=londonproject_bdd; charset=utf8", "root", "");
 
-if (isset($_POST['PRICE']) ){
+if (isset($_POST['PRICE']) AND isset($_POST['emailBuyerAuctions']) ){
 
 
-    $requete = $bdd->prepare("UPDATE product SET dateAdd = (NOW()), PRICE = (?)  WHERE id = ? AND PRICE < (?)");
+    $requete = $bdd->prepare("UPDATE product SET dateAdd = (NOW()), emailBuyerAuctions = (?), PRICE = (?)  WHERE id = ? AND PRICE < (?)");
 
-    $executeIsOK = $requete->execute(array($_POST['PRICE'], $_GET['id'], $_POST['PRICE']));
+    $executeIsOK = $requete->execute(array($_POST['emailBuyerAuctions'], $_POST['PRICE'], $_GET['id'], $_POST['PRICE']));
 
     /*
     if ($executeIsOK){
@@ -61,4 +61,3 @@ if (isset($_POST['PRICE']) ){
 
 </body>
 </html>
-

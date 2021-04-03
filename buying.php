@@ -221,6 +221,7 @@ echo "<p class='result-found'><b>".$nbr."</b> results found</b></p>";
             </div>
         <?php } ?>
         <?php } ?>
+
     </div>
 </section>
 
