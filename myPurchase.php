@@ -119,7 +119,7 @@ if (isset($_GET['id'])){
         <div class="navbar">
             <ul class="nav justify-content-center">
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" id="yourProfile">Your profile</a>
+                    <a class="nav-link active" href="returnToMyProfile.php" aria-current="page" id="yourProfile">Your profile</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="myannounces.php">My announces</a>
@@ -152,102 +152,22 @@ if (isset($_GET['id'])){
                 $messagesOffer->execute(array($_SESSION['id']));
 
                 while ($i = $messagesOffer->fetch()){ ?>
+
+                    <?php if (!strcmp($i[("state")], "outline")){ ?>
+
                         <tr>
-                                <td style="font-size: 10px"><img style="width: 60px; height: auto" src="<?php echo $i['PICTURE']; ?>"><br>
-                                    <?php echo $i['SUBCATEGORY'] ?><br>
-                                    <?php echo $i['BRAND'] ?><br>
-                                    <?php echo $i['MODEL'] ?><br>
-                                </td>
-                                <td><?php echo $i['PRICE']; ?>$</td>
-                                <td><?php echo $i['dateBuying']; ?></td>
+                            <td style="font-size: 10px"><img style="width: 60px; height: auto" src="<?php echo $i['PICTURE']; ?>"><br>
+                                <?php echo $i['SUBCATEGORY'] ?><br>
+                                <?php echo $i['BRAND'] ?><br>
+                                <?php echo $i['MODEL'] ?><br>
+                            </td>
+                            <td><?php echo $i['PRICE']; ?>$</td>
+                            <td><?php echo $i['dateBuying']; ?></td>
                         </tr>
+                    <?php } ?>
                 <?php } ?>
-
-                <?php
-                $messagesOffer = $database->prepare("SELECT * FROM offers WHERE id_buyer = ?");
-                $messagesOffer->execute(array($_SESSION['id']));
-
-                while ($i = $messagesOffer->fetch()){ ?>
-
-                    <?php if ($i['counter'] <= 5){ ?>
-
-                        <?php if ($i['showOffer'] == 0){ ?>
-
-                            <?php
-                            $product = $database->prepare("SELECT * FROM product WHERE id = ?");
-                            $product->execute(array($i['id_product']));
-                            $product1 = $product->fetch();
-
-                            $name_buyer = $database->prepare("SELECT * FROM users WHERE id = ?");
-                            $name_buyer->execute(array($i['id_buyer']));
-                            $name_buyer1 = $name_buyer->fetch();
-                            ?>
-
-                            <tr>
-                                <form method="post" action="bestOfferSubmition.php?id=<?= $i['id']; ?>">
-                                    <td style="font-size: 10px"><img style="width: 60px; height: auto" src="<?php echo $product1['PICTURE']; ?>"><br>
-                                        <?php echo $product1['SUBCATEGORY'] ?><br>
-                                        <?php echo $product1['BRAND'] ?><br>
-                                        <?php echo $product1['MODEL'] ?><br>
-                                    </td>
-                                    <td>You</td>
-                                    <td><?php echo $i['offer']; ?>$</td>
-                                    <td><input name="accept2" style="background-color: green; color: white; border-radius: 20px" type="submit" value="Accept"></td>
-                                    <td><input name="refuse" style="background-color: red; color: white; border-radius: 20px" type="submit" value="Refuse"></td>
-                                    <td><input style="width: 70px" type="text" placeholder="$$$$$" name="counterOfferPrice"></td>
-                                    <td><input name="counterOffer2" style="background-color: red; color: white; border-radius: 20px" type="submit" value="Counter-offer!!!"></td>
-                                    <td><?php echo $i['counter'].'/5'?></td>
-                                </form>
-                            </tr>
-
-                        <?php }?>
-                    <?php }
-                    else{
-                        $sql3 = $database->prepare("DELETE FROM offers WHERE id = ?");
-                        $sql3->execute(array($i['id']));
-                    }
-                    ?>
-                <?php } ?>
-
             </table>
         </div>
-    </div>
-
-    <?php
-    if (isset($error)){
-        echo '<div class="alert alert-danger" role="alert" style="width: 45%">'.$error. "</div>";
-    }
-    ?>
-    <?php
-    if (isset($success)){
-        echo '<div class="alert alert-success" role="alert" style="width: 45%">'.$success. "</div>";
-    }
-    ?>
-    <?php
-    if (isset($success1)){
-        echo '<div class="alert alert-success" role="alert" style="width: 45%">'.$success1. "</div>";
-    }
-    ?>
-    <?php
-    if (isset($success2)){
-        echo '<div class="alert alert-success" role="alert" style="width: 45%">'.$success2. "</div>";
-    }
-    ?>
-    <?php
-    if (isset($success3)){
-        echo '<div class="alert alert-success" role="alert" style="width: 45%">'.$success3. "</div>";
-    }
-    ?>
-    <?php
-    if (isset($success4)){
-        echo '<div class="alert alert-success" role="alert" style="width: 45%">'.$success4. "</div>";
-    }
-    ?>
-    <?php
-    if (isset($success5)){
-        echo '<div class="alert alert-success" role="alert" style="width: 45%">'.$success5. "</div>";
-    }
-    ?>
     </div>
 </main>
 

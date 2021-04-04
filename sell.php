@@ -5,7 +5,7 @@ if (!isset($_SESSION)){
 
 $servername = 'localhost';
 $username_database = 'root';
-$server_password = '';
+$server_password = 'root';
 
 $database = new PDO("mysql:host=$servername; dbname=londonproject_bdd", $username_database, $server_password);
 
@@ -104,11 +104,12 @@ if (isset($_POST['submit-form-sell'])){
                     <label for="type">Type:</label>
                 </td>
                 <td>
-                    <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg example" name="type">
-                        <option value="BuyNow">Buy it now</option>
-                        <option value="bestOffer">Best offer</option>
-                        <option value="auctions">Auctions</option>
-                    </select>
+                    <input type="radio" id="buyNow" name="type" value="buyNow" checked onclick="showForm1()">
+                    <label for="buyNow">Buy it now</label>
+                    <input type="radio" id="bestOffer" name="type" value="bestOffer" onclick="showForm1()">
+                    <label for="bestOffer">Best offer</label>
+                    <input type="radio" id="auctions" name="type" value="auctions" onclick="showForm1()">
+                    <label for="auctions">Auctions</label>
                 </td>
             </tr>
             <tr>
@@ -164,11 +165,12 @@ if (isset($_POST['submit-form-sell'])){
             </tr>
             <tr>
                 <td align="right">
-                    <label for="endBidding">Date end bidding:</label>
+                    <label style="display: none" id="endBi" for="endBidding">Date end bidding:</label>
                 </td>
                 <td>
-                    <input type="date" placeholder="endBidding" id="endBidding" name="endBidding" aria-placeholder="endBidding">
+                    <input style="display: none" type="date" placeholder="endBidding" id="endBidding" name="endBidding" aria-placeholder="endBidding">
                 </td>
+
             </tr>
             <tr>
                 <td></td>
@@ -189,6 +191,24 @@ if (isset($_POST['submit-form-sell'])){
 </div>
 
 <?php include("footer.php") ?>
+
+<script type="text/javascript">
+    function showForm1(){
+        if (document.getElementById('auctions').checked == true){
+            document.getElementById('endBidding').style.display = "grid";
+            document.getElementById('endBi').style.display = "grid";
+        }
+        if (document.getElementById('bestOffer').checked == true){
+            document.getElementById('endBidding').style.display = "none";
+            document.getElementById('endBi').style.display = "none";
+        }
+        if (document.getElementById('buyNow').checked == true){
+            document.getElementById('endBidding').style.display = "none";
+            document.getElementById('endBi').style.display = "none";
+        }
+    }
+
+</script>
 
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>

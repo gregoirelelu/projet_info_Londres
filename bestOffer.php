@@ -119,7 +119,7 @@ if (isset($_GET['id'])){
         <div class="navbar">
             <ul class="nav justify-content-center">
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" id="yourProfile">Your profile</a>
+                    <a class="nav-link active" href="returnToMyProfile.php" aria-current="page" id="yourProfile">Your profile</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="myannounces.php">My announces</a>

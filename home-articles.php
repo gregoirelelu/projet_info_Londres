@@ -62,6 +62,14 @@
         .card-img-top{
             height: 30%;
         }
+        .card a{
+            text-decoration: none;
+            color: black;
+        }
+        .card a:hover{
+            text-decoration: none;
+            color: black;
+        }
     </style>
 </head>
 <body>
@@ -79,6 +87,7 @@
                             <h5 class="card-title">1399$</h5>
                             <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
                         </div>
+                        <a href="HighTech.php">Go to shopping</a>
                         <div class="card-body">
                             <a href="#" class="card-link"></a>
                         </div>
@@ -93,6 +102,7 @@
                             <h5 class="card-title">1699$</h5>
                             <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
                         </div>
+                        <a href="HighTech.php">Go to shopping</a>
                         <div class="card-body">
                             <a href="#" class="card-link"></a>
                         </div>
@@ -107,6 +117,7 @@
                             <h5 class="card-title">150$</h5>
                             <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
                         </div>
+                        <a href="HighTech.php">Go to shopping</a>
                         <div class="card-body">
                             <a href="#" class="card-link"></a>
                         </div>
@@ -121,6 +132,7 @@
                             <h5 class="card-title">1999$</h5>
                             <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
                         </div>
+                        <a href="HighTech.php">Go to shopping</a>
                         <div class="card-body">
                             <a href="#" class="card-link"></a>
                         </div>
@@ -135,6 +147,7 @@
                             <h5 class="card-title">2299$</h5>
                             <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
                         </div>
+                        <a href="HighTech.php">Go to shopping</a>
                         <div class="card-body">
                             <a href="#" class="card-link"></a>
                         </div>
@@ -149,6 +162,7 @@
                             <h5 class="card-title">999$</h5>
                             <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
                         </div>
+                        <a href="HighTech.php">Go to shopping</a>
                         <div class="card-body">
                             <a href="#" class="card-link"></a>
                         </div>
