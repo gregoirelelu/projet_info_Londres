@@ -162,7 +162,6 @@ echo "<p class='result-found'><b>".$nbr."</b> results found</b></p>";
                 <?php
                 if (!strcmp($ligne['type'], "auctions")) {
                     echo '<span style="color: orange;  font-size: 10px;">' . $ligne ['endBidding'] . ' (End bidding) ';
-
                 }
                 ?>
 
