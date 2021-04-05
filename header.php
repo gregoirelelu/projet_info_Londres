@@ -111,23 +111,28 @@ if (!isset($_SESSION)){
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
 
                     <?php
-                    if(!strcmp($_SESSION['type'], "admin")){
-
-                        echo '<a class="dropdown-item" href="Admin-products.php">Access to products</a>';
-
-                    }else{
-
+                    if (isset($_SESSION['id'])){
+                        if(!strcmp($_SESSION['type'], "admin")){
+                            echo '<a class="dropdown-item" href="Admin-products.php">Access to products</a>';
+                        }
+                        else{
+                            echo '<a class="dropdown-item" href="#">Access to products</a>';
+                        }
+                    }
+                    else{
                         echo '<a class="dropdown-item" href="#">Access to products</a>';
                     }
                     ?>
-
                     <?php
-                    if(!strcmp($_SESSION['type'], "admin")){
-
-                        echo '<a class="dropdown-item" href="Admin-sellers.php">Access to sellers</a>';
-
-                    }else{
-
+                    if (isset($_SESSION['id'])) {
+                        if (!strcmp($_SESSION['type'], "admin")) {
+                            echo '<a class="dropdown-item" href="Admin-sellers.php">Access to sellers</a>';
+                        }
+                        else {
+                            echo '<a class="dropdown-item" href="#">Access to sellers</a>';
+                        }
+                    }
+                    else {
                         echo '<a class="dropdown-item" href="#">Access to sellers</a>';
                     }
                     ?>

@@ -104,7 +104,7 @@ if (isset($_GET['id']) and $_GET['id'] > 0){
 
     <style type="text/css">
         main{
-            height: 77.5vh;
+            height: 130vh;
         }
         .title_Welcome{
             margin-top: 25px;
