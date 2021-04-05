@@ -23,6 +23,9 @@
         <input type="text" name="MODEL" placeholder="Model"/><br><br>
         <input type="text" name="PRICE" placeholder="Price"/><br><br>
         <input type="text" name="PICTURE" placeholder="Picture"/><br><br>
+        <input type="text" name="PICTURE2" placeholder="Picture 2"/><br><br>
+        <input type="text" name="PICTURE3" placeholder="Picture 3"/><br><br>
+        <input type="text" name="VIDEO" placeholder="Video"/><br><br>
         <input type="text" name="pseudo_seller" placeholder="pseudo_seller"/><br><br>
         <input type="text" name="type" placeholder="Type"/><br><br>
         <input id="btn_ins" type="submit" value="Insert" />
@@ -43,10 +46,9 @@ $executeIsOK = $pdoStat->execute();
 
 $bdd = new PDO ("mysql:host=localhost; dbname=londonproject_bdd; charset=utf8", "root", "");
 
-if ( isset($_POST['CATEGORY']) AND isset($_POST['SUBCATEGORY']) AND isset($_POST['BRAND']) AND isset($_POST['MODEL']) AND isset($_POST['PRICE']) AND isset($_POST['PICTURE']) AND isset($_POST['pseudo_seller']) AND isset($_POST['type'])){
-
-    $requete = $bdd->prepare("INSERT INTO product (CATEGORY, SUBCATEGORY, BRAND, MODEL, PRICE, PICTURE, dateAdd, pseudo_seller, type) VALUES (?, ?, ?, ?, ?, ?, NOW(), ?, ?)");
-    $requete->execute(array($_POST['CATEGORY'], $_POST['SUBCATEGORY'], $_POST['BRAND'], $_POST['MODEL'], $_POST['PRICE'], $_POST['PICTURE'], $_POST['pseudo_seller'], $_POST['type']));
+if ( isset($_POST['CATEGORY']) AND isset($_POST['SUBCATEGORY']) AND isset($_POST['BRAND']) AND isset($_POST['MODEL']) AND isset($_POST['PRICE']) AND isset($_POST['PICTURE'])AND isset($_POST['PICTURE2']) AND isset($_POST['PICTURE3']) AND isset($_POST['VIDEO']) AND isset($_POST['pseudo_seller']) AND isset($_POST['type'])){
+    $requete = $bdd->prepare("INSERT INTO product (CATEGORY, SUBCATEGORY, BRAND, MODEL, PRICE, PICTURE, PICTURE2, PICTURE3, VIDEO, dateAdd, pseudo_seller, type) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, NOW(), ?, ?)");
+    $requete->execute(array($_POST['CATEGORY'], $_POST['SUBCATEGORY'], $_POST['BRAND'], $_POST['MODEL'], $_POST['PRICE'], $_POST['PICTURE'], $_POST['PICTURE2'], $_POST['PICTURE3'], $_POST['VIDEO'], $_POST['pseudo_seller'], $_POST['type']));
 
 
     ?>

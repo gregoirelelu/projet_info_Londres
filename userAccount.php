@@ -89,265 +89,266 @@ if (isset($_GET['id']) and $_GET['id'] > 0){
         header('Refresh:2.5; userAccount.php?id='.$_SESSION['id']);
         $success5 = "City has been update successfully!";
     }
-?>
+    ?>
 
-<html>
-<link>
-<title>Register</title>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<link rel="stylesheet" href="css/normalize.css">
-<link rel="stylesheet" href="css/footer.css">
+    <html>
+    <link>
+    <title>Register</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="css/normalize.css">
+    <link rel="stylesheet" href="css/footer.css">
 
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-<link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
 
-<style type="text/css">
-    main{
-        height: 77.5vh;
-    }
-    .title_Welcome{
-        margin-top: 25px;
-        margin-bottom: 0px;
-        background-color: #f5f5f5;
-    }
-    .edit-title{
-        margin-top: 45px;
-    }
-    .navbar{
-        background-color: #f5f5f5;
-        width: 100%;
-    }
-    .nav a{
-        text-decoration: none;
-        color: black;
-        transition: all 0.3s ease-in-out;
-        border-bottom: 2px solid transparent;
-    }
-    .nav a:hover{
-        text-decoration: none;
-        padding-top: 3px;
-        border-bottom: 2px solid black;
-        color: black;
-        cursor: pointer;
-    }
-    .profileWithPhoto{
-        display: flex;
-        justify-content: center;
-        position: sticky;
-        align-items: center;
-    }
-    .profile_hidden{
-        margin-top: 15px;
+    <style type="text/css">
+        main{
+            height: 77.5vh;
+        }
+        .title_Welcome{
+            margin-top: 25px;
+            margin-bottom: 0px;
+            background-color: #f5f5f5;
+        }
+        .edit-title{
+            margin-top: 45px;
+        }
+        .navbar{
+            background-color: #f5f5f5;
+            width: 100%;
+        }
+        .nav a{
+            text-decoration: none;
+            color: black;
+            transition: all 0.3s ease-in-out;
+            border-bottom: 2px solid transparent;
+        }
+        .nav a:hover{
+            text-decoration: none;
+            padding-top: 3px;
+            border-bottom: 2px solid black;
+            color: black;
+            cursor: pointer;
+        }
+        .profileWithPhoto{
+            display: flex;
+            justify-content: center;
+            position: sticky;
+            align-items: center;
+        }
+        .profile_hidden{
+            margin-top: 15px;
 
-    }
-    .edit-profil{
-        justify-content: center;
-    }
-</style>
-</head>
-<body>
+        }
+        .edit-profil{
+            justify-content: center;
+        }
+    </style>
+    </head>
+    <body>
 
-<?php include("header.php") ?>
+    <?php include("header.php") ?>
 
-<main>
-    <div align="center">
-        <h2 class="title_Welcome">Welcome back <?php echo $result['username'] ?> !</h2>
-        <div class="navbar">
-            <ul class="nav justify-content-center">
-                <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" id="yourProfile">Your profile</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="myannounces.php">My announces</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="paymentCard.php">Payment card</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="bestOffer.php">My messages</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="myPurchase.php">My purchase</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="logout.php">Log out</a>
-                </li>
-            </ul>
-        </div>
-
-        <div id="profile_hidden" class="profile_hidden">
-            <div class="profileWithPhoto">
-                <div class="info_profil">
-                    <h5>Your informations:</h5><br>
-                    <p>
-                        <?php
-                        if (!empty($result['picture'])){
-                        ?>
-                            <img src="<?php echo $result['picture'] ?>" width="150">
-                        <?php
-                        }
-                        else{
-                        ?>
-                        <?php
-                            echo '<i class="fas fa-user fa-4x"></i>';
-                        }
-                        ?>
-                    </p><br>
-                    <p>Username: <?php echo $result['username'] ?></p>
-                    <p>E-mail: <?php echo $result['email'] ?></p>
-                </div>
+    <main>
+        <div align="center">
+            <h2 class="title_Welcome">Welcome back <?php echo $result['username'] ?> !</h2>
+            <div class="navbar">
+                <ul class="nav justify-content-center">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" id="yourProfile">Your profile</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="myannounces.php">My announces</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="paymentCard.php">Payment card</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="bestOffer.php">My messages</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="myPurchase.php">My purchase</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="logout.php">Log out</a>
+                    </li>
+                </ul>
             </div>
 
-            <h5 class="edit-title">Edit profile</h5>
-            <form class="edit-profil" method="POST" action="" enctype="multipart/form-data">
-                <table>
-                    <tr>
-                        <td align="right">
-                            <label for="username-edit">Username:</label>
-                        </td>
-                        <td>
-                            <input type="text" name="username-edit" value="<?php echo $result['username'] ?>">
-                        </td>
-                    </tr>
-                    <tr>
-                        <td align="right">
-                            <label for="username-edit">E-mail:</label>
-                        </td>
-                        <td>
-                            <input type="email" name="email-edit" value="<?php echo $result['email'] ?>">
-                        </td>
-                    </tr>
-                    <tr>
-                        <td align="right">
-                            <label for="username-edit">E-mail:</label>
-                        </td>
-                        <td>
-                            <input type="email" name="email-confirm-edit" value="<?php echo $result['email'] ?>">
-                        </td>
-                    </tr>
-                    <tr>
-                        <td align="right">
-                            <label for="username-edit">Password:</label>
-                        </td>
-                        <td>
-                            <input type="text" name="password-edit" placeholder="Password"><br>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td align="right">
-                            <label for="username-edit">Password:</label>
-                        </td>
-                        <td>
-                            <input type="text" name="password-confirm-edit" placeholder="Confirm password"><br>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td align="right">
-                            <label for="profile-picture-edit">Picture:</label>
-                        </td>
-                        <td>
-                            <input type="file"name="profile-picture-edit"><br>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td align="right">
-                            <label for="profile-address">Address:</label>
-                        </td>
-                        <td>
+
+            <div id="profile_hidden" class="profile_hidden">
+                <div class="profileWithPhoto">
+                    <div class="info_profil">
+                        <h5>Your informations:</h5><br>
+                        <p>
                             <?php
-                            if (!empty($result['address'])){
+                            if (!empty($result['picture'])){
                                 ?>
-                                <input type="text"name="profile-address" value="<?php echo $result['address']?>"><br>
+                                <img src="<?php echo $result['picture'] ?>" width="150">
                                 <?php
                             }
                             else{
                                 ?>
-                                <input type="text"name="profile-address" placeholder="Address"><br>
                                 <?php
+                                echo '<i class="fas fa-user fa-4x"></i>';
                             }
                             ?>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td align="right">
-                            <label for="profile-city">City:</label>
-                        </td>
-                        <td>
-                            <?php
-                            if (!empty($result['city'])){
+                        </p><br>
+                        <p>Username: <?php echo $result['username'] ?></p>
+                        <p>E-mail: <?php echo $result['email'] ?></p>
+                    </div>
+                </div>
+
+                <h5 class="edit-title">Edit profile</h5>
+                <form class="edit-profil" method="POST" action="" enctype="multipart/form-data">
+                    <table>
+                        <tr>
+                            <td align="right">
+                                <label for="username-edit">Username:</label>
+                            </td>
+                            <td>
+                                <input type="text" name="username-edit" value="<?php echo $result['username'] ?>">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="right">
+                                <label for="username-edit">E-mail:</label>
+                            </td>
+                            <td>
+                                <input type="email" name="email-edit" value="<?php echo $result['email'] ?>">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="right">
+                                <label for="username-edit">E-mail:</label>
+                            </td>
+                            <td>
+                                <input type="email" name="email-confirm-edit" value="<?php echo $result['email'] ?>">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="right">
+                                <label for="username-edit">Password:</label>
+                            </td>
+                            <td>
+                                <input type="text" name="password-edit" placeholder="Password"><br>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="right">
+                                <label for="username-edit">Password:</label>
+                            </td>
+                            <td>
+                                <input type="text" name="password-confirm-edit" placeholder="Confirm password"><br>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="right">
+                                <label for="profile-picture-edit">Picture:</label>
+                            </td>
+                            <td>
+                                <input type="file"name="profile-picture-edit"><br>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="right">
+                                <label for="profile-address">Address:</label>
+                            </td>
+                            <td>
+                                <?php
+                                if (!empty($result['address'])){
+                                    ?>
+                                    <input type="text"name="profile-address" value="<?php echo $result['address']?>"><br>
+                                    <?php
+                                }
+                                else{
+                                    ?>
+                                    <input type="text"name="profile-address" placeholder="Address"><br>
+                                    <?php
+                                }
                                 ?>
-                            <input type="text"name="profile-city" value="<?php echo $result['city']?>"><br>
-                            <?php
-                            }
-                            else{
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="right">
+                                <label for="profile-city">City:</label>
+                            </td>
+                            <td>
+                                <?php
+                                if (!empty($result['city'])){
+                                    ?>
+                                    <input type="text"name="profile-city" value="<?php echo $result['city']?>"><br>
+                                    <?php
+                                }
+                                else{
+                                    ?>
+                                    <input type="text"name="profile-city" placeholder="City"><br>
+                                    <?php
+                                }
                                 ?>
-                                <input type="text"name="profile-city" placeholder="City"><br>
-                            <?php
-                            }
-                            ?>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td>
-                            <input type="submit" value="Update">
-                        </td>
-                    </tr>
-                </table>
-            </form>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>
+                                <input type="submit" value="Update">
+                            </td>
+                        </tr>
+                    </table>
+                </form>
+            </div>
+
+            <?php
+            if (isset($error)){
+                echo '<div class="alert alert-danger" role="alert" style="width: 45%">'.$error. "</div>";
+            }
+            ?>
+            <?php
+            if (isset($success)){
+                echo '<div class="alert alert-success" role="alert" style="width: 45%">'.$success. "</div>";
+            }
+            ?>
+            <?php
+            if (isset($success1)){
+                echo '<div class="alert alert-success" role="alert" style="width: 45%">'.$success1. "</div>";
+            }
+            ?>
+            <?php
+            if (isset($success2)){
+                echo '<div class="alert alert-success" role="alert" style="width: 45%">'.$success2. "</div>";
+            }
+            ?>
+            <?php
+            if (isset($success3)){
+                echo '<div class="alert alert-success" role="alert" style="width: 45%">'.$success3. "</div>";
+            }
+            ?>
+            <?php
+            if (isset($success4)){
+                echo '<div class="alert alert-success" role="alert" style="width: 45%">'.$success4. "</div>";
+            }
+            ?>
+            <?php
+            if (isset($success5)){
+                echo '<div class="alert alert-success" role="alert" style="width: 45%">'.$success5. "</div>";
+            }
+            ?>
+
+
         </div>
+    </main>
 
-        <?php
-        if (isset($error)){
-            echo '<div class="alert alert-danger" role="alert" style="width: 45%">'.$error. "</div>";
-        }
-        ?>
-        <?php
-        if (isset($success)){
-            echo '<div class="alert alert-success" role="alert" style="width: 45%">'.$success. "</div>";
-        }
-        ?>
-        <?php
-        if (isset($success1)){
-            echo '<div class="alert alert-success" role="alert" style="width: 45%">'.$success1. "</div>";
-        }
-        ?>
-        <?php
-        if (isset($success2)){
-            echo '<div class="alert alert-success" role="alert" style="width: 45%">'.$success2. "</div>";
-        }
-        ?>
-        <?php
-        if (isset($success3)){
-            echo '<div class="alert alert-success" role="alert" style="width: 45%">'.$success3. "</div>";
-        }
-        ?>
-        <?php
-        if (isset($success4)){
-            echo '<div class="alert alert-success" role="alert" style="width: 45%">'.$success4. "</div>";
-        }
-        ?>
-        <?php
-        if (isset($success5)){
-            echo '<div class="alert alert-success" role="alert" style="width: 45%">'.$success5. "</div>";
-        }
-        ?>
-    </div>
-</main>
+    <?php include("footer.php") ?>
 
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 
+    </body>
+    </html>
 
-<?php include("footer.php") ?>
-
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-
-</body>
-</html>
-
-<?php
+    <?php
 }
-    ?>
+?>
 

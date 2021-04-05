@@ -52,42 +52,6 @@ if (isset($_GET['id']) and !empty($_GET['id'])) {
         $sqlDelete->execute(array($editArticle));
         header("Location: myannounces.php");
     }
-    if (isset($_FILES['picture']) and !empty($_FILES['picture']['name'])) {
-        $picturePath = "img/".$_FILES['picture']['name'];
-        move_uploaded_file($_FILES['picture']['tmp_name'], $picturePath);
-
-        $newpic = $database->prepare("UPDATE product SET PICTURE = ? WHERE id = ?");
-        $newpic->execute(array($picturePath, $_GET['id']));
-        header('Refresh:4; edit-announce.php?id=' . $_GET['id']);
-        $success4 = "First picture modified successfully !";
-    }
-    if (isset($_FILES['picture2']) and !empty($_FILES['picture2']['name'])) {
-        $picturePath2 = "img/".$_FILES['picture2']['name'];
-        move_uploaded_file($_FILES['picture2']['tmp_name'], $picturePath2);
-
-        $newpic2 = $database->prepare("UPDATE product SET PICTURE2 = ? WHERE id = ?");
-        $newpic2->execute(array($picturePath2, $_GET['id']));
-        header('Refresh:4; edit-announce.php?id=' . $_GET['id']);
-        $success4 = "Second picture modified successfully !";
-    }
-    if (isset($_FILES['picture3'])) {
-        if (!empty($_FILES['picture3']['name'])) {
-            $picturePath3 = "img/" . $_FILES['picture3']['name'];
-            move_uploaded_file($_FILES['picture3']['tmp_name'], $picturePath3);
-
-            $newpic3 = $database->prepare("UPDATE product SET PICTURE3 = ? WHERE id = ?");
-            $newpic3->execute(array($picturePath3, $_GET['id']));
-            header('Refresh:4; edit-announce.php?id=' . $_GET['id']);
-            $success4 = "Third picture modified successfully !";
-        }
-        else{
-            echo '2';
-        }
-    }
-    else{
-        echo '1';
-        var_dump(isset($_FILES['picture']));
-    }
 }
 
 ?>
@@ -289,30 +253,6 @@ if (isset($_GET['id']) and !empty($_GET['id'])){
                 </tr>
                 <tr>
                     <td align="right">
-                        <label for="Picture">Picture:</label>
-                    </td>
-                    <td>
-                        <input type="file" id="picture" name="picture" class="picture" accept="image/heic, image/png, image/jpeg">
-                    </td>
-                </tr>
-                <tr>
-                    <td align="right">
-                        <label for="Picture2">Second picture (optional):</label>
-                    </td>
-                    <td>
-                        <input type="file" id="picture2" name="picture2" class="picture2" accept="image/heic, image/png, image/jpeg">
-                    </td>
-                </tr>
-                <tr>
-                    <td align="right">
-                        <label for="Picture3">Third picture (optional):</label>
-                    </td>
-                    <td>
-                        <input type="file" id="picture3" name="picture3" class="picture3" accept="image/heic, image/png, image/jpeg">
-                    </td>
-                </tr>
-                <tr>
-                    <td align="right">
                         <label for="video">Video (only url):</label>
                     </td>
                     <td>
@@ -322,7 +262,7 @@ if (isset($_GET['id']) and !empty($_GET['id'])){
                 <tr>
                     <td></td>
                     <td>
-                        <input style="background-color: blueviolet; color: #ffffff" type="submit" value="Update">
+                        <input style="background-color: blueviolet; color: #ffffff" name="sub" type="submit" value="Update">
                     </td>
                 </tr>
                 <tr>
