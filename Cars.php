@@ -121,7 +121,7 @@ echo "<p class='result-found'><b>".$nbr."</b> results found</b></p>";
             <?php if (!strcmp($ligne['state'], "online")){ ?>
 
             <div id="hightech">
-                <img src="<?php echo $ligne ['PICTURE'] ?>" /><br/>
+                <a href="productPage.php?id=<?= $ligne['id']; ?>"><img src="<?php echo $ligne ['PICTURE'] ?>" /></a><br/>
                 <h5><?php echo $ligne ['SUBCATEGORY']; ?></h5>
                 <?php echo $ligne ['BRAND']; ?> <br/>
                 <a class="addBag" href="addBag.php?id=<?= $ligne['id']; ?>">Add</a>

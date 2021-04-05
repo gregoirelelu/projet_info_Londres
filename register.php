@@ -17,7 +17,7 @@ if(isset($_POST['submit-form'])){
 
     if (!empty($_POST['username']) and !empty($_POST['email']) and !empty($_POST['confirm-email']) and !empty($_POST['password']) and !empty($_POST['confirm-password'])){
 
-        if (!empty($_POST['terms'])){
+        if (isset($_POST['terms'])){
 
             if(!empty($_POST['username']) AND !empty($_POST['password']) AND !empty($_POST['confirm-password'])AND !empty($_POST['email'])){
                 $usernamelenght = strlen($username);
@@ -176,7 +176,7 @@ if(isset($_POST['submit-form'])){
                             <span class="form-check">
                                 <input name="terms" class="form-check-input" type="checkbox" value="" id="invalidCheck" required>
                                 <label class="form-check-label" for="invalidCheck">
-                                    Agree to terms and conditions
+                                    Agree to terms and conditions (If you make an offer on an item, you are legally contracted to purchase it if seller accepts the offer!)
                                 </label>
                                 <div class="invalid-feedback">
                                     You must agree before submitting.
