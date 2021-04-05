@@ -16,8 +16,10 @@ if (isset($_POST['submit-form-sell'])){
     $brand = htmlspecialchars($_POST['brand']);
     $model = htmlspecialchars($_POST['model']);
     $price = htmlspecialchars($_POST['price']);
+    $video = $_POST['video'];
+    $description = $_POST['description'];
 
-    if (!empty($_POST['type']) and !empty($_POST['category']) and !empty($_POST['subcategory']) and !empty($_POST['brand']) and !empty($_POST['model']) and !empty($_POST['price'])){
+    if (!empty($_POST['type']) and !empty($_POST['category']) and !empty($_POST['subcategory']) and !empty($_POST['brand']) and !empty($_POST['model']) and !empty($_POST['price']) and !empty($_POST['description'])){
 
         if ($subcategory <= 50){
 
@@ -31,27 +33,45 @@ if (isset($_POST['submit-form-sell'])){
 
                         if ($_FILES['picture']['size'] <= $maxSize){
 
-                            $picturePath = "img/".$_FILES['picture']['name'];
-                            move_uploaded_file($_FILES['picture']['tmp_name'], $picturePath);
-                            $state = "online";
+                            if ($_FILES['picture2']['size'] <= $maxSize){
 
-                            $pseudo_seller = $_SESSION['id'];
-                            $endBidding = $_POST['endBidding'];
-                            $endBidding2 = NULL;
+                                if ($_FILES['picture3']['size'] <= $maxSize){
+                                    $picturePath = "img/".$_FILES['picture']['name'];
+                                    move_uploaded_file($_FILES['picture']['tmp_name'], $picturePath);
+                                    $picturePath2 = "img/".$_FILES['picture2']['name'];
+                                    move_uploaded_file($_FILES['picture2']['tmp_name'], $picturePath2);
+                                    $picturePath3 = "img/".$_FILES['picture3']['name'];
+                                    move_uploaded_file($_FILES['picture3']['tmp_name'], $picturePath3);
+                                    $state = "online";
 
-                            if(!strcmp($type, "auctions")){
-                                $sql = $database->prepare("INSERT INTO product(CATEGORY, SUBCATEGORY, BRAND, MODEL, PRICE, PICTURE, dateAdd, pseudo_seller, type, state, endBidding) VALUES('$category', '$subcategory', '$brand', '$model', '$price', '$picturePath', NOW(), '$pseudo_seller', '$type', '$state', '$endBidding')");
-                                $sql->execute(array($category, $subcategory, $brand, $model, $price, $picturePath, $type, $state, $endBidding));
-                                $success = "Your announce has been uploaded successfully!";
-                            }else{
-                                $sql = $database->prepare("INSERT INTO product(CATEGORY, SUBCATEGORY, BRAND, MODEL, PRICE, PICTURE, dateAdd, pseudo_seller, type, state, endBidding) VALUES('$category', '$subcategory', '$brand', '$model', '$price', '$picturePath', NOW(), '$pseudo_seller', '$type', '$state', NULL)");
-                                $sql->execute(array($category, $subcategory, $brand, $model, $price, $picturePath, $type, $state));
-                                $success = "Your announce has been uploaded successfully!";
+                                    $pseudo_seller = $_SESSION['id'];
+                                    $endBidding = $_POST['endBidding'];
+                                    $endBidding2 = NULL;
+
+                                    if(!strcmp($type, "auctions")){
+                                        $sql = $database->prepare("INSERT INTO product(CATEGORY, SUBCATEGORY, BRAND, MODEL, PRICE, PICTURE, PICTURE2, PICTURE3, VIDEO, description, dateAdd, pseudo_seller, type, state, endBidding) VALUES('$category', '$subcategory', '$brand', '$model', '$price', '$picturePath', '$picturePath2', '$picturePath3', '$video', '$description', NOW(), '$pseudo_seller', '$type', '$state', '$endBidding')");
+                                        $sql->execute(array($category, $subcategory, $brand, $model, $price, $picturePath, $picturePath2, $picturePath3, $video, $description, $type, $state, $endBidding));
+                                        $success = "Your announce has been uploaded successfully!";
+                                    }else{
+                                        $sql = $database->prepare("INSERT INTO product(CATEGORY, SUBCATEGORY, BRAND, MODEL, PRICE, PICTURE, PICTURE2, PICTURE3, VIDEO, description, dateAdd, pseudo_seller, type, state, endBidding) VALUES('$category', '$subcategory', '$brand', '$model', '$price', '$picturePath', '$picturePath2', '$picturePath3', '$video', '$description', NOW(), '$pseudo_seller', '$type', '$state', NULL)");
+                                        $sql->execute(array($category, $subcategory, $brand, $model, $price, $picturePath, $picturePath2, $picturePath3, $video, $description, $type, $state));
+                                        $success = "Your announce has been uploaded successfully!";
+                                    }
+                                }
+                                else{
+                                    $error = "Third photo is too heavy! (Max 5Mo)";
+                                }
+                            }
+                            else{
+                                $error = "Second photo is too heavy! (Max 5Mo)";
                             }
                         }
                         else{
                             $error = "Photo is too heavy! (Max 5Mo)";
                         }
+                    }
+                    else{
+                        $error = "Please enter at least one picture!";
                     }
                 }
                 else{
@@ -157,10 +177,42 @@ if (isset($_POST['submit-form-sell'])){
             </tr>
             <tr>
                 <td align="right">
+                    <label for="description">Description:</label>
+                </td>
+                <td>
+                    <textarea placeholder="Description" id="description" name="description" aria-placeholder="Description"></textarea>
+                </td>
+            </tr>
+            <tr>
+                <td align="right">
                     <label for="Picture">Picture:</label>
                 </td>
                 <td>
                     <input type="file" id="picture" name="picture" class="picture" accept="image/heic, image/png, image/jpeg">
+                </td>
+            </tr>
+            <tr>
+                <td align="right">
+                    <label for="Picture2">Second picture (optional):</label>
+                </td>
+                <td>
+                    <input type="file" id="picture2" name="picture2" class="picture2" accept="image/heic, image/png, image/jpeg">
+                </td>
+            </tr>
+            <tr>
+                <td align="right">
+                    <label for="Picture3">Third picture (optional):</label>
+                </td>
+                <td>
+                    <input type="file" id="picture3" name="picture3" class="picture3" accept="image/heic, image/png, image/jpeg">
+                </td>
+            </tr>
+            <tr>
+                <td align="right">
+                    <label for="video">Video (only url):</label>
+                </td>
+                <td>
+                    <input type="text" placeholder="Url's video" id="video" name="video" aria-placeholder="Url's video">
                 </td>
             </tr>
             <tr>

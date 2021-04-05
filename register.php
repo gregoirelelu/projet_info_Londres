@@ -2,7 +2,7 @@
 
 $servername = 'localhost';
 $username_database = 'root';
-$server_password = '';
+$server_password = 'root';
 
 $database = new PDO("mysql:host=$servername; dbname=londonproject_bdd", $username_database, $server_password);
 
@@ -17,65 +17,71 @@ if(isset($_POST['submit-form'])){
 
     if (!empty($_POST['username']) and !empty($_POST['email']) and !empty($_POST['confirm-email']) and !empty($_POST['password']) and !empty($_POST['confirm-password'])){
 
-        if(!empty($_POST['username']) AND !empty($_POST['password']) AND !empty($_POST['confirm-password'])AND !empty($_POST['email'])){
-            $usernamelenght = strlen($username);
+        if (!empty($_POST['terms'])){
 
-            if ($usernamelenght <= 255){
-                $emaillenght = strlen($email);
+            if(!empty($_POST['username']) AND !empty($_POST['password']) AND !empty($_POST['confirm-password'])AND !empty($_POST['email'])){
+                $usernamelenght = strlen($username);
 
-                if ($emaillenght <= 255){
-                    $confirm_emaillenght = strlen($confirm_email);
+                if ($usernamelenght <= 255){
+                    $emaillenght = strlen($email);
 
-                    if ($confirm_emaillenght <= 255){
+                    if ($emaillenght <= 255){
+                        $confirm_emaillenght = strlen($confirm_email);
 
-                        if (filter_var($email, FILTER_VALIDATE_EMAIL)){
-                            $existing_username = $database->prepare("SELECT * FROM users WHERE username = ?");
-                            $existing_username->execute(array($username));
-                            $username_rowCount = $existing_username->rowCount();
+                        if ($confirm_emaillenght <= 255){
 
-                            if ($username_rowCount == 0){
-                                $existing_mail = $database->prepare("SELECT * FROM users WHERE email = ?");
-                                $existing_mail->execute(array($email));
-                                $mail_rowCount = $existing_mail->rowCount();
+                            if (filter_var($email, FILTER_VALIDATE_EMAIL)){
+                                $existing_username = $database->prepare("SELECT * FROM users WHERE username = ?");
+                                $existing_username->execute(array($username));
+                                $username_rowCount = $existing_username->rowCount();
 
-                                if ($mail_rowCount == 0){
+                                if ($username_rowCount == 0){
+                                    $existing_mail = $database->prepare("SELECT * FROM users WHERE email = ?");
+                                    $existing_mail->execute(array($email));
+                                    $mail_rowCount = $existing_mail->rowCount();
 
-                                    if ($email == $confirm_email){
+                                    if ($mail_rowCount == 0){
 
-                                        if ($password == $confirm_password){
+                                        if ($email == $confirm_email){
 
-                                            if ($email = "uniqueadmin@gmail.com") {
+                                            if ($password == $confirm_password){
 
-                                                $type = "admin";
+                                                if ($email = "uniqueadmin@gmail.com") {
 
-                                            }else{
+                                                    $type = "admin";
 
-                                                $type = "user";
+                                                }else{
+
+                                                    $type = "user";
 
                                                 }
-                                            $add_user = $database->prepare("INSERT INTO users(username, email, password, type) VALUES('$username', '$email', '$hashedpassword', '$type')");
-                                            $add_user->execute(array($username, $email, $hashedpassword, $type));
-                                            header('Refresh:4; login.php');
-                                            $success = "Account created successfully ! <a href= \"login.php\" style='color: #155724'>Login</a>";
+                                                $add_user = $database->prepare("INSERT INTO users(username, email, password, type) VALUES('$username', '$email', '$hashedpassword', '$type')");
+                                                $add_user->execute(array($username, $email, $hashedpassword, $type));
+                                                header('Refresh:4; login.php');
+                                                $success = "Account created successfully ! <a href= \"login.php\" style='color: #155724'>Login</a>";
+                                            }
+                                            else{
+                                                $error = "Passwords do not match !";
+                                            }
                                         }
                                         else{
-                                            $error = "Passwords do not match !";
+                                            $error ="E-mails do not match !";
                                         }
                                     }
                                     else{
-                                        $error ="E-mails do not match !";
+                                        $error = "Already existing e-mail !";
                                     }
                                 }
                                 else{
-                                    $error = "Already existing e-mail !";
+                                    $error = "Already existing username !";
                                 }
                             }
                             else{
-                                $error = "Already existing username !";
+                                $error = "E-mail is not valid !";
                             }
                         }
                         else{
-                            $error = "E-mail is not valid !";
+                            $error = "Username must have a maximum of 255 characters !";
                         }
                     }
                     else{
@@ -86,12 +92,10 @@ if(isset($_POST['submit-form'])){
                     $error = "Username must have a maximum of 255 characters !";
                 }
             }
-            else{
-                $error = "Username must have a maximum of 255 characters !";
-            }
         }
-
-
+        else{
+            $error= "You must agree terms and conditions to register!";
+        }
     }
     else{
         $error = "All fields must be completed !";
@@ -165,6 +169,22 @@ if(isset($_POST['submit-form'])){
                     <td>
                         <input type="password" placeholder="Confirm password" id="confirm-password" name="confirm-password">
                     </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="col-12">
+                            <span class="form-check">
+                                <input name="terms" class="form-check-input" type="checkbox" value="" id="invalidCheck" required>
+                                <label class="form-check-label" for="invalidCheck">
+                                    Agree to terms and conditions
+                                </label>
+                                <div class="invalid-feedback">
+                                    You must agree before submitting.
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                    <td></td>
                 </tr>
                 <tr>
                     <td></td>
