@@ -46,7 +46,7 @@ if(isset($_POST['submit-form'])){
 
                                             if ($password == $confirm_password){
 
-                                                if ($email = "uniqueadmin@gmail.com") {
+                                                if (strcmp($email, "uniqueadmin@gmail.com")) {
 
                                                     $type = "admin";
 
